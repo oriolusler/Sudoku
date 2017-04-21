@@ -25,14 +25,14 @@ public class Presentacio implements ActionListener, FocusListener {
 	private Presentacio() {
 		try {
 			int res = JOptionPane.showConfirmDialog(new JFrame(),
-					"Vols crear un Sudoku desde zero?\n - En cas contrari es crearà un Sudoku predefinit\n\nBONA SORT",
+					"Vols crear un Sudoku desde zero?\n - En cas contrari es crearï¿½ un Sudoku predefinit\n\nBONA SORT",
 					"TRIA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 			if (res == JOptionPane.YES_OPTION) {
 				JOptionPane.showMessageDialog(new JFrame(),
-						"Instruccions:\n - Un cop introduït un número, fer clic ENTER per confirmar"
-								+ "\n - En cas d'introduir un 0, la casella no tindrà cap valor"
-								+ "\n - Per finalitzar la creació premeu 'Crear Sudoku' a la part inferior");
+						"Instruccions:\n - Un cop introduï¿½t un nï¿½mero, fer clic ENTER per confirmar"
+								+ "\n - En cas d'introduir un 0, la casella no tindrï¿½ cap valor"
+								+ "\n - Per finalitzar la creaciï¿½ premeu 'Crear Sudoku' a la part inferior");
 				control = new Control(true);
 				random.setEnabled(false);
 			} else if (res == JOptionPane.NO_OPTION) {
@@ -101,48 +101,64 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.add(botons, BorderLayout.SOUTH);
 		frame.add(tot, BorderLayout.CENTER);
 
-		random.addActionListener(e -> {
-			try {
-				int res = JOptionPane.showConfirmDialog(new JFrame(), "Perdras el sudoku actual, vols continuar?",
-						"ALERTA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		random.addActionListener(new ActionListener(){
 
-				if (res == JOptionPane.YES_OPTION) {
-					control.canviarTaulell();
-					actualitzar();
-				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
-			}
-		});
-
-		crear.addActionListener(e -> {
-			if (nEntrades >= 17)
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				try {
-					control.iniciarUsuari();
-					actualitzar();
-					crear.setEnabled(false);
-					random.setEnabled(true);
-					sudokuV3.setEnabled(true);
+					int res = JOptionPane.showConfirmDialog(new JFrame(), "Perdras el sudoku actual, vols continuar?",
+							"ALERTA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+					if (res == JOptionPane.YES_OPTION) {
+						control.canviarTaulell();
+						actualitzar();
+					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
 				}
-			else {
-				JOptionPane.showMessageDialog(new JFrame(), "No es posible crear el taulell, has de tenir"
-						+ " 17 o mes numeros introduits" + "\n(Quantitat de numeros introduits : " + nEntrades + ")");
-			}
-		});
+				
+			}});
+		
 
-		sudokuV3.addActionListener(e -> {
-			try {
-				control = new Control(false);
-			} catch (Exception e1) {
-				JOptionPane.showMessageDialog(new JFrame(), "Error en crear el sudoku");
+		crear.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (nEntrades >= 17)
+					try {
+						control.iniciarUsuari();
+						actualitzar();
+						crear.setEnabled(false);
+						random.setEnabled(true);
+						sudokuV3.setEnabled(true);
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
+					}
+				else {
+					JOptionPane.showMessageDialog(new JFrame(), "No es posible crear el taulell, has de tenir"
+							+ " 17 o mes numeros introduits" + "\n(Quantitat de numeros introduits : " + nEntrades + ")");
+				}
+				
 			}
-			random.setEnabled(true);
-			crear.setEnabled(false);
-			sudokuV3.setEnabled(false);
-			actualitzar();
 		});
+		
+		sudokuV3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					control = new Control(false);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error en crear el sudoku");
+				}
+				random.setEnabled(true);
+				crear.setEnabled(false);
+				sudokuV3.setEnabled(false);
+				actualitzar();
+				
+			}
+		});
+		
 	}
 
 	private void actualitzar() {
@@ -207,13 +223,19 @@ public class Presentacio implements ActionListener, FocusListener {
 	}
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			Presentacio p = new Presentacio();
+		
+		EventQueue.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				Presentacio p = new Presentacio();
 
-			p.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-			p.frame.setBounds(0, 0, 500, 500);
-			p.frame.setVisible(true);
-		});
+				p.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+				p.frame.setBounds(0, 0, 500, 500);
+				p.frame.setVisible(true);
+				
+			}
+		}); 
 	}
 
 	private void posarColor() {
