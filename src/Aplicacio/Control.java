@@ -1,6 +1,8 @@
 package Aplicacio;
 
+import Domini.Casella;
 import Domini.Taulell;
+import Persistencia.TaulellBBDD;
 
 public class Control {
 
@@ -20,6 +22,11 @@ public class Control {
 
 	public String[][] getTaulell() {
 		return t.getTaulell();
+	}
+	
+	//////////////////////////////
+	public Casella[][] getTTaulell(){
+		return t.getCasella();
 	}
 
 	public int[][] error() {
@@ -41,5 +48,20 @@ public class Control {
 	public void iniciarUsuari() throws Exception {
 		t.iniciarUsuari();
 	}
+	
+	public void updateTaulell(int x, int y, String valor,Casella[][] taulell) throws Exception {
+		int value=Integer.parseInt(valor);
+		TaulellBBDD.updateTaulell(x, y, value, taulell);
+	}
+	
+	public void storeTaulell(Casella[][] taulell) throws Exception {
+		TaulellBBDD.storeTaullell(taulell);
+	}
+	
+	
+	public boolean taulellBuit() throws Exception{
+		return TaulellBBDD.estaBuit();
+	}
+
 
 }

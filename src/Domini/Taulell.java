@@ -8,6 +8,7 @@ public class Taulell {
 
 	private Casella[][] graella;
 	private int[][] error = new int[2][3];
+	private static int counter=0;
 
 	public Taulell(boolean buit) throws Exception {
 		graella = new Casella[9][9];
@@ -17,6 +18,10 @@ public class Taulell {
 			CrearGraella.crearGraella(this);
 	}
 
+	public Casella[][] getCasella(){
+		return this.graella;
+	}
+	
 	public int[][] getError() {
 		return error;
 	}
@@ -52,6 +57,9 @@ public class Taulell {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				graella[i][j] = new Casella();
+				graella[i][j].setIdCasella(counter);
+				counter++;
+				System.out.print(counter);
 			}
 		}
 	}
@@ -73,7 +81,19 @@ public class Taulell {
 	public void setCasella(int x, int y, int valor) throws Exception {
 		graella[x][y].setCasella(valor);
 	}
+	
+	//////////////////////////////////////////////////////////////////////
+	
+	public int getValorCasella(int x, int y){
+		return graella[x][y].getValor();
+	}
+	
+	public int getIdCasella(int x, int y){
+		return graella[x][y].getIdCasella();
+	}
 
+	//////////////////////////////////////////////////////////////////////
+	
 	public void canviarValor(int f, int c, int valor) throws Exception {
 
 		iniciarErrors();

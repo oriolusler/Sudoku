@@ -4,7 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/*
+import Domini.Jugador;
+
 public class JugadorBBDD {
 
 	public static String getJugadors() throws Exception {
@@ -44,4 +45,3 @@ public class JugadorBBDD {
 			throw new Exception("JUGADOR NO GUARDAD!");
 	}
 }
-*/

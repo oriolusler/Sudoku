@@ -1,8 +1,9 @@
 package Presentacio;
 
 import Aplicacio.Control;
-
+import Aplicacio.LoginControler;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,6 +11,7 @@ import static java.awt.Color.*;
 
 public class Presentacio implements ActionListener, FocusListener {
 
+	// crear bdd
 	private Control control;
 	private JFrame frame;
 	private JPanel tot = new JPanel(new GridLayout());
@@ -24,15 +26,20 @@ public class Presentacio implements ActionListener, FocusListener {
 
 	private Presentacio() {
 		try {
-			int res = JOptionPane.showConfirmDialog(new JFrame(),
-					"Vols crear un Sudoku desde zero?\n - En cas contrari es crear� un Sudoku predefinit\n\nBONA SORT",
-					"TRIA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			int res = JOptionPane
+					.showConfirmDialog(
+							new JFrame(),
+							"Vols crear un Sudoku desde zero?\n - En cas contrari es creara un Sudoku predefinit\n\nBONA SORT",
+							"TRIA", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE);
 
 			if (res == JOptionPane.YES_OPTION) {
-				JOptionPane.showMessageDialog(new JFrame(),
-						"Instruccions:\n - Un cop introdu�t un n�mero, fer clic ENTER per confirmar"
-								+ "\n - En cas d'introduir un 0, la casella no tindr� cap valor"
-								+ "\n - Per finalitzar la creaci� premeu 'Crear Sudoku' a la part inferior");
+				JOptionPane
+						.showMessageDialog(
+								new JFrame(),
+								"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
+										+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
+										+ "\n - Per finalitzar la creacio premeu 'Crear Sudoku' a la part inferior");
 				control = new Control(true);
 				random.setEnabled(false);
 			} else if (res == JOptionPane.NO_OPTION) {
@@ -44,7 +51,8 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), "Error en crear el sudoku");
+			JOptionPane.showMessageDialog(new JFrame(),
+					"Error en crear el sudoku");
 		}
 		initComponents();
 
@@ -63,7 +71,8 @@ public class Presentacio implements ActionListener, FocusListener {
 				jpanel[i][j] = new JPanel();
 				panel.add(jpanel[i][j]);
 				jpanel[i][j].setLayout(new GridLayout(3, 3));
-				jpanel[i][j].setBorder(BorderFactory.createLineBorder(BLACK, 2));
+				jpanel[i][j]
+						.setBorder(BorderFactory.createLineBorder(BLACK, 2));
 			}
 		}
 
@@ -75,8 +84,10 @@ public class Presentacio implements ActionListener, FocusListener {
 
 						textField[f][c] = new CasellaGrafica(f, c);
 						jpanel[i][y].add(textField[f][c]);
-						textField[f][c].setBorder(BorderFactory.createLineBorder(BLACK));
-						textField[f][c].setHorizontalAlignment(SwingConstants.CENTER);
+						textField[f][c].setBorder(BorderFactory
+								.createLineBorder(BLACK));
+						textField[f][c]
+								.setHorizontalAlignment(SwingConstants.CENTER);
 						textField[f][c].setFont(new Font("Calibri", 3, 25));
 
 						if (!control.esModificable(f, c)) {
@@ -101,13 +112,15 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.add(botons, BorderLayout.SOUTH);
 		frame.add(tot, BorderLayout.CENTER);
 
-		random.addActionListener(new ActionListener(){
+		random.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int res = JOptionPane.showConfirmDialog(new JFrame(), "Perdras el sudoku actual, vols continuar?",
-							"ALERTA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					int res = JOptionPane.showConfirmDialog(new JFrame(),
+							"Perdras el sudoku actual, vols continuar?",
+							"ALERTA", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
 						control.canviarTaulell();
@@ -116,12 +129,12 @@ public class Presentacio implements ActionListener, FocusListener {
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
 				}
-				
-			}});
-		
+
+			}
+		});
 
 		crear.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (nEntrades >= 17)
@@ -132,33 +145,39 @@ public class Presentacio implements ActionListener, FocusListener {
 						random.setEnabled(true);
 						sudokuV3.setEnabled(true);
 					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
+						JOptionPane.showMessageDialog(new JFrame(),
+								ex.getMessage());
 					}
 				else {
-					JOptionPane.showMessageDialog(new JFrame(), "No es posible crear el taulell, has de tenir"
-							+ " 17 o mes numeros introduits" + "\n(Quantitat de numeros introduits : " + nEntrades + ")");
+					JOptionPane.showMessageDialog(new JFrame(),
+							"No es posible crear el taulell, has de tenir"
+									+ " 17 o mes numeros introduits"
+									+ "\n(Quantitat de numeros introduits : "
+									+ nEntrades + ")");
 				}
-				
+
 			}
 		});
-		
+
 		sudokuV3.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					control = new Control(false);
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(new JFrame(), "Error en crear el sudoku");
+					JOptionPane.showMessageDialog(new JFrame(),
+							"Error en crear el sudoku");
 				}
 				random.setEnabled(true);
 				crear.setEnabled(false);
 				sudokuV3.setEnabled(false);
 				actualitzar();
-				
+				System.out.print("HOLA0");
+
 			}
 		});
-		
+
 	}
 
 	private void actualitzar() {
@@ -179,13 +198,16 @@ public class Presentacio implements ActionListener, FocusListener {
 							textField[f][c].setBackground(WHITE);
 							textField[f][c].addActionListener(this);
 							textField[f][c].setEditable(true);
+							System.out.print("HOLA1");
 						}
 					}
 				}
 			}
 		}
+
 		frame.revalidate();
 		frame.repaint();
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -205,8 +227,18 @@ public class Presentacio implements ActionListener, FocusListener {
 				nEntrades++;
 			}
 
+			// ////////////////////////////////////////////////
+
+			if (control.taulellBuit())
+				control.storeTaulell(control.getTTaulell());
+			else
+				control.updateTaulell(f, c, casella.getText(),
+						control.getTTaulell());
+
+			// ///////////////////////////////////////////////
 			if (control.isComplete()) {
-				JOptionPane.showMessageDialog(new JFrame(), "JOC FINALITZAT FELICITATS");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"JOC FINALITZAT FELICITATS");
 			}
 
 		} catch (Exception ex) {
@@ -219,13 +251,15 @@ public class Presentacio implements ActionListener, FocusListener {
 			if (errors[0][2] != -1)
 				textField[errors[0][2]][errors[1][2]].setBackground(Color.RED);
 			textField[f][c].setText(null);
+
+			System.out.print("HOLA2");
 		}
 	}
 
 	public static void main(String[] args) {
-		
+
 		EventQueue.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				Presentacio p = new Presentacio();
@@ -233,9 +267,14 @@ public class Presentacio implements ActionListener, FocusListener {
 				p.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 				p.frame.setBounds(0, 0, 500, 500);
 				p.frame.setVisible(true);
-				
+				try {
+					new LoginControler().Login();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-		}); 
+		});
 	}
 
 	private void posarColor() {

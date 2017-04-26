@@ -2,16 +2,26 @@ package Domini;
 
 public class Casella {
 
-	private int valor;
+	private int valor,idCasella;
+	
+	public int getIdCasella() {
+		return idCasella;
+	}
+
+	public void setIdCasella(int idCasella) {
+		this.idCasella = idCasella;
+	}
+
 	private boolean editable;
 	final static int vDefecte = 0;
+	
 
 	public Casella() {
 		this.editable = true;
 		this.valor = vDefecte;
 	}
 
-	int getValor() {
+	public int getValor() {
 		return valor;
 	}
 
@@ -23,7 +33,7 @@ public class Casella {
 		if (valor < 1 || valor > 9)
 			throw new Exception("Error valor casella: fora de rang. Ha de ser 1..9");
 		if (!editable)
-			throw new Exception("Error valor casella: la casella no �s editable");
+			throw new Exception("Error valor casella: la casella no es editable");
 		this.valor = valor;
 	}
 
@@ -34,7 +44,9 @@ public class Casella {
 
 	void esborrarCasella() throws Exception {
 		if (!editable)
-			throw new Exception("Error valor casella: la casella no �s editable");
+			throw new Exception("Error valor casella: la casella no es editable");
 		this.valor = vDefecte;
 	}
+
+	
 }
