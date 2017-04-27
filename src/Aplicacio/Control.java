@@ -6,6 +6,7 @@ import Domini.Taulell;
 import Persistencia.JugadorBBDD;
 import Persistencia.TaulellBBDD;
 
+//PROVA
 public class Control {
 
 	private Taulell t;
