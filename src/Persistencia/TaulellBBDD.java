@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Domini.Casella;
+import Domini.Taulell;
 
 public class TaulellBBDD {
 
@@ -43,24 +44,37 @@ public class TaulellBBDD {
 
 	}
 
-	/*
-	 * public static void updateTaulell(Casella[][] taulell) throws Exception {
-	 * 
-	 * ConnectionBBDD connection = LoginBBDD.getConnection();
-	 * 
-	 * for (int i = 0; i < 9; i++) { for (int j = 0; j < 9; j++) { String sql =
-	 * "UPDATE SUDOKU SET VALOR = ? WHERE SUID = ?"; PreparedStatement pst =
-	 * connection.prepareStatement(sql);
-	 * 
-	 * pst.setInt(1, taulell[i][j].getValor()); pst.setInt(2,
-	 * taulell[i][j].getIdCasella());
-	 * 
-	 * if (pst.executeUpdate() != 1) throw new
-	 * Exception("CASELLA NO ACTUALITZADA!"); } }
-	 * 
-	 * }
-	 */
+	//comprovar metode
+	public static Casella[][] getTaulell() throws Exception{
+		
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+		Taulell taulell = new Taulell(true);
+		try {
+			String sql = "SELECT COUNT(*) AS COUNT FROM SUDOKU";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.clearParameters();
+			ResultSet rs = preparedStatement.executeQuery();
 
+			while (rs.next()) {
+
+				int x,y,valor;
+				x = rs.getInt("COUNT");
+				y = rs.getInt("");
+				valor = rs.getInt("");
+				
+				taulell.setCasella(x, y, valor);
+
+			}
+
+			throw new Exception("No s'ha trobat valor!");
+		} catch (SQLException e) {
+			throw new Exception("ERROR");
+		}
+
+		
+	}
+	
 	public static boolean estaBuit() throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();

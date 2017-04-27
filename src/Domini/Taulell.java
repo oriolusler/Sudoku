@@ -59,7 +59,7 @@ public class Taulell {
 				graella[i][j] = new Casella();
 				graella[i][j].setIdCasella(counter);
 				counter++;
-				System.out.print(counter);
+				//System.out.print(counter);
 			}
 		}
 	}
