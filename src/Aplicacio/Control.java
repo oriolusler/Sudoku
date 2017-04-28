@@ -6,20 +6,20 @@ import Domini.Taulell;
 import Persistencia.JugadorBBDD;
 import Persistencia.TaulellBBDD;
 
-//PROVA
 public class Control {
 
 	private Taulell t;
 	private Jugador jugador;
 
-	/*
-	 * public Control() { jugador = new Jugador("Anonim"); }
-	 */
-	
 	public Control(boolean buit) throws Exception {
-		t = new Taulell(buit);
+	
+		t = new Taulell(buit,getUltimId());
+		
 	}
-
+	
+	public void getNumero(int i){
+		t.getNumero(i);
+	}
 	public void setEntrada(int fila, int columna, String valor)
 			throws Exception {
 		t.canviarValor(fila, columna, Integer.parseInt(valor));
@@ -64,14 +64,21 @@ public class Control {
 		TaulellBBDD.updateTaulell(x, y, value, taulell);
 	}
 
-	public void storeTaulell(Casella[][] taulell) throws Exception {
-		TaulellBBDD.storeTaullell(taulell);
+	public void storeTaulell(Casella[][] taulell, String nom) throws Exception {
+		jugador=new Jugador(nom);
+		 int quants= quantsTaulells() +1;
+		TaulellBBDD.storeTaullell(taulell,jugador,quants);
 	}
 
-	public boolean taulellBuit() throws Exception {
-		return TaulellBBDD.estaBuit();
+
+	public boolean taulellBuit(int i) throws Exception {
+		return TaulellBBDD.estaBuit(i);
 	}
 
+	public int quantsTaulells() throws Exception{
+		
+		return TaulellBBDD.quantesPartides();
+	}
 	public void nouJugador(String nom) throws Exception {
 
 		jugador = new Jugador(nom);
@@ -95,12 +102,21 @@ public class Control {
 
 	// ////////////////////////////////
 
-	public String[][] getTaulellBBDD() {
+	public String[][] getTaulellBBDD(int i) {
 		try {
-			return TaulellBBDD.getTaulell();
+			return TaulellBBDD.getTaulell(i);
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	public int getUltimId() throws Exception{
+		return TaulellBBDD.getUltimId();
+	}
+	
+	public int[] getTotalIdSu() throws Exception{
+		return TaulellBBDD.getTotalIdSu();
+		
 	}
 
 }

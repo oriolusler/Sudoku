@@ -8,9 +8,21 @@ public class Taulell {
 
 	private Casella[][] graella;
 	private int[][] error = new int[2][3];
-	private static int counter=0;
+	private static int Ccpunter = 0;
 
-	public Taulell(boolean buit) throws Exception {
+	public static void setCcpunter(int ccpunter) {
+		Ccpunter = ccpunter;
+	}
+
+	private int idSu;
+
+	//
+	public Taulell(boolean buit, int lastID) throws Exception {
+
+		lastID = lastID + 1;
+		System.out.print(lastID);
+		Ccpunter = (lastID++);
+
 		graella = new Casella[9][9];
 		iniciarErrors();
 		CrearTaulell();
@@ -18,10 +30,24 @@ public class Taulell {
 			CrearGraella.crearGraella(this);
 	}
 
-	public Casella[][] getCasella(){
+	public void getNumero(int i) {
+
+		i = i + 1;
+		Ccpunter = i;
+	}
+
+	public int getIdSu() {
+		return idSu;
+	}
+
+	public void setIdCasella(int idSu) {
+		this.idSu = idSu;
+	}
+
+	public Casella[][] getCasella() {
 		return this.graella;
 	}
-	
+
 	public int[][] getError() {
 		return error;
 	}
@@ -57,9 +83,11 @@ public class Taulell {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				graella[i][j] = new Casella();
-				graella[i][j].setIdCasella(counter);
-				counter++;
-				//System.out.print(counter);
+				graella[i][j].setIdCasella(Ccpunter);
+				Ccpunter++;
+
+				// ////////////////////////
+				// System.out.print(Ccpunter);
 			}
 		}
 	}
@@ -81,19 +109,19 @@ public class Taulell {
 	public void setCasella(int x, int y, int valor) throws Exception {
 		graella[x][y].setCasella(valor);
 	}
-	
-	//////////////////////////////////////////////////////////////////////
-	
-	public int getValorCasella(int x, int y){
+
+	// ////////////////////////////////////////////////////////////////////
+
+	public int getValorCasella(int x, int y) {
 		return graella[x][y].getValor();
 	}
-	
-	public int getIdCasella(int x, int y){
+
+	public int getIdCasella(int x, int y) {
 		return graella[x][y].getIdCasella();
 	}
 
-	//////////////////////////////////////////////////////////////////////
-	
+	// ////////////////////////////////////////////////////////////////////
+
 	public void canviarValor(int f, int c, int valor) throws Exception {
 
 		iniciarErrors();
@@ -114,7 +142,8 @@ public class Taulell {
 		}
 	}
 
-	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor, int llocError) {
+	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor,
+			int llocError) {
 		int fila, columna;
 		for (Coordenada coordenada : coordenades) {
 			fila = coordenada.getFila();

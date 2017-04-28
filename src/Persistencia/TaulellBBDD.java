@@ -3,10 +3,10 @@ package Persistencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 
 import Domini.Casella;
-import Domini.Taulell;
+import Domini.Jugador;
 
 public class TaulellBBDD {
 
@@ -14,110 +14,105 @@ public class TaulellBBDD {
 			Casella[][] taulell) throws Exception {
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
-		String sql = "UPDATE SUDOKU SET VALOR = ? WHERE SUID = ?";
+		String sql = "UPDATE PARTIDA SET VALOR = ? WHERE IDSO = ?";
 		PreparedStatement pst = connection.prepareStatement(sql);
 
 		pst.setInt(1, taulell[x][y].getValor());
 		pst.setInt(2, taulell[x][y].getIdCasella());
 
 		if (pst.executeUpdate() != 1)
-			throw new Exception("CASELLA NO GUARDADA!");
+			throw new Exception("ERROR METODE UPDATE");
 
 	}
 
-	public static void storeTaullell(Casella[][] taulell) throws Exception {
+	public static void storeTaullell(Casella[][] taulell, Jugador jugador,
+			int quinSu) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				String sql = "INSERT INTO SUDOKU VALUES(?,?,?,?)";
+				String sql = "INSERT INTO PARTIDA VALUES(?,?,?,?,?,?)";
 				PreparedStatement pst = connection.prepareStatement(sql);
 
-				pst.setInt(1, taulell[i][j].getIdCasella());
+				pst.setInt(6, taulell[i][j].getIdCasella());
 				pst.setInt(2, i);
 				pst.setInt(3, j);
 				pst.setInt(4, taulell[i][j].getValor());
+				pst.setString(1, jugador.getNom());
+				pst.setInt(5, quinSu);
 
 				if (pst.executeUpdate() != 1)
-					throw new Exception("CASELLA NO GUARDADA!");
+					throw new Exception("ERRO METODE STORE");
 			}
 		}
 
 	}
 
-	//comprovar metode
-	public static String[][] getTaulell() throws Exception{
-		
+	public static String[][] getTaulell(int i) throws Exception {
+
 		ConnectionBBDD connection = LoginBBDD.getConnection();
-		//Taulell taulell = new Taulell(true);
-		//taulell.CrearTaulell();
+		// Taulell taulell = new Taulell(true);
+		// taulell.CrearTaulell();
 		String[][] taulell = new String[9][9];
-		
+
 		try {
-			String sql = "SELECT * FROM SUDOKU";
+			String sql = "SELECT * FROM PARTIDA WHERE IDSO = ?";
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(sql);
 			preparedStatement.clearParameters();
+			preparedStatement.setInt(1, i);
 			ResultSet rs = preparedStatement.executeQuery();
-
 			while (rs.next()) {
 
-				int x,y,valor;
+				int x, y, valor;
 				x = rs.getInt("X");
 				y = rs.getInt("Y");
 				valor = rs.getInt("VALOR");
-				
-				if(valor==0)taulell[x][y]=null;
-				else taulell[x][y]= "" + valor;
-				//taulell.setCasella(x, y, valor);
+
+				if (valor == 0)
+					taulell[x][y] = null;
+				else
+					taulell[x][y] = "" + valor;
+				// taulell.setCasella(x, y, valor);
 
 			}
 			return taulell;
 		} catch (SQLException e) {
-			throw new Exception("ERROR");
+			throw new Exception("ERROR METODE GET TAULELL");
 		}
 
-		
-		
-		/////FUNCIONA/////
-		
+		// ///FUNCIONA/////
+
 		/*
-		ConnectionBBDD connection = LoginBBDD.getConnection();
-		String llista="";
-		try {
-			//String sql = "SELECT * FROM JUGADOR";
-			String sql = "SELECT * FROM SUDOKU";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.clearParameters();
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-
-				//String nom;
-				//nom = rs.getString("NOM");
-				
-				int x = rs.getInt("X");
-				int y = rs.getInt("Y");
-				int valor = rs.getInt("VALOR");
-				llista += x + ", " + y + ", " + valor + "\n";
-			}
-			return llista;
-		} catch (SQLException e) {
-			throw new Exception("ERROR");
-		}
-		*/
+		 * ConnectionBBDD connection = LoginBBDD.getConnection(); String
+		 * llista=""; try { //String sql = "SELECT * FROM JUGADOR"; String sql =
+		 * "SELECT * FROM SUDOKU"; PreparedStatement preparedStatement =
+		 * connection.prepareStatement(sql);
+		 * preparedStatement.clearParameters(); ResultSet rs =
+		 * preparedStatement.executeQuery();
+		 * 
+		 * while (rs.next()) {
+		 * 
+		 * //String nom; //nom = rs.getString("NOM");
+		 * 
+		 * int x = rs.getInt("X"); int y = rs.getInt("Y"); int valor =
+		 * rs.getInt("VALOR"); llista += x + ", " + y + ", " + valor + "\n"; }
+		 * return llista; } catch (SQLException e) { throw new
+		 * Exception("ERROR"); }
+		 */
 	}
-	
-	public static boolean estaBuit() throws Exception {
+
+	public static boolean estaBuit(int i) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		try {
-			String sql = "SELECT COUNT(*) AS COUNT FROM SUDOKU";
+			String sql = "SELECT COUNT(*) AS COUNT FROM PARTIDA WHERE IDSO = ?";
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(sql);
 			preparedStatement.clearParameters();
+			preparedStatement.setInt(1, i);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -129,9 +124,81 @@ public class TaulellBBDD {
 
 			throw new Exception("No s'ha trobat valor!");
 		} catch (SQLException e) {
-			throw new Exception("ERROR");
+			throw new Exception("ERROR METODE ESTA BUIT");
 		}
 
+	}
+
+	public static int getUltimId() throws Exception {
+
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+
+		try {
+			String sql = "SELECT MAX(IDC) AS ID FROM PARTIDA";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.clearParameters();
+			ResultSet rs = preparedStatement.executeQuery();
+
+			int maxID = 0;
+
+			while (rs.next()) {
+
+				maxID = rs.getInt("ID");
+			}
+
+			return maxID;
+		} catch (SQLException e) {
+			throw new Exception("ERROR METUDE GETULTIM ID");
+		}
+	}
+
+	public static int quantesPartides() throws Exception {
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+
+		try {
+			String sql = "SELECT MAX(IDSO) AS ID FROM PARTIDA";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.clearParameters();
+			ResultSet rs = preparedStatement.executeQuery();
+
+			int maxID = 0;
+
+			while (rs.next()) {
+
+				maxID = rs.getInt("ID");
+			}
+
+			return maxID;
+		} catch (SQLException e) {
+			throw new Exception("ERROR METODE QUANTES PARTIDES");
+		}
+	}
+
+	public static int[] getTotalIdSu() throws Exception {
+
+		int[] numeros = new int[999];
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+
+		int i = 0;
+		try {
+			String sql = "SELECT IDSO  FROM PARTIDA GROUP BY IDSO ORDER BY IDSO";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.clearParameters();
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				numeros[i] = rs.getInt("IDSO");
+				i++;
+			}
+			return numeros;
+		} catch (SQLException e) {
+			throw new Exception("ERROR METODE GET ID SU");
+		}
+		
 	}
 
 }

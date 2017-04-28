@@ -69,12 +69,11 @@ public class Presentacio implements ActionListener, FocusListener {
 
 		frame = new JFrame("EL SUDOKU");
 		sudokuV3.setEnabled(false);
-		// controlLog = new Control();
 
 		frame.getContentPane().setLayout(new BorderLayout());
 
 		String[][] graella = control.getTaulell();
-		// String[][] graella = control.getTaulellBBDD();
+		
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				jpanel[i][j] = new JPanel();
@@ -139,15 +138,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 					if (res == JOptionPane.YES_OPTION) {
 
-						/*
-						 * //AGAFA SUDOKU BBDD String[][] nou =
-						 * control.getTaulellBBDD();
-						 * //System.out.print(control.getTaulellBBDD());
-						 * 
-						 * for(int i= 0; i<9;i++){ for (int j = 0; j < 9; j++) {
-						 * System.out.print(nou[i][j]); } }
-						 */
-						String[][] graella = control.getTaulellBBDD();
+						String[][] graella = control.getTaulellBBDD(1);
 
 						for (int i = 0; i < 3; i++) {
 							for (int x = 0; x < 3; x++) {
@@ -167,16 +158,19 @@ public class Presentacio implements ActionListener, FocusListener {
 												control.setEntrada(f, c, graella[f][c]);
 												textField[f][c]
 														.setEditable(true);
-												System.out.print("HOLA1");
 											} 
 										}
 									}
 								}
 							}
 						}
-
-						// frame.revalidate();
-						// frame.repaint();
+						
+						/*String[][] nou = control.getTaulellBBDD(1);
+						for (int x = 0; x < 9; x++) {
+							for (int y = 0; y < 9; y++) {
+								System.out.print(nou[x][y]);
+							}
+						}*/
 
 					}
 				} catch (Exception e2) {
@@ -220,6 +214,8 @@ public class Presentacio implements ActionListener, FocusListener {
 					if (res == JOptionPane.YES_OPTION) {
 						control.canviarTaulell();
 						actualitzar();
+						//////////////////
+						System.out.print(control.getUltimId());
 					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
@@ -323,17 +319,62 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			// BBDD////////////////////////////////////////////////
 
-			if (control.taulellBuit())
-				control.storeTaulell(control.getTTaulell());
-			else
-				control.updateTaulell(f, c, casella.getText(),
-						control.getTTaulell());
-
-			// ///////////////////////////////////////////////
-			if (control.isComplete()) {
-				JOptionPane.showMessageDialog(new JFrame(),
-						"JOC FINALITZAT FELICITATS");
-			}
+			
+			
+			
+				int[] quantsId= control.getTotalIdSu();
+				int quantsBons=0;
+				for (int i = 0; i < quantsId.length; i++) {
+				
+					if(!(quantsId[i]==0)){
+						quantsBons++;
+					}
+				}
+				 String[] buttons=new String[quantsBons];
+				
+			  	
+			  	for (int i = 0; i < quantsId.length; i++) {
+					
+					if(!(quantsId[i]==0)){
+						buttons[i]=String.valueOf(quantsId[i]);
+					}
+			  	}
+			  	
+			  	 
+				    int rc = JOptionPane.showOptionDialog(null, "Question ?", "Confirmation",
+				        JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons);
+				    
+				    System.out.println(rc);
+					
+				System.out.println("\n\n"+control.getUltimId());
+				
+				//control.getNumero(control.getUltimId());
+				control.storeTaulell(control.getTTaulell(),textLog.getText());
+				
+				/*System.out.println(control.quantsTaulells());
+				System.out.println(control.taulellBuit(control.quantsTaulells()));
+				
+				
+				int quants= control.quantsTaulells() +1;
+				*/
+				
+				/*int i=1;
+				if (!(control.taulellBuit(i)))
+					control.updateTaulell(f, c, casella.getText(),
+							control.getTTaulell());
+*/
+				
+				// ///////////////////////////////////////////////
+				if (control.isComplete()) {
+					JOptionPane.showMessageDialog(new JFrame(),
+							"JOC FINALITZAT FELICITATS");
+				}
+				
+				
+				
+				//System.out.print("\n"+control.taulellBuit(1));
+			
+			
 
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
