@@ -3,6 +3,8 @@ package Persistencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 import Domini.Casella;
 import Domini.Taulell;
 
@@ -45,12 +47,15 @@ public class TaulellBBDD {
 	}
 
 	//comprovar metode
-	public static Casella[][] getTaulell() throws Exception{
+	public static String[][] getTaulell() throws Exception{
 		
 		ConnectionBBDD connection = LoginBBDD.getConnection();
-		Taulell taulell = new Taulell(true);
+		//Taulell taulell = new Taulell(true);
+		//taulell.CrearTaulell();
+		String[][] taulell = new String[9][9];
+		
 		try {
-			String sql = "SELECT COUNT(*) AS COUNT FROM SUDOKU";
+			String sql = "SELECT * FROM SUDOKU";
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(sql);
 			preparedStatement.clearParameters();
@@ -59,20 +64,48 @@ public class TaulellBBDD {
 			while (rs.next()) {
 
 				int x,y,valor;
-				x = rs.getInt("COUNT");
-				y = rs.getInt("");
-				valor = rs.getInt("");
-				
-				taulell.setCasella(x, y, valor);
+				x = rs.getInt("X");
+				y = rs.getInt("Y");
+				valor = rs.getInt("VALOR");
+				taulell[x][y]= "" + valor;
+				//taulell.setCasella(x, y, valor);
 
 			}
-
-			throw new Exception("No s'ha trobat valor!");
+			return taulell;
 		} catch (SQLException e) {
 			throw new Exception("ERROR");
 		}
+		
 
 		
+		
+		/////FUNCIONA/////
+		
+		/*
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+		String llista="";
+		try {
+			//String sql = "SELECT * FROM JUGADOR";
+			String sql = "SELECT * FROM SUDOKU";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.clearParameters();
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				//String nom;
+				//nom = rs.getString("NOM");
+				
+				int x = rs.getInt("X");
+				int y = rs.getInt("Y");
+				int valor = rs.getInt("VALOR");
+				llista += x + ", " + y + ", " + valor + "\n";
+			}
+			return llista;
+		} catch (SQLException e) {
+			throw new Exception("ERROR");
+		}
+		*/
 	}
 	
 	public static boolean estaBuit() throws Exception {

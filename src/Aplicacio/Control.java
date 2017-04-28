@@ -91,5 +91,15 @@ public class Control {
 
 	}
 	
+	//////////////////////////////////
+	
+	public String[][] getTaulellBBDD() {
+		try {
+			return TaulellBBDD.getTaulell();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 
 }
