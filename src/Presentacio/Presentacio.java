@@ -7,6 +7,7 @@ import Aplicacio.LoginControler;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import static java.awt.Color.*;
 
 public class Presentacio implements ActionListener, FocusListener {
@@ -23,7 +24,7 @@ public class Presentacio implements ActionListener, FocusListener {
 	private JButton sudokuV3 = new JButton("Sudoku V3");
 	private int nEntrades = 0;
 	private JTextField textLog = new JTextField();
-	private Control controlLog;
+	private JButton recuperarPartida = new JButton("Recuperar partida");
 
 	public Presentacio() {
 		try {
@@ -48,6 +49,7 @@ public class Presentacio implements ActionListener, FocusListener {
 				control = new Control(false);
 				crear.setEnabled(false);
 				sudokuV3.setEnabled(false);
+
 			} else {
 				System.exit(0);
 			}
@@ -58,13 +60,8 @@ public class Presentacio implements ActionListener, FocusListener {
 		}
 
 		initComponents();
-		String[][] nou = control.getTaulellBBDD();
-		for(int i= 0; i<9;i++){
-			for (int j = 0; j < 9; j++) {
-			System.out.print(nou[i][j]);	
-			}
-		}
-		//System.out.print(control.getTaulell());
+
+		// System.out.print(control.getTaulell());
 
 	}
 
@@ -72,12 +69,12 @@ public class Presentacio implements ActionListener, FocusListener {
 
 		frame = new JFrame("EL SUDOKU");
 		sudokuV3.setEnabled(false);
-		controlLog = new Control();
+		// controlLog = new Control();
 
 		frame.getContentPane().setLayout(new BorderLayout());
 
 		String[][] graella = control.getTaulell();
-
+		// String[][] graella = control.getTaulellBBDD();
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				jpanel[i][j] = new JPanel();
@@ -119,6 +116,7 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.add(textLog, BorderLayout.NORTH);
 		textLog.setText("Introdueix el teu nom");
 
+		botons.add(recuperarPartida);
 		botons.add(random, BorderLayout.NORTH);
 		botons.add(crear, BorderLayout.CENTER);
 		botons.add(sudokuV3, BorderLayout.SOUTH);
@@ -129,13 +127,72 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.add(botons, BorderLayout.SOUTH);
 		frame.add(tot, BorderLayout.CENTER);
 
+		recuperarPartida.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int res = JOptionPane.showConfirmDialog(new JFrame(),
+							"Perdras el sudoku actual, vols continuar?",
+							"ALERTA", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE);
+
+					if (res == JOptionPane.YES_OPTION) {
+
+						/*
+						 * //AGAFA SUDOKU BBDD String[][] nou =
+						 * control.getTaulellBBDD();
+						 * //System.out.print(control.getTaulellBBDD());
+						 * 
+						 * for(int i= 0; i<9;i++){ for (int j = 0; j < 9; j++) {
+						 * System.out.print(nou[i][j]); } }
+						 */
+						String[][] graella = control.getTaulellBBDD();
+
+						for (int i = 0; i < 3; i++) {
+							for (int x = 0; x < 3; x++) {
+								for (int y = 0; y < 3; y++) {
+									for (int j = 0; j < 3; j++) {
+										int f = i * 3 + x, c = y * 3 + j;
+
+										//if (graella[f][c]) 
+										{
+											if (control.esModificable(f, c)) {
+												textField[f][c]
+														.setText(graella[f][c]);
+												textField[f][c]
+														.setForeground(BLACK);
+												textField[f][c]
+														.setBackground(WHITE);
+												control.setEntrada(f, c, graella[f][c]);
+												textField[f][c]
+														.setEditable(true);
+												System.out.print("HOLA1");
+											} 
+										}
+									}
+								}
+							}
+						}
+
+						// frame.revalidate();
+						// frame.repaint();
+
+					}
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(new JFrame(), e2.getMessage());
+				}
+
+			}
+		});
+
 		textLog.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				try {
 
-					controlLog.nouJugador(textLog.getText());
+					control.nouJugador(textLog.getText());
 					textLog.setEditable(false);
 					tot.setVisible(true);
 					botons.setVisible(true);
@@ -264,7 +321,7 @@ public class Presentacio implements ActionListener, FocusListener {
 				nEntrades++;
 			}
 
-			// ////////////////////////////////////////////////
+			// BBDD////////////////////////////////////////////////
 
 			if (control.taulellBuit())
 				control.storeTaulell(control.getTTaulell());

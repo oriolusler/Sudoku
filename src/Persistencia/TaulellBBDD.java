@@ -67,7 +67,9 @@ public class TaulellBBDD {
 				x = rs.getInt("X");
 				y = rs.getInt("Y");
 				valor = rs.getInt("VALOR");
-				taulell[x][y]= "" + valor;
+				
+				if(valor==0)taulell[x][y]=null;
+				else taulell[x][y]= "" + valor;
 				//taulell.setCasella(x, y, valor);
 
 			}
@@ -75,7 +77,6 @@ public class TaulellBBDD {
 		} catch (SQLException e) {
 			throw new Exception("ERROR");
 		}
-		
 
 		
 		

@@ -12,15 +12,16 @@ public class Control {
 	private Taulell t;
 	private Jugador jugador;
 
-	public Control() {
-		jugador = new Jugador("Anonim");
-	}
-
+	/*
+	 * public Control() { jugador = new Jugador("Anonim"); }
+	 */
+	
 	public Control(boolean buit) throws Exception {
 		t = new Taulell(buit);
 	}
 
-	public void setEntrada(int fila, int columna, String valor) throws Exception {
+	public void setEntrada(int fila, int columna, String valor)
+			throws Exception {
 		t.canviarValor(fila, columna, Integer.parseInt(valor));
 	}
 
@@ -32,7 +33,7 @@ public class Control {
 		return t.getTaulell();
 	}
 
-	//////////////////////////////
+	// ////////////////////////////
 	public Casella[][] getTTaulell() {
 		return t.getCasella();
 	}
@@ -57,7 +58,8 @@ public class Control {
 		t.iniciarUsuari();
 	}
 
-	public void updateTaulell(int x, int y, String valor, Casella[][] taulell) throws Exception {
+	public void updateTaulell(int x, int y, String valor, Casella[][] taulell)
+			throws Exception {
 		int value = Integer.parseInt(valor);
 		TaulellBBDD.updateTaulell(x, y, value, taulell);
 	}
@@ -80,7 +82,7 @@ public class Control {
 		}
 
 	}
-	
+
 	public String nomsBDD() {
 
 		try {
@@ -90,9 +92,9 @@ public class Control {
 		}
 
 	}
-	
-	//////////////////////////////////
-	
+
+	// ////////////////////////////////
+
 	public String[][] getTaulellBBDD() {
 		try {
 			return TaulellBBDD.getTaulell();
@@ -100,6 +102,5 @@ public class Control {
 			return null;
 		}
 	}
-	
 
 }
