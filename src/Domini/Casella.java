@@ -25,7 +25,7 @@ public class Casella {
 		return valor;
 	}
 
-	boolean isEditable() {
+	public boolean isEditable() {
 		return editable;
 	}
 

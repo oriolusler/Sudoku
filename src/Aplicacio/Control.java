@@ -11,12 +11,17 @@ public class Control {
 	private Taulell t;
 	private Jugador jugador;
 
+
 	public Control(boolean buit) throws Exception {
 	
 		t = new Taulell(buit,getUltimId());
 		
 	}
 	
+	public Control(Casella[][] a) throws Exception{
+		t=new Taulell(getUltimId(), a);
+		
+	}
 	public void getNumero(int i){
 		t.getNumero(i);
 	}
@@ -118,5 +123,5 @@ public class Control {
 		return TaulellBBDD.getTotalIdSu();
 		
 	}
-
+	
 }

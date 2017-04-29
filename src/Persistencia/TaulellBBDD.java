@@ -3,8 +3,6 @@ package Persistencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import Domini.Casella;
 import Domini.Jugador;
 
@@ -14,7 +12,7 @@ public class TaulellBBDD {
 			Casella[][] taulell) throws Exception {
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
-		String sql = "UPDATE PARTIDA SET VALOR = ? WHERE IDSO = ?";
+		String sql = "UPDATE PARTIDA SET VALOR = ? WHERE IDC = ?";
 		PreparedStatement pst = connection.prepareStatement(sql);
 
 		pst.setInt(1, taulell[x][y].getValor());
@@ -32,7 +30,7 @@ public class TaulellBBDD {
 
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				String sql = "INSERT INTO PARTIDA VALUES(?,?,?,?,?,?)";
+				String sql = "INSERT INTO PARTIDA VALUES(?,?,?,?,?,?,?)";
 				PreparedStatement pst = connection.prepareStatement(sql);
 
 				pst.setInt(6, taulell[i][j].getIdCasella());
@@ -41,6 +39,12 @@ public class TaulellBBDD {
 				pst.setInt(4, taulell[i][j].getValor());
 				pst.setString(1, jugador.getNom());
 				pst.setInt(5, quinSu);
+				int editable;
+				if (taulell[i][j].isEditable())
+					editable = 0;
+				else
+					editable = 1;
+				pst.setInt(7, editable);
 
 				if (pst.executeUpdate() != 1)
 					throw new Exception("ERRO METODE STORE");
@@ -189,16 +193,21 @@ public class TaulellBBDD {
 			preparedStatement.clearParameters();
 			ResultSet rs = preparedStatement.executeQuery();
 
-			while (rs.next()) {
+			try {
+				while (rs.next()) {
 
-				numeros[i] = rs.getInt("IDSO");
-				i++;
+					numeros[i] = rs.getInt("IDSO");
+					i++;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				throw new Exception("Accedit el numero permes");
 			}
 			return numeros;
 		} catch (SQLException e) {
 			throw new Exception("ERROR METODE GET ID SU");
 		}
-		
+
 	}
 
 }
