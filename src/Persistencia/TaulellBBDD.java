@@ -16,6 +16,7 @@ public class TaulellBBDD {
 		PreparedStatement pst = connection.prepareStatement(sql);
 
 		pst.setInt(1, taulell[x][y].getValor());
+		System.out.println( taulell[x][y].getIdC());
 		pst.setInt(2, taulell[x][y].getIdC());
 		pst.setInt(3, su);
 
@@ -54,7 +55,43 @@ public class TaulellBBDD {
 		}
 
 	}
+	
+	public static String[][] getEditables(int i) throws Exception {
 
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+		// Taulell taulell = new Taulell(true);
+		// taulell.CrearTaulell();
+		String[][] taulell = new String[9][9];
+
+		try {
+			String sql = "SELECT * FROM PARTIDA WHERE IDSO = ?";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.clearParameters();
+			preparedStatement.setInt(1, i);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+
+				int x, y, valor;
+				x = rs.getInt("X");
+				y = rs.getInt("Y");
+				valor = rs.getInt("EDITABLE");
+
+				if (valor == 0)
+					taulell[x][y] = "s";
+				else
+					taulell[x][y] = "n";
+				// taulell.setCasella(x, y, valor);
+
+			}
+			return taulell;
+		} catch (SQLException e) {
+			throw new Exception("ERROR METODE GET TAULELL");
+		}
+
+	}
+
+	
 	public static String[][] getTaulell(int i) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();

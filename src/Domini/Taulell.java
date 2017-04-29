@@ -21,7 +21,7 @@ public class Taulell {
 	public Taulell(boolean buit, int lastID) throws Exception {
 
 		lastID = lastID + 1;
-		System.out.print(lastID);
+		//System.out.print(lastID);
 		Ccpunter = (lastID++);
 
 		graella = new Casella[9][9];
@@ -145,7 +145,7 @@ public class Taulell {
 				Ccpunter++;
 
 				// ////////////////////////
-				// System.out.print(Ccpunter);
+				//System.out.print(Ccpunter);
 			}
 		}
 	}

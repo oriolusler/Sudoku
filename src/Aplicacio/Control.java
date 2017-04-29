@@ -1,5 +1,7 @@
 package Aplicacio;
 
+import javax.swing.JOptionPane;
+
 import Domini.Casella;
 import Domini.Jugador;
 import Domini.Taulell;
@@ -11,20 +13,21 @@ public class Control {
 	private Taulell t;
 	private Jugador jugador;
 
-
 	public Control(boolean buit) throws Exception {
-	
-		t = new Taulell(buit,getUltimId());
-		
+
+		t = new Taulell(buit, getUltimId());
+
 	}
-	
-	public Control(Casella[][] a) throws Exception{
-		t=new Taulell(getUltimId(), a);
-		
+
+	public Control(Casella[][] a) throws Exception {
+		t = new Taulell(getUltimId(), a);
+
 	}
-	public void getNumero(int i){
+
+	public void getNumero(int i) {
 		t.getNumero(i);
 	}
+
 	public void setEntrada(int fila, int columna, String valor)
 			throws Exception {
 		t.canviarValor(fila, columna, Integer.parseInt(valor));
@@ -63,36 +66,37 @@ public class Control {
 		t.iniciarUsuari();
 	}
 
-	public void updateTaulell(int x, int y, String valor, Casella[][] taulell,int su)
-			throws Exception {
+	public void updateTaulell(int x, int y, String valor, Casella[][] taulell,
+			int su) throws Exception {
 		int value = Integer.parseInt(valor);
-		TaulellBBDD.updateTaulell(x, y, value, taulell,su);
+		TaulellBBDD.updateTaulell(x, y, value, taulell, su);
 	}
 
-	public void storeTaulell(Casella[][] taulell, String nom) throws Exception {
-		jugador=new Jugador(nom);
-		 int quants= quantsTaulells() +1;
-		TaulellBBDD.storeTaullell(taulell,jugador,quants);
+	public void storeTaulell(Casella[][] taulell, String nom, int quantsTaulells) throws Exception {
+		jugador = new Jugador(nom);
+		int quants = quantsTaulells + 1;
+		TaulellBBDD.storeTaullell(taulell, jugador, quants);
 	}
-
 
 	public boolean taulellBuit(int i) throws Exception {
 		return TaulellBBDD.estaBuit(i);
 	}
 
-	public int quantsTaulells() throws Exception{
-		
+	public int quantsTaulells() throws Exception {
+
 		return TaulellBBDD.quantesPartides();
 	}
-	public void nouJugador(String nom) throws Exception {
+
+	public int nouJugador(String nom) throws Exception {
 
 		jugador = new Jugador(nom);
-		
+
 		try {
 			JugadorBBDD.storeJugador(jugador);
-			
+			return -2;
+
 		} catch (Exception e) {
-			/*int[] quantsId = getTotalIdSu();
+			int[] quantsId = getTotalIdSu();
 			int quantsBons = 0;
 			for (int i = 0; i < quantsId.length; i++) {
 
@@ -109,13 +113,11 @@ public class Control {
 				}
 			}
 
-			int rc = JOptionPane.showOptionDialog(null,
-					"Question ?", "Confirmation",
-					JOptionPane.WARNING_MESSAGE, 0, null, buttons,
-					buttons);
+			int rc = JOptionPane.showOptionDialog(null, "Quin sudoku vols recuperar?",
+					"Confirmation", JOptionPane.WARNING_MESSAGE, 0, null,
+					buttons, buttons);
 			rc += 1;
-			return rc;*/
-			throw new Exception("Jugaore registrat");
+			return rc;
 		}
 
 	}
@@ -139,14 +141,21 @@ public class Control {
 			return null;
 		}
 	}
-	
-	public int getUltimId() throws Exception{
+
+	public String[][] getEditablesBBDD(int i) {
+		try {
+			return TaulellBBDD.getEditables(i);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	public int getUltimId() throws Exception {
 		return TaulellBBDD.getUltimId();
 	}
-	
-	public int[] getTotalIdSu() throws Exception{
+
+	public int[] getTotalIdSu() throws Exception {
 		return TaulellBBDD.getTotalIdSu();
-		
+
 	}
-	
+
 }
