@@ -9,14 +9,15 @@ import Domini.Jugador;
 public class TaulellBBDD {
 
 	public static void updateTaulell(int x, int y, int value,
-			Casella[][] taulell) throws Exception {
+			Casella[][] taulell,int su) throws Exception {
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
-		String sql = "UPDATE PARTIDA SET VALOR = ? WHERE IDC = ?";
+		String sql = "UPDATE PARTIDA SET VALOR = ? WHERE ID = ? AND IDSO=?";
 		PreparedStatement pst = connection.prepareStatement(sql);
 
 		pst.setInt(1, taulell[x][y].getValor());
-		pst.setInt(2, taulell[x][y].getIdCasella());
+		pst.setInt(2, taulell[x][y].getIdC());
+		pst.setInt(3, su);
 
 		if (pst.executeUpdate() != 1)
 			throw new Exception("ERROR METODE UPDATE");
@@ -30,7 +31,7 @@ public class TaulellBBDD {
 
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				String sql = "INSERT INTO PARTIDA VALUES(?,?,?,?,?,?,?)";
+				String sql = "INSERT INTO PARTIDA VALUES(?,?,?,?,?,?,?,?)";
 				PreparedStatement pst = connection.prepareStatement(sql);
 
 				pst.setInt(6, taulell[i][j].getIdCasella());
@@ -39,6 +40,7 @@ public class TaulellBBDD {
 				pst.setInt(4, taulell[i][j].getValor());
 				pst.setString(1, jugador.getNom());
 				pst.setInt(5, quinSu);
+				pst.setInt(8, taulell[i][j].getIdC());
 				int editable;
 				if (taulell[i][j].isEditable())
 					editable = 0;

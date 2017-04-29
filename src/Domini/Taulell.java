@@ -8,7 +8,8 @@ public class Taulell {
 
 	private Casella[][] graella;
 	private int[][] error = new int[2][3];
-	private static int Ccpunter = 0;
+	private static int Ccpunter = 1;
+	private int counter = 1;
 
 	public static void setCcpunter(int ccpunter) {
 		Ccpunter = ccpunter;
@@ -139,6 +140,8 @@ public class Taulell {
 			for (int j = 0; j < 9; j++) {
 				graella[i][j] = new Casella();
 				graella[i][j].setIdCasella(Ccpunter);
+				graella[i][j].setIdC(counter);
+				counter++;
 				Ccpunter++;
 
 				// ////////////////////////

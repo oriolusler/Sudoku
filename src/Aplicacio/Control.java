@@ -63,10 +63,10 @@ public class Control {
 		t.iniciarUsuari();
 	}
 
-	public void updateTaulell(int x, int y, String valor, Casella[][] taulell)
+	public void updateTaulell(int x, int y, String valor, Casella[][] taulell,int su)
 			throws Exception {
 		int value = Integer.parseInt(valor);
-		TaulellBBDD.updateTaulell(x, y, value, taulell);
+		TaulellBBDD.updateTaulell(x, y, value, taulell,su);
 	}
 
 	public void storeTaulell(Casella[][] taulell, String nom) throws Exception {
@@ -87,10 +87,35 @@ public class Control {
 	public void nouJugador(String nom) throws Exception {
 
 		jugador = new Jugador(nom);
+		
 		try {
 			JugadorBBDD.storeJugador(jugador);
+			
 		} catch (Exception e) {
-			throw new Exception("Aquest jugador esta registrat");
+			/*int[] quantsId = getTotalIdSu();
+			int quantsBons = 0;
+			for (int i = 0; i < quantsId.length; i++) {
+
+				if (!(quantsId[i] == 0)) {
+					quantsBons++;
+				}
+			}
+			String[] buttons = new String[quantsBons];
+
+			for (int i = 0; i < quantsId.length; i++) {
+
+				if (!(quantsId[i] == 0)) {
+					buttons[i] = String.valueOf(quantsId[i]);
+				}
+			}
+
+			int rc = JOptionPane.showOptionDialog(null,
+					"Question ?", "Confirmation",
+					JOptionPane.WARNING_MESSAGE, 0, null, buttons,
+					buttons);
+			rc += 1;
+			return rc;*/
+			throw new Exception("Jugaore registrat");
 		}
 
 	}

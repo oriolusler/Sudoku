@@ -2,8 +2,17 @@ package Domini;
 
 public class Casella {
 
-	private int valor,idCasella;
+	private int valor,idCasella,idC;
 	
+	
+	public int getIdC() {
+		return idC;
+	}
+
+	public void setIdC(int idC) {
+		this.idC = idC;
+	}
+
 	public int getIdCasella() {
 		return idCasella;
 	}
