@@ -1,5 +1,7 @@
 package Aplicacio;
 
+import java.util.Calendar;
+
 import javax.swing.JOptionPane;
 
 import Domini.Casella;
@@ -15,14 +17,22 @@ public class Control {
 
 	public Control(boolean buit) throws Exception {
 
-		t = new Taulell(buit, getUltimId());
+		Calendar calendar = Calendar.getInstance();
+	    java.sql.Timestamp time = new java.sql.Timestamp(calendar.getTime().getTime());
+	    System.out.println(time);
+		t = new Taulell(buit, getUltimId(),time);
 
 	}
 
 	public Control(Casella[][] a) throws Exception {
-		t = new Taulell(getUltimId(), a);
+		Calendar calendar = Calendar.getInstance();
+	    java.sql.Timestamp time = new java.sql.Timestamp(calendar.getTime().getTime());
+	    System.out.println(time);
+		t = new Taulell(getUltimId(), a, time);
 
 	}
+	
+	
 
 	public void getNumero(int i) {
 		t.getNumero(i);
@@ -41,6 +51,15 @@ public class Control {
 		return t.getTaulell();
 	}
 
+	////////////
+	
+	public void setCCounter(int i){
+		t.setCcpunter(i);
+	}
+	
+	public int getCCouter(){
+		return t.getCcpunter();
+	}
 	// ////////////////////////////
 	public Casella[][] getTTaulell() {
 		return t.getCasella();
@@ -149,6 +168,7 @@ public class Control {
 			return null;
 		}
 	}
+	
 	public int getUltimId() throws Exception {
 		return TaulellBBDD.getUltimId();
 	}

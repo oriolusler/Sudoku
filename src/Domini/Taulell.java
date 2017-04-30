@@ -8,18 +8,33 @@ public class Taulell {
 
 	private Casella[][] graella;
 	private int[][] error = new int[2][3];
-	private static int Ccpunter = 1;
+	private java.sql.Timestamp identificadorTaulell;
+
+	public java.sql.Timestamp getIdentificadorTaulell() {
+		return identificadorTaulell;
+	}
+
+	public void setIdentificadorTaulell(java.sql.Timestamp identificadorTaulell) {
+		this.identificadorTaulell = identificadorTaulell;
+	}
+
+	private  int Ccpunter = 1;
 	private int counter = 1;
 
-	public static void setCcpunter(int ccpunter) {
+	public void setCcpunter(int ccpunter) {
 		Ccpunter = ccpunter;
+	}
+	
+	public int getCcpunter(){
+		return Ccpunter;
 	}
 
 	private int idSu;
 
 	//
-	public Taulell(boolean buit, int lastID) throws Exception {
+	public Taulell(boolean buit, int lastID, java.sql.Timestamp time) throws Exception {
 
+		this.identificadorTaulell=time;
 		lastID = lastID + 1;
 		//System.out.print(lastID);
 		Ccpunter = (lastID++);
@@ -66,8 +81,9 @@ public class Taulell {
 		}
 	}
 	
-	public Taulell(int lastID, Casella[][] taulell) throws Exception{
+	public Taulell(int lastID, Casella[][] taulell,java.sql.Timestamp time) throws Exception{
 		
+		this.identificadorTaulell=time;
 		lastID = lastID + 1;
 		System.out.print(lastID);
 		Ccpunter = (lastID++);

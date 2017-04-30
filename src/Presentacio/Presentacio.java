@@ -4,8 +4,6 @@ import javax.swing.*;
 
 import Aplicacio.Control;
 import Aplicacio.LoginControler;
-import Domini.Casella;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -28,10 +26,9 @@ public class Presentacio implements ActionListener, FocusListener {
 	// private JButton recuperarPartida = new JButton("Recuperar partida");
 	private int quinSudoku = 0;
 	private static Presentacio p;
-	private int i;
 
 	public Presentacio() {
-		
+
 		try {
 			int res = JOptionPane
 					.showConfirmDialog(
@@ -66,21 +63,15 @@ public class Presentacio implements ActionListener, FocusListener {
 
 		try {
 			quinSudoku = control.quantsTaulells() + 1;
-			//System.out.print(quinSudoku);
+
 		} catch (Exception e) {
 			System.out.println("ERROR AGAFANT NUMERO DE SUDOKUS \n Linia 67");
 		}
-		/*try {
-			System.out.print(control.quantsTaulells());
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+
 		initComponents();
 	}
 
-	private void inici(){
+	private void inici() {
 		try {
 
 			int sudokuUsuari = control.nouJugador(textLog.getText());
@@ -95,13 +86,10 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			if (!(sudokuUsuari == -2)) {
 				String[][] graella = control.getTaulellBBDD(quinSudoku);
-				control=new Control(true);
-				
-				
-				/*
-				 * for (int i = 0; i < 9; i++) { for (int j = 0; j < 9;
-				 * j++) { System.out.print(graella[i][j]); } }
-				 */
+				String[][] ediatbles = control.getEditablesBBDD(quinSudoku);
+				control = new Control(true);
+				random.setEnabled(false);
+
 				for (int i = 0; i < 3; i++) {
 					for (int x = 0; x < 3; x++) {
 						for (int y = 0; y < 3; y++) {
@@ -109,225 +97,37 @@ public class Presentacio implements ActionListener, FocusListener {
 								int f = i * 3 + x, c = y * 3 + j;
 
 								{
-									if (control.esModificable(f, c)) {
-										textField[f][c]
-												.setText(graella[f][c]);
-										textField[f][c]
-												.setForeground(BLACK);
-										textField[f][c]
-												.setBackground(WHITE);
+									if (ediatbles[f][c] == "s") {
+										textField[f][c].setText(graella[f][c]);
+										textField[f][c].setForeground(BLACK);
+										textField[f][c].setBackground(WHITE);
 										if (!(graella[f][c] == null))
 											control.setEntrada(f, c,
 													graella[f][c]);
-										textField[f][c]
-												.setEditable(true);
+										textField[f][c].setEditable(true);
+
+									} else {
+										textField[f][c].setText(graella[f][c]);
+										textField[f][c].setForeground(YELLOW);
+										textField[f][c].setBackground(GRAY);
+										control.setEntrada(f, c, graella[f][c]);
+										textField[f][c].setEditable(false);
 									}
 								}
 							}
 						}
 					}
 				}
+
 			}
 
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(new JFrame(),
-					ex.getMessage(), "Error lectura BBDD",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(),
+					"Error lectura BBDD", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+
 	// /////////////////////////////////////////////
-	public Presentacio(Casella[][] t, String nom) {
-		try {
-			control = new Control(t);
-
-		} catch (Exception e) {
-			System.out.println("81");
-		}
-
-		try {
-			quinSudoku = control.quantsTaulells() + 1;
-			System.out.print(quinSudoku);
-		} catch (Exception e) {
-			System.out.println("ERROR AGAFANT NUMERO DE SUDOKUS \n Linia 67");
-		}
-		
-		frame = new JFrame("EL SUDOKU");
-		sudokuV3.setEnabled(false);
-
-		frame.getContentPane().setLayout(new BorderLayout());
-
-		String[][] graella = control.getTaulell();
-
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				jpanel[i][j] = new JPanel();
-				panel.add(jpanel[i][j]);
-				jpanel[i][j].setLayout(new GridLayout(3, 3));
-				jpanel[i][j]
-						.setBorder(BorderFactory.createLineBorder(BLACK, 2));
-			}
-		}
-
-		for (int i = 0; i < 3; i++) {
-			for (int x = 0; x < 3; x++) {
-				for (int y = 0; y < 3; y++) {
-					for (int j = 0; j < 3; j++) {
-						int f = i * 3 + x, c = y * 3 + j;
-
-						textField[f][c] = new CasellaGrafica(f, c);
-						jpanel[i][y].add(textField[f][c]);
-						textField[f][c].setBorder(BorderFactory
-								.createLineBorder(BLACK));
-						textField[f][c]
-								.setHorizontalAlignment(SwingConstants.CENTER);
-						textField[f][c].setFont(new Font("Calibri", 3, 25));
-
-						if (!control.esModificable(f, c)) {
-							textField[f][c].setText(graella[f][c]);
-							textField[f][c].setForeground(YELLOW);
-							textField[f][c].setBackground(GRAY);
-							textField[f][c].setEditable(false);
-						} else {
-							textField[f][c].addActionListener(this);
-							textField[f][c].addFocusListener(this);
-						}
-					}
-				}
-			}
-		}
-
-		frame.add(textLog, BorderLayout.NORTH);
-		textLog.setText(nom);
-		textLog.setEditable(false);
-		// botons.add(recuperarPartida);
-		botons.add(random, BorderLayout.NORTH);
-		botons.add(crear, BorderLayout.CENTER);
-		botons.add(sudokuV3, BorderLayout.SOUTH);
-
-		tot.add(panel);
-		tot.setVisible(true);
-		botons.setVisible(true);
-		frame.add(botons, BorderLayout.SOUTH);
-		frame.add(tot, BorderLayout.CENTER);
-
-		/*
-		 * recuperarPartida.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { try { int res
-		 * = JOptionPane.showConfirmDialog(new JFrame(),
-		 * "Perdras el sudoku actual, vols continuar?", "ALERTA",
-		 * JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		 * 
-		 * if (res == JOptionPane.YES_OPTION) {
-		 * 
-		 * int[] quantsId = control.getTotalIdSu(); int quantsBons = 0; for (int
-		 * i = 0; i < quantsId.length; i++) {
-		 * 
-		 * if (!(quantsId[i] == 0)) { quantsBons++; } } String[] buttons = new
-		 * String[quantsBons];
-		 * 
-		 * for (int i = 0; i < quantsId.length; i++) {
-		 * 
-		 * if (!(quantsId[i] == 0)) { buttons[i] = String.valueOf(quantsId[i]);
-		 * } }
-		 * 
-		 * int rc = JOptionPane.showOptionDialog(null, "Question ?",
-		 * "Confirmation", JOptionPane.WARNING_MESSAGE, 0, null, buttons,
-		 * buttons); rc += 1;
-		 * 
-		 * // versio sudoku RC System.out.println(rc); quinSudoku = rc;
-		 * String[][] graella = control.getTaulellBBDD(rc);
-		 * 
-		 * for (int i = 0; i < 3; i++) { for (int x = 0; x < 3; x++) { for (int
-		 * y = 0; y < 3; y++) { for (int j = 0; j < 3; j++) { int f = i * 3 + x,
-		 * c = y * 3 + j;
-		 * 
-		 * { if (control.esModificable(f, c)) { textField[f][c]
-		 * .setText(graella[f][c]); textField[f][c] .setForeground(BLACK);
-		 * textField[f][c] .setBackground(WHITE); if (!(graella[f][c] == null))
-		 * control.setEntrada(f, c, graella[f][c]); textField[f][c]
-		 * .setEditable(true); } } } } } } } } catch (Exception e2) {
-		 * System.out.println(" \n Linia 207"); }
-		 * 
-		 * } });
-		 */
-		random.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				try {
-					int res = JOptionPane.showConfirmDialog(new JFrame(),
-							"Perdras el sudoku actual, vols continuar?",
-							"ALERTA", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
-
-					if (res == JOptionPane.YES_OPTION) {
-						try {
-							control.canviarTaulell();
-							actualitzar();
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						}
-						Presentacio w = new Presentacio(control.getTTaulell(),
-								textLog.getText());
-
-						w.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-						w.frame.setBounds(0, 0, 500, 500);
-						w.frame.setVisible(true);
-
-					}
-				} catch (Exception ex) {
-					System.out.println("ERROR \n Linia 240");
-				}
-
-			}
-		});
-
-		crear.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (nEntrades >= 17)
-					try {
-						control.iniciarUsuari();
-						actualitzar();
-						crear.setEnabled(false);
-						random.setEnabled(true);
-						sudokuV3.setEnabled(true);
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(new JFrame(),
-								ex.getMessage());
-					}
-				else {
-					JOptionPane.showMessageDialog(new JFrame(),
-							"No es posible crear el taulell, has de tenir"
-									+ " 17 o mes numeros introduits"
-									+ "\n(Quantitat de numeros introduits : "
-									+ nEntrades + ")");
-				}
-
-			}
-		});
-
-		sudokuV3.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					control = new Control(false);
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(new JFrame(),
-							"Error en crear el sudoku");
-				}
-				random.setEnabled(true);
-				crear.setEnabled(false);
-				sudokuV3.setEnabled(false);
-				actualitzar();
-			}
-		});
-
-	}
 
 	private void initComponents() {
 
@@ -337,7 +137,7 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.getContentPane().setLayout(new BorderLayout());
 
 		String[][] graella = control.getTaulell();
-		
+
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				jpanel[i][j] = new JPanel();
@@ -390,57 +190,6 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.add(botons, BorderLayout.SOUTH);
 		frame.add(tot, BorderLayout.CENTER);
 
-		/*
-		 * recuperarPartida.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { try { int res
-		 * = JOptionPane.showConfirmDialog(new JFrame(),
-		 * "Perdras el sudoku actual, vols continuar?", "ALERTA",
-		 * JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		 * 
-		 * if (res == JOptionPane.YES_OPTION) {
-		 * 
-		 * int[] quantsId = control.getTotalIdSu(); int quantsBons = 0; for (int
-		 * i = 0; i < quantsId.length; i++) {
-		 * 
-		 * if (!(quantsId[i] == 0)) { quantsBons++; } } String[] buttons = new
-		 * String[quantsBons];
-		 * 
-		 * for (int i = 0; i < quantsId.length; i++) {
-		 * 
-		 * if (!(quantsId[i] == 0)) { buttons[i] = String.valueOf(quantsId[i]);
-		 * } }
-		 * 
-		 * int rc = JOptionPane.showOptionDialog(null, "Question ?",
-		 * "Confirmation", JOptionPane.WARNING_MESSAGE, 0, null, buttons,
-		 * buttons); rc += 1; quinSudoku = rc; System.out.println(rc);
-		 * 
-		 * String[][] graella = control.getTaulellBBDD(rc); String[][] editables
-		 * = control.getEditablesBBDD(rc); control = new Control(true);
-		 * 
-		 * for (int i = 0; i < 3; i++) { for (int x = 0; x < 3; x++) { for (int
-		 * y = 0; y < 3; y++) { for (int j = 0; j < 3; j++) { int f = i * 3 + x,
-		 * c = y * 3 + j;
-		 * 
-		 * textField[f][c] = new CasellaGrafica(f, c);
-		 * jpanel[i][y].add(textField[f][c]);
-		 * textField[f][c].setBorder(BorderFactory .createLineBorder(BLACK));
-		 * textField[f][c] .setHorizontalAlignment(SwingConstants.CENTER);
-		 * textField[f][c].setFont(new Font("Calibri", 3, 25));
-		 * 
-		 * if (editables[f][c]=="n") { textField[f][c].setText(graella[f][c]);
-		 * textField[f][c].setForeground(YELLOW);
-		 * textField[f][c].setBackground(GRAY);
-		 * textField[f][c].setEditable(false); } } } } } /* String[][] nou =
-		 * control.getTaulellBBDD(rc); for (int x = 0; x < 9; x++) { for (int y
-		 * = 0; y < 9; y++) { System.out.print(nou[x][y]); } }
-		 * 
-		 * 
-		 * } } catch (Exception e2) { JOptionPane.showMessageDialog(new
-		 * JFrame(), e2.getMessage()); }
-		 * 
-		 * } });
-		 */
 		textLog.addActionListener(new ActionListener() {
 
 			@Override
@@ -449,13 +198,13 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			}
 
-
 		});
 
 		random.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				try {
 					int res = JOptionPane.showConfirmDialog(new JFrame(),
 							"Perdras el sudoku actual, vols continuar?",
@@ -463,27 +212,70 @@ public class Presentacio implements ActionListener, FocusListener {
 							JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
+						control.canviarTaulell();
+
+						// ///////////////////////////
+						// /////////////////////////////
 						try {
-							control.canviarTaulell();
-							actualitzar();
-						} catch (Exception e1) {
-							e1.printStackTrace();
+							control = new Control(control.getTTaulell());
+
+						} catch (Exception e2) {
+							System.out.println("81");
 						}
 
-						p.frame.setVisible(false);
+						try {
+							quinSudoku = control.quantsTaulells() + 1;
+							System.out.print(quinSudoku);
+						} catch (Exception e3) {
+							System.out
+									.println("ERROR AGAFANT NUMERO DE SUDOKUS \n Linia 67");
+						}
 
-						// crear nou sudoku
-						Presentacio w = new Presentacio(control.getTTaulell(),
-								textLog.getText());
+						actualitzar();
 
-						w.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-						w.frame.setBounds(0, 0, 500, 500);
-						w.frame.setVisible(true);
+						// ////////////////////////////
+						// ///////////////////////////
+						/*
+						 * control=new Control(control.getTTaulell());
+						 * 
+						 * //actualitzar();
+						 * control.setCCounter(control.getUltimId());
+						 * quinSudoku=control.quantsTaulells()+1;
+						 * //System.out.println
+						 * ("Ultima Casella:"+control.getCCouter());
+						 * //System.out.println("Sudoku:"+quinSudoku);
+						 */
 
+						// control.storeTaulell(control.getTTaulell(),
+						// textLog.getText(),quinSudoku );
 					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
 				}
+
+				/*
+				 * try { int res = JOptionPane.showConfirmDialog(new JFrame(),
+				 * "Perdras el sudoku actual, vols continuar?", "ALERTA",
+				 * JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				 * 
+				 * if (res == JOptionPane.YES_OPTION) { try {
+				 * 
+				 * control.canviarTaulell(); actualitzar();
+				 * 
+				 * } catch (Exception e1) { e1.printStackTrace(); }
+				 * 
+				 * p.frame.setVisible(false);
+				 * 
+				 * // crear nou sudoku Presentacio w = new
+				 * Presentacio(control.getTTaulell(), textLog.getText());
+				 * 
+				 * w.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE
+				 * ); w.frame.setBounds(0, 0, 500, 500);
+				 * w.frame.setVisible(true);
+				 * 
+				 * } } catch (Exception ex) { JOptionPane.showMessageDialog(new
+				 * JFrame(), ex.getMessage()); }
+				 */
 
 			}
 		});
@@ -535,12 +327,46 @@ public class Presentacio implements ActionListener, FocusListener {
 
 	private void actualitzar() {
 		String[][] graella = control.getTaulell();
+
 		for (int i = 0; i < 3; i++) {
 			for (int x = 0; x < 3; x++) {
 				for (int y = 0; y < 3; y++) {
 					for (int j = 0; j < 3; j++) {
 						int f = i * 3 + x, c = y * 3 + j;
+
 						if (!control.esModificable(f, c)) {
+							textField[f][c].setText(graella[f][c]);
+							textField[f][c].setForeground(YELLOW);
+							textField[f][c].setBackground(GRAY);
+							textField[f][c].setEditable(false);
+						} else {
+							textField[f][c].setText(graella[f][c]);
+							textField[f][c].setForeground(BLACK);
+							textField[f][c].setBackground(WHITE);
+							textField[f][c]
+									.addActionListener((ActionListener) this);
+							textField[f][c].setEditable(true);
+						}
+					}
+				}
+			}
+		}
+
+		frame.revalidate();
+		frame.repaint();
+
+	}
+
+	private void actualitzarBBDD() {
+		String[][] graella = control.getTaulell();
+		String[][] modifca = control.getEditablesBBDD(quinSudoku);
+		for (int i = 0; i < 3; i++) {
+			for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 3; y++) {
+					for (int j = 0; j < 3; j++) {
+						int f = i * 3 + x, c = y * 3 + j;
+						if (modifca[f][c] == "n") {
+
 							textField[f][c].setText(graella[f][c]);
 							textField[f][c].setForeground(YELLOW);
 							textField[f][c].setBackground(GRAY);
@@ -580,16 +406,14 @@ public class Presentacio implements ActionListener, FocusListener {
 				nEntrades++;
 			}
 
-			
 			// BBDD////////////////////////////////////////////////
-
-			System.out.print("Sudoku"+ quinSudoku+"\n");
 
 			if (!(control.taulellBuit(quinSudoku)))
 				control.updateTaulell(f, c, casella.getText(),
 						control.getTTaulell(), quinSudoku);
 			else
-				control.storeTaulell(control.getTTaulell(), textLog.getText(),control.quantsTaulells());
+				control.storeTaulell(control.getTTaulell(), textLog.getText(),
+						control.quantsTaulells());
 
 			// ///////////////////////////////////////////////
 			if (control.isComplete()) {
@@ -634,9 +458,10 @@ public class Presentacio implements ActionListener, FocusListener {
 	}
 
 	private void posarColor() {
+		String[][] ediatbles = control.getEditablesBBDD(quinSudoku);
 		for (int x = 0; x < 9; x++) {
 			for (int y = 0; y < 9; y++) {
-				if (!control.esModificable(x, y))
+				if (ediatbles[x][y] == "n")
 					textField[x][y].setBackground(GRAY);
 				else if (textField[x][y].isFocus())
 					textField[x][y].setBackground(GREEN);
