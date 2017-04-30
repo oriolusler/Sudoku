@@ -1,39 +1,60 @@
 package Aplicacio;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
 import Domini.Casella;
 import Domini.Jugador;
+import Domini.Sudoku;
 import Domini.Taulell;
 import Persistencia.JugadorBBDD;
+import Persistencia.SudokuBBDD;
 import Persistencia.TaulellBBDD;
 
 public class Control {
 
 	private Taulell t;
 	private Jugador jugador;
+	private Sudoku su;
+	private Timestamp time;
 
 	public Control(boolean buit) throws Exception {
 
 		Calendar calendar = Calendar.getInstance();
-	    java.sql.Timestamp time = new java.sql.Timestamp(calendar.getTime().getTime());
+	    time = new java.sql.Timestamp(calendar.getTime().getTime());
 	    System.out.println(time);
 		t = new Taulell(buit, getUltimId(),time);
+		su=new Sudoku(time, -1, "anonim");
 
 	}
 
 	public Control(Casella[][] a) throws Exception {
 		Calendar calendar = Calendar.getInstance();
-	    java.sql.Timestamp time = new java.sql.Timestamp(calendar.getTime().getTime());
+	   time = new java.sql.Timestamp(calendar.getTime().getTime());
 	    System.out.println(time);
 		t = new Taulell(getUltimId(), a, time);
+		su=new Sudoku(time, -1, "anonim");
 
 	}
 	
+	public void setSudoku(int quinSudoku, String nom){
+		su = new Sudoku(time, quinSudoku, nom);
+	}
+
+	public void getSudoku() throws ParseException{
+		
 	
 
+		
+		System.out.println(su.getNom());
+		System.out.println(su.getQuinSudoku());
+		System.out.println(su.getTime());
+	}
 	public void getNumero(int i) {
 		t.getNumero(i);
 	}
@@ -51,6 +72,15 @@ public class Control {
 		return t.getTaulell();
 	}
 
+	////////////
+	public boolean sudokuBuit(int i) throws Exception {
+		return SudokuBBDD.estaBuit(i);
+	}
+	
+	public void storeSudoku(int quinSudoku) throws Exception{
+		SudokuBBDD.storeSudoku(quinSudoku,su.getNom());
+	}
+	
 	////////////
 	
 	public void setCCounter(int i){
@@ -115,20 +145,21 @@ public class Control {
 			return -2;
 
 		} catch (Exception e) {
-			int[] quantsId = getTotalIdSu();
+			Timestamp[] quantsId = getTotalIdSu();
+		
 			int quantsBons = 0;
 			for (int i = 0; i < quantsId.length; i++) {
 
-				if (!(quantsId[i] == 0)) {
+				if (!(quantsId[i] == null)) {
 					quantsBons++;
 				}
 			}
-			String[] buttons = new String[quantsBons];
+			Timestamp[] buttons = new Timestamp[quantsBons];
 
 			for (int i = 0; i < quantsId.length; i++) {
 
-				if (!(quantsId[i] == 0)) {
-					buttons[i] = String.valueOf(quantsId[i]);
+				if (!(quantsId[i] == null)) {
+					buttons[i] = quantsId[i];
 				}
 			}
 
@@ -173,9 +204,10 @@ public class Control {
 		return TaulellBBDD.getUltimId();
 	}
 
-	public int[] getTotalIdSu() throws Exception {
+	public Timestamp[] getTotalIdSu() throws Exception {
 		return TaulellBBDD.getTotalIdSu();
 
 	}
+	
 
 }

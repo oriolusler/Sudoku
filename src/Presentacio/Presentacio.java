@@ -25,7 +25,7 @@ public class Presentacio implements ActionListener, FocusListener {
 	private JTextField textLog = new JTextField();
 	// private JButton recuperarPartida = new JButton("Recuperar partida");
 	private int quinSudoku = 0;
-	private static Presentacio p;
+	//private static Presentacio p;
 
 	public Presentacio() {
 
@@ -406,6 +406,11 @@ public class Presentacio implements ActionListener, FocusListener {
 				nEntrades++;
 			}
 
+			control.setSudoku(quinSudoku,textLog.getText());
+			control.getSudoku();
+			
+			System.out.print(control.sudokuBuit(quinSudoku));
+			if(control.sudokuBuit(quinSudoku))control.storeSudoku(quinSudoku);
 			// BBDD////////////////////////////////////////////////
 
 			if (!(control.taulellBuit(quinSudoku)))
@@ -444,7 +449,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 				try {
 					new LoginControler().Login();
-					p = new Presentacio();
+					Presentacio p = new Presentacio();
 
 					p.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 					p.frame.setBounds(0, 0, 500, 500);

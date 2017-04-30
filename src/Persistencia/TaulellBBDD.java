@@ -3,6 +3,8 @@ package Persistencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+
 import Domini.Casella;
 import Domini.Jugador;
 
@@ -219,14 +221,14 @@ public class TaulellBBDD {
 		}
 	}
 
-	public static int[] getTotalIdSu() throws Exception {
+	public static Timestamp[] getTotalIdSu() throws Exception {
 
-		int[] numeros = new int[999];
+		Timestamp[] partides = new Timestamp[999];
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		int i = 0;
 		try {
-			String sql = "SELECT IDSO  FROM PARTIDA GROUP BY IDSO ORDER BY IDSO";
+			String sql = "SELECT TIMESTAMP  FROM SUDOKU";
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(sql);
 			preparedStatement.clearParameters();
@@ -235,14 +237,14 @@ public class TaulellBBDD {
 			try {
 				while (rs.next()) {
 
-					numeros[i] = rs.getInt("IDSO");
+					partides[i] = rs.getTimestamp("TIMESTAMP");
 					i++;
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				throw new Exception("Accedit el numero permes");
 			}
-			return numeros;
+			return partides;
 		} catch (SQLException e) {
 			throw new Exception("ERROR METODE GET ID SU");
 		}
