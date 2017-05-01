@@ -44,19 +44,6 @@ public class Control {
 		su = new Sudoku(time, quinSudoku, nom);
 	}
 
-	public void getSudoku() throws ParseException{
-		
-	
-
-		
-		System.out.println(su.getNom());
-		System.out.println(su.getQuinSudoku());
-		System.out.println(su.getTime());
-	}
-	public void getNumero(int i) {
-		t.getNumero(i);
-	}
-
 	public void setEntrada(int fila, int columna, String valor)
 			throws Exception {
 		t.canviarValor(fila, columna, Integer.parseInt(valor));
@@ -70,7 +57,6 @@ public class Control {
 		return t.getTaulell();
 	}
 
-	////////////
 	public boolean sudokuBuit(int i) throws Exception {
 		return SudokuBBDD.estaBuit(i);
 	}
@@ -79,16 +65,6 @@ public class Control {
 		SudokuBBDD.storeSudoku(quinSudoku,su.getNom());
 	}
 	
-	////////////
-	
-	public void setCCounter(int i){
-		t.setCcpunter(i);
-	}
-	
-	public int getCCouter(){
-		return t.getCcpunter();
-	}
-	// ////////////////////////////
 	public Casella[][] getTTaulell() {
 		return t.getCasella();
 	}
@@ -169,18 +145,6 @@ public class Control {
 		}
 
 	}
-
-	public String nomsBDD() {
-
-		try {
-			return JugadorBBDD.getJugadors();
-		} catch (Exception e) {
-			return null;
-		}
-
-	}
-
-	// ////////////////////////////////
 
 	public String[][] getTaulellBBDD(int i) {
 		try {

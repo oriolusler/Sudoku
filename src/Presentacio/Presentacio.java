@@ -60,6 +60,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			}
 			textLog.setEditable(false);
+			loggin.setText("El jugador actualment jugant és:");
 
 			if (!(sudokuUsuari == -2)) {
 				tot.setVisible(true);
@@ -439,7 +440,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 
 			control.setSudoku(quinSudoku, textLog.getText());
-			control.getSudoku();
+			
 
 			System.out.print(control.sudokuBuit(quinSudoku));
 			if (control.sudokuBuit(quinSudoku))
