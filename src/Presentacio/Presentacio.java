@@ -1,7 +1,6 @@
 package Presentacio;
 
 import javax.swing.*;
-
 import Aplicacio.Control;
 import Aplicacio.LoginControler;
 import java.awt.*;
@@ -25,41 +24,19 @@ public class Presentacio implements ActionListener, FocusListener {
 	private JTextField textLog = new JTextField();
 	// private JButton recuperarPartida = new JButton("Recuperar partida");
 	private int quinSudoku = 0;
-	//private static Presentacio p;
+
+	// private static Presentacio p;
 
 	public Presentacio() {
 
 		try {
-			int res = JOptionPane
-					.showConfirmDialog(
-							new JFrame(),
-							"Vols crear un Sudoku desde zero?\n - En cas contrari es creara un Sudoku predefinit\n\nBONA SORT",
-							"TRIA", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
-
-			if (res == JOptionPane.YES_OPTION) {
-				JOptionPane
-						.showMessageDialog(
-								new JFrame(),
-								"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
-										+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
-										+ "\n - Per finalitzar la creacio premeu 'Crear Sudoku' a la part inferior");
-				control = new Control(true);
-				random.setEnabled(false);
-
-			} else if (res == JOptionPane.NO_OPTION) {
-				control = new Control(false);
-				crear.setEnabled(false);
-				sudokuV3.setEnabled(false);
-
-			} else {
-				System.exit(0);
-			}
-
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(),
-					"Error en crear el sudoku");
+			control = new Control(false);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		crear.setEnabled(false);
+		sudokuV3.setEnabled(false);
 
 		try {
 			quinSudoku = control.quantsTaulells() + 1;
@@ -81,10 +58,10 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			}
 			textLog.setEditable(false);
-			tot.setVisible(true);
-			botons.setVisible(true);
 
 			if (!(sudokuUsuari == -2)) {
+				tot.setVisible(true);
+				botons.setVisible(true);
 				String[][] graella = control.getTaulellBBDD(quinSudoku);
 				String[][] ediatbles = control.getEditablesBBDD(quinSudoku);
 				control = new Control(true);
@@ -119,12 +96,59 @@ public class Presentacio implements ActionListener, FocusListener {
 					}
 				}
 
+			} else {
+
+				try {
+					int res = JOptionPane
+							.showConfirmDialog(
+									new JFrame(),
+									"Vols crear un Sudoku desde zero?\n - En cas contrari es creara un Sudoku predefinit\n\nBONA SORT",
+									"TRIA", JOptionPane.YES_NO_OPTION,
+									JOptionPane.QUESTION_MESSAGE);
+
+					if (res == JOptionPane.YES_OPTION) {
+						JOptionPane
+								.showMessageDialog(
+										new JFrame(),
+										"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
+												+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
+												+ "\n - Per finalitzar la creacio premeu 'Crear Sudoku' a la part inferior");
+						control = new Control(true);
+						random.setEnabled(false);
+
+					} else if (res == JOptionPane.NO_OPTION) {
+						control = new Control(false);
+						crear.setEnabled(false);
+						sudokuV3.setEnabled(false);
+
+					} else {
+						System.exit(0);
+					}
+
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(new JFrame(),
+							"Error en crear el sudoku");
+				}
+
+				try {
+					quinSudoku = control.quantsTaulells() + 1;
+
+				} catch (Exception e) {
+					System.out
+							.println("ERROR AGAFANT NUMERO DE SUDOKUS \n Linia 67");
+				}
+
+				actualitzar();
+				tot.setVisible(true);
+				botons.setVisible(true);
+
 			}
 
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(),
 					"Error lectura BBDD", JOptionPane.ERROR_MESSAGE);
 		}
+
 	}
 
 	// /////////////////////////////////////////////
@@ -194,6 +218,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			@Override
 			public void actionPerformed(ActionEvent evt) {
+
 				inici();
 
 			}
@@ -308,6 +333,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 		sudokuV3.addActionListener(new ActionListener() {
 
+			// MODIFCAR PER QUE CREI NOU SUOKU PER GUARDAR
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -406,11 +432,12 @@ public class Presentacio implements ActionListener, FocusListener {
 				nEntrades++;
 			}
 
-			control.setSudoku(quinSudoku,textLog.getText());
+			control.setSudoku(quinSudoku, textLog.getText());
 			control.getSudoku();
-			
+
 			System.out.print(control.sudokuBuit(quinSudoku));
-			if(control.sudokuBuit(quinSudoku))control.storeSudoku(quinSudoku);
+			if (control.sudokuBuit(quinSudoku))
+				control.storeSudoku(quinSudoku);
 			// BBDD////////////////////////////////////////////////
 
 			if (!(control.taulellBuit(quinSudoku)))

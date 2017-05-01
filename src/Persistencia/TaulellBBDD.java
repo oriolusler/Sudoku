@@ -61,8 +61,6 @@ public class TaulellBBDD {
 	public static String[][] getEditables(int i) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
-		// Taulell taulell = new Taulell(true);
-		// taulell.CrearTaulell();
 		String[][] taulell = new String[9][9];
 
 		try {
@@ -97,8 +95,7 @@ public class TaulellBBDD {
 	public static String[][] getTaulell(int i) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
-		// Taulell taulell = new Taulell(true);
-		// taulell.CrearTaulell();
+
 		String[][] taulell = new String[9][9];
 
 		try {

@@ -3,12 +3,7 @@ package Persistencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import Domini.Casella;
-import Domini.Jugador;
 
 public class SudokuBBDD {
 	public static boolean estaBuit(int i) throws Exception {
