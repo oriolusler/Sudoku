@@ -24,6 +24,8 @@ public class Presentacio implements ActionListener, FocusListener {
 	private JTextField textLog = new JTextField();
 	// private JButton recuperarPartida = new JButton("Recuperar partida");
 	private int quinSudoku = 0;
+	private JLabel loggin = new JLabel("Introdueix el seu nom per jugar: ");
+	private JPanel iniciar = new JPanel(new GridLayout());
 
 	// private static Presentacio p;
 
@@ -200,9 +202,13 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 		}
 
-		frame.add(textLog, BorderLayout.NORTH);
+		
 		textLog.setText("Introdueix el teu nom");
-
+		
+		iniciar.add(loggin);
+		iniciar.add(textLog);
+		
+		frame.add(iniciar,BorderLayout.NORTH);
 		// botons.add(recuperarPartida);
 		botons.add(random, BorderLayout.NORTH);
 		botons.add(crear, BorderLayout.CENTER);
