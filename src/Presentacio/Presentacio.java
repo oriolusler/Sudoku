@@ -8,6 +8,7 @@ import java.awt.event.*;
 
 import static java.awt.Color.*;
 
+//Prova
 public class Presentacio implements ActionListener, FocusListener {
 
 	private Control control;
