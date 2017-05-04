@@ -18,102 +18,35 @@ public class Taulell {
 		this.identificadorTaulell = identificadorTaulell;
 	}
 
-	private  int Ccpunter = 1;
-	private int counter = 1;
+	public Taulell(boolean buit, java.sql.Timestamp time) throws Exception {
 
-	public void setCcpunter(int ccpunter) {
-		Ccpunter = ccpunter;
-	}
-	
-	public int getCcpunter(){
-		return Ccpunter;
-	}
-
-	private int idSu;
-
-	//
-	public Taulell(boolean buit, int lastID, java.sql.Timestamp time) throws Exception {
-
-		this.identificadorTaulell=time;
-		lastID = lastID + 1;
-		//System.out.print(lastID);
-		Ccpunter = (lastID++);
-
+		this.identificadorTaulell = time;
 		graella = new Casella[9][9];
 		iniciarErrors();
 		CrearTaulell();
-		if (!buit){
+		if (!buit) {
 			CrearGraella.crearGraella(this);
-			
-			
-			/*MATEIX
-			 
-			this.setCasella(4, 3, 8);
-			this.setCasella(8, 7, 7);
-			this.setCasella(0, 4, 7);
-			this.setCasella(4, 8, 1);
-			this.setCasella(0, 1, 3);
-			this.setCasella(1, 3, 1);
-			this.setCasella(5, 4, 2);
-			this.setCasella(1, 0, 6);
-			this.setCasella(1, 5, 5);
-			this.setCasella(6, 1, 6);
-			this.setCasella(1, 4, 9);
-			this.setCasella(2, 2, 8);
-			this.setCasella(6, 7, 8);
-			this.setCasella(2, 1, 9);
-			this.setCasella(3, 0, 8);
-			this.setCasella(7, 4, 1);
-			this.setCasella(2, 7, 6);
-			this.setCasella(3, 8, 3);
-			this.setCasella(7, 8, 5);
-			this.setCasella(3, 4, 6);
-			this.setCasella(4, 0, 4);
-			this.setCasella(4, 5, 3);
-			this.setCasella(5, 0, 7);
-			this.setCasella(5, 8, 6);
-			this.setCasella(6, 6, 2);
-			this.setCasella(7, 3, 4);
-			this.setCasella(7, 5, 9);
-			this.setCasella(8, 4, 8);
-			this.setCasella(8, 8, 9);	*/
-		
+
 		}
 	}
-	
-	public Taulell(int lastID, Casella[][] taulell,java.sql.Timestamp time) throws Exception{
-		
-		this.identificadorTaulell=time;
-		lastID = lastID + 1;
-		System.out.print(lastID);
-		Ccpunter = (lastID++);
+
+	public Taulell(Casella[][] taulell, java.sql.Timestamp time)
+			throws Exception {
+
+		this.identificadorTaulell = time;
 
 		graella = new Casella[9][9];
 		iniciarErrors();
 		CrearTaulell();
-	
+
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				if(!(taulell[i][j].isEditable())){
+				if (!(taulell[i][j].isEditable())) {
 					this.setCasella(i, j, taulell[i][j].getValor());
 				}
 			}
 		}
-		
-	}
 
-	public void getNumero(int i) {
-
-		i = i + 1;
-		Ccpunter = i;
-	}
-
-	public int getIdSu() {
-		return idSu;
-	}
-
-	public void setIdCasella(int idSu) {
-		this.idSu = idSu;
 	}
 
 	public Casella[][] getCasella() {
@@ -155,13 +88,6 @@ public class Taulell {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				graella[i][j] = new Casella();
-				graella[i][j].setIdCasella(Ccpunter);
-				graella[i][j].setIdC(counter);
-				counter++;
-				Ccpunter++;
-
-				// ////////////////////////
-				//System.out.print(Ccpunter);
 			}
 		}
 	}
@@ -188,10 +114,6 @@ public class Taulell {
 
 	public int getValorCasella(int x, int y) {
 		return graella[x][y].getValor();
-	}
-
-	public int getIdCasella(int x, int y) {
-		return graella[x][y].getIdCasella();
 	}
 
 	// ////////////////////////////////////////////////////////////////////
@@ -243,5 +165,10 @@ public class Taulell {
 
 	public void canvis() throws Exception {
 		new Equivalent(this.graella);
+	}
+	
+	public void setEditable(int fila, int columna, boolean editable){
+		new Coordenada(fila, columna);
+		graella[fila][columna].setEditable(editable);
 	}
 }

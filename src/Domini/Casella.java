@@ -2,25 +2,7 @@ package Domini;
 
 public class Casella {
 
-	private int valor,idCasella,idC;
-	
-	
-	public int getIdC() {
-		return idC;
-	}
-
-	public void setIdC(int idC) {
-		this.idC = idC;
-	}
-
-	public int getIdCasella() {
-		return idCasella;
-	}
-
-	public void setIdCasella(int idCasella) {
-		this.idCasella = idCasella;
-	}
-
+	private int valor;
 	private boolean editable;
 	final static int vDefecte = 0;
 	
@@ -38,6 +20,9 @@ public class Casella {
 		return editable;
 	}
 
+	public void setEditable(boolean v){
+		this.editable=v;
+	}
 	void setValor(int valor) throws Exception {
 		if (valor < 1 || valor > 9)
 			throw new Exception("Error valor casella: fora de rang. Ha de ser 1..9");

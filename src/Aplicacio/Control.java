@@ -1,11 +1,8 @@
 package Aplicacio;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.util.Calendar;
-
 import javax.swing.JOptionPane;
-
 import Domini.Casella;
 import Domini.Jugador;
 import Domini.Sudoku;
@@ -24,23 +21,21 @@ public class Control {
 	public Control(boolean buit) throws Exception {
 
 		Calendar calendar = Calendar.getInstance();
-	    time = new java.sql.Timestamp(calendar.getTime().getTime());
-	    System.out.println(time);
-		t = new Taulell(buit, getUltimId(),time);
-		su=new Sudoku(time, -1, "anonim");
+		time = new java.sql.Timestamp(calendar.getTime().getTime());
+		t = new Taulell(buit, time);
+		su = new Sudoku(time, -1, "anonim");
 
 	}
 
 	public Control(Casella[][] a) throws Exception {
 		Calendar calendar = Calendar.getInstance();
-	   time = new java.sql.Timestamp(calendar.getTime().getTime());
-	    System.out.println(time);
-		t = new Taulell(getUltimId(), a, time);
-		su=new Sudoku(time, -1, "anonim");
+		time = new java.sql.Timestamp(calendar.getTime().getTime());
+		t = new Taulell(a, time);
+		su = new Sudoku(time, -1, "anonim");
 
 	}
-	
-	public void setSudoku(int quinSudoku, String nom){
+
+	public void setSudoku(int quinSudoku, String nom) {
 		su = new Sudoku(time, quinSudoku, nom);
 	}
 
@@ -60,11 +55,11 @@ public class Control {
 	public boolean sudokuBuit(int i) throws Exception {
 		return SudokuBBDD.estaBuit(i);
 	}
-	
-	public void storeSudoku(int quinSudoku) throws Exception{
-		SudokuBBDD.storeSudoku(quinSudoku,su.getNom());
+
+	public void storeSudoku(int quinSudoku) throws Exception {
+		SudokuBBDD.storeSudoku(quinSudoku, su.getNom());
 	}
-	
+
 	public Casella[][] getTTaulell() {
 		return t.getCasella();
 	}
@@ -95,10 +90,10 @@ public class Control {
 		TaulellBBDD.updateTaulell(x, y, value, taulell, su);
 	}
 
-	public void storeTaulell(Casella[][] taulell, String nom, int quantsTaulells) throws Exception {
-		jugador = new Jugador(nom);
+	public void storeTaulell(Casella[][] taulell, String nom, int quantsTaulells)
+			throws Exception {
 		int quants = quantsTaulells + 1;
-		TaulellBBDD.storeTaullell(taulell, jugador, quants);
+		TaulellBBDD.storeTaullell(taulell, quants);
 	}
 
 	public boolean taulellBuit(int i) throws Exception {
@@ -120,7 +115,7 @@ public class Control {
 
 		} catch (Exception e) {
 			Timestamp[] quantsId = getTotalIdSu();
-		
+
 			int quantsBons = 0;
 			for (int i = 0; i < quantsId.length; i++) {
 
@@ -137,9 +132,9 @@ public class Control {
 				}
 			}
 
-			int rc = JOptionPane.showOptionDialog(null, "Quin sudoku vols recuperar?",
-					"Confirmation", JOptionPane.WARNING_MESSAGE, 0, null,
-					buttons, buttons);
+			int rc = JOptionPane.showOptionDialog(null,
+					"Quin sudoku vols recuperar?", "Confirmation",
+					JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons);
 			rc += 1;
 			return rc;
 		}
@@ -161,15 +156,22 @@ public class Control {
 			return null;
 		}
 	}
-	
-	public int getUltimId() throws Exception {
-		return TaulellBBDD.getUltimId();
-	}
 
 	public Timestamp[] getTotalIdSu() throws Exception {
-		return TaulellBBDD.getTotalIdSu();
+		return SudokuBBDD.getTotalIdSu();
 
 	}
+
+	public void setEditable(int f, int c, boolean editable) {
+		t.setEditable(f, c, editable);
+	}
+
+	public void setCasella(int x, int y, int valor) throws Exception {
+		t.setCasella(x, y, valor);
+	}
 	
+	public void actualitzarBBDD(Casella[][] taulell, int quinSu) throws Exception{
+		TaulellBBDD.actualitzarBBDD(taulell, quinSu);
+	}
 
 }

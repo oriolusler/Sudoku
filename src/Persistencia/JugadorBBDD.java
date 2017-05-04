@@ -6,9 +6,6 @@ import java.sql.SQLException;
 
 import Domini.Jugador;
 
-
-
-
 public class JugadorBBDD {
 
 	public static String getJugadors() throws Exception {
