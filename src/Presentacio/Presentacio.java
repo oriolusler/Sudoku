@@ -302,8 +302,8 @@ public class Presentacio implements ActionListener, FocusListener {
 					if (res == JOptionPane.YES_OPTION) {
 						control.canviarTaulell();
 
-						// ///////////////////////////
-						// /////////////////////////////
+						/////////////////////////////
+						/////////////////////////////
 						try {
 							control = new Control(control.getTTaulell());
 
@@ -358,7 +358,6 @@ public class Presentacio implements ActionListener, FocusListener {
 
 		sudokuV3.addActionListener(new ActionListener() {
 
-			// MODIFCAR PER QUE CREI NOU SUOKU PER GUARDAR
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
