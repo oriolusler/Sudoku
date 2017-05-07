@@ -54,7 +54,7 @@ public class SudokuBBDD {
 	
 	public static Timestamp[] getTimestamps(String nom) throws Exception {
 
-		Timestamp[] partides = new Timestamp[quantsSudokus()];
+		Timestamp[] partides = new Timestamp[quantsSudokus(nom)];
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		int i = 0;
@@ -110,15 +110,16 @@ public class SudokuBBDD {
 
 	}
 
-	public static int quantsSudokus() throws Exception {
+	public static int quantsSudokus(String nom) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		try {
-			String sql = "SELECT COUNT(*) FROM SUDOKU";
+			String sql = "SELECT COUNT(*) FROM SUDOKU WHERE NOMJUGADOR= ?";
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(sql);
 			preparedStatement.clearParameters();
+			preparedStatement.setString(1, nom);
 
 			ResultSet rs = preparedStatement.executeQuery();
 

@@ -2,7 +2,6 @@ package Aplicacio;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
-import javax.swing.JOptionPane;
 import Domini.Casella;
 import Domini.Jugador;
 import Domini.Sudoku;
@@ -112,12 +111,9 @@ public class Control {
 		try {
 			JugadorBBDD.storeJugador(jugador);
 			return -2;
-
 		} catch (Exception e) {
-
 			return 1;
 		}
-
 	}
 
 	public String[][] getTaulellBBDD(int i) {
@@ -156,7 +152,7 @@ public class Control {
 
 	public int getIdFromTimeStamp(Timestamp input) throws Exception {
 		return SudokuBBDD.getIdFromTimeStamp(input);
-				
+
 	}
 
 }

@@ -3,10 +3,7 @@ package Persistencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-
 import Domini.Casella;
-import Domini.Jugador;
 
 public class TaulellBBDD {
 
@@ -79,8 +76,6 @@ public class TaulellBBDD {
 					taulell[x][y] = "s";
 				else
 					taulell[x][y] = "n";
-				// taulell.setCasella(x, y, valor);
-
 			}
 			return taulell;
 		} catch (SQLException e) {
@@ -180,7 +175,6 @@ public class TaulellBBDD {
 
 				if (taulell[i][j].getValor() != 0) {
 
-					// String sql = "INSERT INTO CASELLA VALUES(?,?,?,?,?)";
 					String sql = "UPDATE CASELLA SET valor=?,editable=? WHERE COORX=? AND COORY=? AND IDSUDOKU=?";
 					PreparedStatement pst = connection.prepareStatement(sql);
 

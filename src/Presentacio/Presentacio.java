@@ -73,7 +73,7 @@ public class Presentacio implements ActionListener, FocusListener {
 				String[][] ediatbles = control.getEditablesBBDD(quinSudoku);
 				control = new Control(true);
 				random.setEnabled(false);
-				guardarPartida.setEnabled(true);
+				
 
 				for (int i = 0; i < 3; i++) {
 					for (int x = 0; x < 3; x++) {
@@ -131,7 +131,7 @@ public class Presentacio implements ActionListener, FocusListener {
 						control = new Control(false);
 						crear.setEnabled(false);
 						sudokuV3.setEnabled(false);
-						guardarPartida.setEnabled(true);
+						
 
 					} else {
 						System.exit(0);
@@ -327,8 +327,6 @@ public class Presentacio implements ActionListener, FocusListener {
 				if (nEntrades >= 17)
 					try {
 						control.iniciarUsuari();
-						control.actualitzarBBDD(control.getTTaulell(),
-								quinSudoku);
 						actualitzar();
 						crear.setEnabled(false);
 						random.setEnabled(true);
@@ -356,6 +354,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					control = new Control(false);
+					quinSudoku = control.quantsTaulells() + 1;
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(),
 							"Error en crear el sudoku");
@@ -402,6 +401,7 @@ public class Presentacio implements ActionListener, FocusListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		guardarPartida.setEnabled(true);
 		CasellaGrafica casella = (CasellaGrafica) e.getSource();
 		casella.setFocus(false);
 		int f = casella.getFila();
