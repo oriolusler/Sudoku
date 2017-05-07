@@ -53,15 +53,27 @@ public class Presentacio implements ActionListener, FocusListener {
 		try {
 
 			int sudokuUsuari = control.nouJugador(textLog.getText());
+
 			if (!(sudokuUsuari == -2)) {
 				Timestamp[] Ids = control.getTimeStamps(textLog.getText());
 
-				Timestamp input = (Timestamp) JOptionPane.showInputDialog(null,
-						"Choose now...", "The Choice of a Lifetime",
-						JOptionPane.QUESTION_MESSAGE, null, Ids, Ids);
+				if (Ids.length == 0) {
+					control=new Control(false);
+					actualitzar();
+					quinSudoku = control.quantsTaulells() + 1;
+					sudokuUsuari=-2;
+					
+					
 
-				quinSudoku = control.getIdFromTimeStamp(input);
-				
+				} else if (Ids.length == 1)
+					quinSudoku = control.getIdFromTimeStamp(Ids[0]);
+				else {
+					Timestamp input = (Timestamp) JOptionPane.showInputDialog(
+							null, "Choose now...", "The Choice of a Lifetime",
+							JOptionPane.QUESTION_MESSAGE, null, Ids, Ids);
+
+					quinSudoku = control.getIdFromTimeStamp(input);
+				}
 			}
 			textLog.setEditable(false);
 			loggin.setText("El jugador actualment jugant és:");
@@ -72,8 +84,6 @@ public class Presentacio implements ActionListener, FocusListener {
 				String[][] graella = control.getTaulellBBDD(quinSudoku);
 				String[][] ediatbles = control.getEditablesBBDD(quinSudoku);
 				control = new Control(true);
-				random.setEnabled(false);
-				
 
 				for (int i = 0; i < 3; i++) {
 					for (int x = 0; x < 3; x++) {
@@ -131,7 +141,6 @@ public class Presentacio implements ActionListener, FocusListener {
 						control = new Control(false);
 						crear.setEnabled(false);
 						sudokuV3.setEnabled(false);
-						
 
 					} else {
 						System.exit(0);
