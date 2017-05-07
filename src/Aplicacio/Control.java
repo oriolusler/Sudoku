@@ -49,7 +49,7 @@ public class Control {
 		return SudokuBBDD.estaBuit(i);
 	}
 
-	public void storeSudoku(int quinSudoku,String nom) throws Exception {
+	public void storeSudoku(int quinSudoku, String nom) throws Exception {
 		
 		su = new Sudoku(time, quinSudoku, nom);
 		SudokuBBDD.storeSudoku(su);
@@ -81,7 +81,7 @@ public class Control {
 
 	
 
-	public void storeTaulell(Casella[][] taulell, String nom, int quantsTaulells)
+	public void storeTaulell(Casella[][] taulell, int quantsTaulells)
 			throws Exception {
 		int quants = quantsTaulells + 1;
 		TaulellBBDD.storeTaullell(taulell, quants);
@@ -124,8 +124,8 @@ public class Control {
 		}
 	}
 
-	public Timestamp[] getTimeStamps(String nom) throws Exception {
-		return SudokuBBDD.getTimestamps(nom);
+	public Timestamp[] getTimeStamps() throws Exception {
+		return SudokuBBDD.getTimestamps(jugador.getNom());
 
 	}
 

@@ -56,7 +56,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			int sudokuUsuari = control.nouJugador(textLog.getText());
 
 			if (!(sudokuUsuari == -2)) {
-				Timestamp[] Ids = control.getTimeStamps(textLog.getText());
+				Timestamp[] Ids = control.getTimeStamps();
 
 				if (Ids.length == 0) {
 					control = new Control(false);
@@ -252,15 +252,14 @@ public class Presentacio implements ActionListener, FocusListener {
 				if (res == JOptionPane.YES_OPTION) {
 					try {
 						if (control.sudokuBuit(quinSudoku))
-							control.storeSudoku(quinSudoku, textLog.getText());
+							control.storeSudoku(quinSudoku,textLog.getText());
 						// BBDD////////////////////////////////////////////////
 
 						if (!(control.taulellBuit(quinSudoku)))
 							control.actualitzarBBDD(control.getTTaulell(),
 									quinSudoku);
 						else
-							control.storeTaulell(control.getTTaulell(),
-									textLog.getText(), control.quantsTaulells());
+							control.storeTaulell(control.getTTaulell(), control.quantsTaulells());
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -466,7 +465,7 @@ public class Presentacio implements ActionListener, FocusListener {
 								password };
 
 						int res = JOptionPane.showConfirmDialog(null, array,
-								"Login BBDD", JOptionPane.OK_CANCEL_OPTION,
+								"Login BBDD ORACLE", JOptionPane.OK_CANCEL_OPTION,
 								JOptionPane.PLAIN_MESSAGE);
 
 						if (res == JOptionPane.OK_OPTION) {
