@@ -5,6 +5,7 @@ import Aplicacio.Control;
 import Aplicacio.LoginControler;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Timestamp;
 
 import static java.awt.Color.*;
 
@@ -53,9 +54,14 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			int sudokuUsuari = control.nouJugador(textLog.getText());
 			if (!(sudokuUsuari == -2)) {
+				Timestamp[] Ids = control.getTimeStamps(textLog.getText());
 
-				quinSudoku = sudokuUsuari;
+				Timestamp input = (Timestamp) JOptionPane.showInputDialog(null,
+						"Choose now...", "The Choice of a Lifetime",
+						JOptionPane.QUESTION_MESSAGE, null, Ids, Ids);
 
+				quinSudoku = control.getIdFromTimeStamp(input);
+				
 			}
 			textLog.setEditable(false);
 			loggin.setText("El jugador actualment jugant és:");

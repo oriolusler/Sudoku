@@ -114,29 +114,8 @@ public class Control {
 			return -2;
 
 		} catch (Exception e) {
-			Timestamp[] quantsId = getTotalIdSu();
 
-			int quantsBons = 0;
-			for (int i = 0; i < quantsId.length; i++) {
-
-				if (!(quantsId[i] == null)) {
-					quantsBons++;
-				}
-			}
-			Timestamp[] buttons = new Timestamp[quantsBons];
-
-			for (int i = 0; i < quantsId.length; i++) {
-
-				if (!(quantsId[i] == null)) {
-					buttons[i] = quantsId[i];
-				}
-			}
-
-			int rc = JOptionPane.showOptionDialog(null,
-					"Quin sudoku vols recuperar?", "Confirmation",
-					JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons);
-			rc += 1;
-			return rc;
+			return 1;
 		}
 
 	}
@@ -157,8 +136,8 @@ public class Control {
 		}
 	}
 
-	public Timestamp[] getTotalIdSu() throws Exception {
-		return SudokuBBDD.getTotalIdSu();
+	public Timestamp[] getTimeStamps(String nom) throws Exception {
+		return SudokuBBDD.getTimestamps(nom);
 
 	}
 
@@ -169,9 +148,15 @@ public class Control {
 	public void setCasella(int x, int y, int valor) throws Exception {
 		t.setCasella(x, y, valor);
 	}
-	
-	public void actualitzarBBDD(Casella[][] taulell, int quinSu) throws Exception{
+
+	public void actualitzarBBDD(Casella[][] taulell, int quinSu)
+			throws Exception {
 		TaulellBBDD.actualitzarBBDD(taulell, quinSu);
+	}
+
+	public int getIdFromTimeStamp(Timestamp input) throws Exception {
+		return SudokuBBDD.getIdFromTimeStamp(input);
+				
 	}
 
 }

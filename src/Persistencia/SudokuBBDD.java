@@ -52,17 +52,18 @@ public class SudokuBBDD {
 		preparedStatement.close();
 	}
 	
-	public static Timestamp[] getTotalIdSu() throws Exception {
+	public static Timestamp[] getTimestamps(String nom) throws Exception {
 
-		Timestamp[] partides = new Timestamp[999];
+		Timestamp[] partides = new Timestamp[quantsSudokus()];
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		int i = 0;
 		try {
-			String sql = "SELECT DATACREACIO FROM SUDOKU";
+			String sql = "SELECT DATACREACIO FROM SUDOKU WHERE NOMJUGADOR = ?";
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(sql);
 			preparedStatement.clearParameters();
+			preparedStatement.setString(1, nom);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			try {
@@ -78,6 +79,59 @@ public class SudokuBBDD {
 			return partides;
 		} catch (SQLException e) {
 			throw new Exception("ERROR METODE GET ID SU");
+		}
+
+	}
+	
+	
+	public static int getIdFromTimeStamp(Timestamp time) throws Exception {
+
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+
+		try {
+			String sql = "SELECT IDSUDOKU FROM SUDOKU WHERE DATACREACIO = ?";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.clearParameters();
+			preparedStatement.setTimestamp(1, time);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				int value;
+				value = rs.getInt("IDSUDOKU");
+				return value;
+			}
+
+			throw new Exception("No s'ha trobat valor!");
+		} catch (SQLException e) {
+			throw new Exception("ERROR METODE getIdFromTimeStamp");
+		}
+
+	}
+
+	public static int quantsSudokus() throws Exception {
+
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+
+		try {
+			String sql = "SELECT COUNT(*) FROM SUDOKU";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.clearParameters();
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				int value;
+				value = rs.getInt("COUNT(*)");
+				return value;
+			}
+
+			throw new Exception("No s'ha trobat valor!");
+		} catch (SQLException e) {
+			throw new Exception("ERROR METODE quantsSudokus");
 		}
 
 	}
