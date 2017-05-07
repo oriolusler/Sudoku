@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Sudoku {
 
-	private Timestamp time;
+	private java.sql.Timestamp time;
 	private int quinSudoku;
 	private String nom;
 	public Timestamp getTime() {

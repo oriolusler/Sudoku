@@ -8,19 +8,12 @@ public class Taulell {
 
 	private Casella[][] graella;
 	private int[][] error = new int[2][3];
-	private java.sql.Timestamp identificadorTaulell;
+	
 
-	public java.sql.Timestamp getIdentificadorTaulell() {
-		return identificadorTaulell;
-	}
+	
+	public Taulell(boolean buit) throws Exception {
 
-	public void setIdentificadorTaulell(java.sql.Timestamp identificadorTaulell) {
-		this.identificadorTaulell = identificadorTaulell;
-	}
-
-	public Taulell(boolean buit, java.sql.Timestamp time) throws Exception {
-
-		this.identificadorTaulell = time;
+		
 		graella = new Casella[9][9];
 		iniciarErrors();
 		CrearTaulell();
@@ -30,11 +23,10 @@ public class Taulell {
 		}
 	}
 
-	public Taulell(Casella[][] taulell, java.sql.Timestamp time)
+	public Taulell(Casella[][] taulell)
 			throws Exception {
 
-		this.identificadorTaulell = time;
-
+		
 		graella = new Casella[9][9];
 		iniciarErrors();
 		CrearTaulell();

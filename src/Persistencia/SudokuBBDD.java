@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Calendar;
+import Domini.Sudoku;
 
 public class SudokuBBDD {
 	public static boolean estaBuit(int i) throws Exception {
@@ -33,20 +33,16 @@ public class SudokuBBDD {
 
 	}
 
-	public static void storeSudoku(int quinSudoku, String nom) throws Exception {
+	public static void storeSudoku(Sudoku su) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
-
-		Calendar calendar = Calendar.getInstance();
-		java.sql.Timestamp ourJavaTimestampObject = new java.sql.Timestamp(
-				calendar.getTime().getTime());
-
+		
 		String sqlTimestampInsertStatement = "INSERT INTO SUDOKU VALUES (?,?,?)";
 		PreparedStatement preparedStatement = connection
 				.prepareStatement(sqlTimestampInsertStatement);
-		preparedStatement.setInt(2, quinSudoku);
-		preparedStatement.setString(1, nom);
-		preparedStatement.setTimestamp(3, ourJavaTimestampObject);
+		preparedStatement.setInt(2, su.getQuinSudoku());
+		preparedStatement.setString(1, su.getNom());
+		preparedStatement.setTimestamp(3, su.getTime());
 
 		preparedStatement.executeUpdate();
 		preparedStatement.close();

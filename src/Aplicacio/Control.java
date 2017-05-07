@@ -15,27 +15,21 @@ public class Control {
 	private Taulell t;
 	private Jugador jugador;
 	private Sudoku su;
-	private Timestamp time;
+	private java.sql.Timestamp time;
 
 	public Control(boolean buit) throws Exception {
 
 		Calendar calendar = Calendar.getInstance();
 		time = new java.sql.Timestamp(calendar.getTime().getTime());
-		t = new Taulell(buit, time);
-		su = new Sudoku(time, -1, "anonim");
+		t = new Taulell(buit);
 
 	}
 
 	public Control(Casella[][] a) throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		time = new java.sql.Timestamp(calendar.getTime().getTime());
-		t = new Taulell(a, time);
-		su = new Sudoku(time, -1, "anonim");
+		t = new Taulell(a);
 
-	}
-
-	public void setSudoku(int quinSudoku, String nom) {
-		su = new Sudoku(time, quinSudoku, nom);
 	}
 
 	public void setEntrada(int fila, int columna, String valor)
@@ -55,8 +49,10 @@ public class Control {
 		return SudokuBBDD.estaBuit(i);
 	}
 
-	public void storeSudoku(int quinSudoku) throws Exception {
-		SudokuBBDD.storeSudoku(quinSudoku, su.getNom());
+	public void storeSudoku(int quinSudoku,String nom) throws Exception {
+		
+		su = new Sudoku(time, quinSudoku, nom);
+		SudokuBBDD.storeSudoku(su);
 	}
 
 	public Casella[][] getTTaulell() {
@@ -83,11 +79,7 @@ public class Control {
 		t.iniciarUsuari();
 	}
 
-	public void updateTaulell(int x, int y, String valor, Casella[][] taulell,
-			int su) throws Exception {
-		int value = Integer.parseInt(valor);
-		TaulellBBDD.updateTaulell(x, y, value, taulell, su);
-	}
+	
 
 	public void storeTaulell(Casella[][] taulell, String nom, int quantsTaulells)
 			throws Exception {

@@ -1,6 +1,7 @@
 package Presentacio;
 
 import javax.swing.*;
+
 import Aplicacio.Control;
 import Aplicacio.LoginControler;
 import java.awt.*;
@@ -58,12 +59,10 @@ public class Presentacio implements ActionListener, FocusListener {
 				Timestamp[] Ids = control.getTimeStamps(textLog.getText());
 
 				if (Ids.length == 0) {
-					control=new Control(false);
+					control = new Control(false);
 					actualitzar();
 					quinSudoku = control.quantsTaulells() + 1;
-					sudokuUsuari=-2;
-					
-					
+					sudokuUsuari = -2;
 
 				} else if (Ids.length == 1)
 					quinSudoku = control.getIdFromTimeStamp(Ids[0]);
@@ -253,7 +252,7 @@ public class Presentacio implements ActionListener, FocusListener {
 				if (res == JOptionPane.YES_OPTION) {
 					try {
 						if (control.sudokuBuit(quinSudoku))
-							control.storeSudoku(quinSudoku);
+							control.storeSudoku(quinSudoku, textLog.getText());
 						// BBDD////////////////////////////////////////////////
 
 						if (!(control.taulellBuit(quinSudoku)))
@@ -302,8 +301,8 @@ public class Presentacio implements ActionListener, FocusListener {
 					if (res == JOptionPane.YES_OPTION) {
 						control.canviarTaulell();
 
-						/////////////////////////////
-						/////////////////////////////
+						// ///////////////////////////
+						// ///////////////////////////
 						try {
 							control = new Control(control.getTTaulell());
 
@@ -426,8 +425,6 @@ public class Presentacio implements ActionListener, FocusListener {
 				nEntrades++;
 			}
 
-			control.setSudoku(quinSudoku, textLog.getText());
-
 			// ///////////////////////////////////////////////
 			if (control.isComplete()) {
 				JOptionPane.showMessageDialog(new JFrame(),
@@ -457,7 +454,33 @@ public class Presentacio implements ActionListener, FocusListener {
 			public void run() {
 
 				try {
-					new LoginControler().Login();
+
+					try {
+						JLabel label_login = new JLabel("Usuari:");
+						JTextField login = new JTextField();
+
+						JLabel label_password = new JLabel("Password:");
+						JPasswordField password = new JPasswordField();
+
+						Object[] array = { label_login, login, label_password,
+								password };
+
+						int res = JOptionPane.showConfirmDialog(null, array,
+								"Login BBDD", JOptionPane.OK_CANCEL_OPTION,
+								JOptionPane.PLAIN_MESSAGE);
+
+						if (res == JOptionPane.OK_OPTION) {
+							new LoginControler().Login(login.getText().trim(),
+									new String(password.getPassword()));
+						} else
+							System.exit(0);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(new JFrame(),
+								"Error login a la BBDD");
+						System.exit(0);
+
+					}
+
 					Presentacio p = new Presentacio();
 
 					p.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
