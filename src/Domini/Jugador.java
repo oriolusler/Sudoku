@@ -3,9 +3,11 @@ package Domini;
 public class Jugador {
 
 	private String nom;
+	private int estat;
 
-	public Jugador(String nom) {
+	public Jugador(String nom, int estat) {
 		this.nom = nom;
+		this.estat=estat;
 
 	}
 
@@ -15,6 +17,14 @@ public class Jugador {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+	
+	public int getEstat() {
+		return estat;
+	}
+
+	public void setEstat(int estat) {
+		this.estat = estat;
 	}
 
 }

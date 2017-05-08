@@ -36,11 +36,26 @@ public class JugadorBBDD {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
-		String sql = "INSERT INTO JUGADOR VALUES(?)";
+		String sql = "INSERT INTO JUGADOR VALUES(?,?)";
 		PreparedStatement pst = connection.prepareStatement(sql);
 
 		pst.setString(1, jugador.getNom());
+		pst.setInt(2, jugador.getEstat());
 
+		if (pst.executeUpdate() != 1)
+			throw new Exception("JUGADOR NO GUARDAD!");
+	}
+	
+	public static void updateJugador(Jugador jugador) throws Exception {
+
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+
+		String sql = "UPDATE jugador SET   estajugant = ? WHERE   nomjugador = ?";
+		PreparedStatement pst = connection.prepareStatement(sql);
+
+		pst.setInt(1, jugador.getEstat());
+		pst.setString(2, jugador.getNom());
+		
 		if (pst.executeUpdate() != 1)
 			throw new Exception("JUGADOR NO GUARDAD!");
 	}

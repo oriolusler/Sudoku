@@ -237,6 +237,24 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.add(botons, BorderLayout.SOUTH);
 		frame.add(tot, BorderLayout.CENTER);
 
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				if (JOptionPane.showConfirmDialog(frame,
+						"Are you sure to close this window?",
+						"Really Closing?", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+					try {
+						control.setEstatJuagdor();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.exit(0);
+				}
+			}
+		});
+
 		guardarPartida.addActionListener(new ActionListener() {
 
 			@Override
@@ -252,14 +270,15 @@ public class Presentacio implements ActionListener, FocusListener {
 				if (res == JOptionPane.YES_OPTION) {
 					try {
 						if (control.sudokuBuit(quinSudoku))
-							control.storeSudoku(quinSudoku,textLog.getText());
+							control.storeSudoku(quinSudoku);
 						// BBDD////////////////////////////////////////////////
 
 						if (!(control.taulellBuit(quinSudoku)))
 							control.actualitzarBBDD(control.getTTaulell(),
 									quinSudoku);
 						else
-							control.storeTaulell(control.getTTaulell(), control.quantsTaulells());
+							control.storeTaulell(control.getTTaulell(),
+									control.quantsTaulells());
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -428,7 +447,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			if (control.isComplete()) {
 				JOptionPane.showMessageDialog(new JFrame(),
 						"JOC FINALITZAT FELICITATS");
-				// ESBORRAR JOC
+				// ESBORRAR JOC BBDD
 			}
 
 		} catch (Exception ex) {
@@ -465,7 +484,8 @@ public class Presentacio implements ActionListener, FocusListener {
 								password };
 
 						int res = JOptionPane.showConfirmDialog(null, array,
-								"Login BBDD ORACLE", JOptionPane.OK_CANCEL_OPTION,
+								"Login BBDD ORACLE",
+								JOptionPane.OK_CANCEL_OPTION,
 								JOptionPane.PLAIN_MESSAGE);
 
 						if (res == JOptionPane.OK_OPTION) {
@@ -482,7 +502,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 					Presentacio p = new Presentacio();
 
-					p.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+					p.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 					p.frame.setBounds(0, 0, 500, 500);
 					p.frame.setVisible(true);
 

@@ -13,7 +13,7 @@ import Persistencia.TaulellBBDD;
 public class Control {
 
 	private Taulell t;
-	private Jugador jugador;
+	private static Jugador jugador;
 	private Sudoku su;
 	private java.sql.Timestamp time;
 
@@ -49,9 +49,9 @@ public class Control {
 		return SudokuBBDD.estaBuit(i);
 	}
 
-	public void storeSudoku(int quinSudoku, String nom) throws Exception {
+	public void storeSudoku(int quinSudoku) throws Exception {
 		
-		su = new Sudoku(time, quinSudoku, nom);
+		su = new Sudoku(time, quinSudoku, jugador.getNom());
 		SudokuBBDD.storeSudoku(su);
 	}
 
@@ -98,12 +98,13 @@ public class Control {
 
 	public int nouJugador(String nom) throws Exception {
 
-		jugador = new Jugador(nom);
+		jugador = new Jugador(nom,1);
 
 		try {
 			JugadorBBDD.storeJugador(jugador);
 			return -2;
 		} catch (Exception e) {
+			JugadorBBDD.updateJugador(jugador);
 			return 1;
 		}
 	}
@@ -145,6 +146,11 @@ public class Control {
 	public int getIdFromTimeStamp(Timestamp input) throws Exception {
 		return SudokuBBDD.getIdFromTimeStamp(input);
 
+	}
+	
+	public void setEstatJuagdor() throws Exception{
+		jugador.setEstat(0);
+		JugadorBBDD.updateJugador(jugador);
 	}
 
 }
