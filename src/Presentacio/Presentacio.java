@@ -399,7 +399,7 @@ public class Presentacio implements ActionListener, FocusListener {
 					nEntrades--;
 
 				control.esborrarCasella(f, c);
-				textField[f][c].setText(" ");
+				textField[f][c].setText(null);
 
 			} else {
 				control.setEntrada(f, c, casella.getText());

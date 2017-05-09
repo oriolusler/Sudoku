@@ -25,7 +25,7 @@ public class Casella {
 
 	void setValor(int valor) throws Exception {
 
-		if (valor < 0 || valor > 9)
+		if (valor < 1 || valor > 9)
 			throw new Exception("Error valor casella: fora de rang. Ha de ser 1..9");
 		if (!editable)
 			throw new Exception("Error valor casella: la casella no es editable");
