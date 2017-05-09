@@ -173,7 +173,7 @@ public class TaulellBBDD {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 
-				if (taulell[i][j].getValor() != 0) {
+				
 
 					String sql = "UPDATE CASELLA SET valor=?,editable=? WHERE COORX=? AND COORY=? AND IDSUDOKU=?";
 					PreparedStatement pst = connection.prepareStatement(sql);
@@ -192,7 +192,7 @@ public class TaulellBBDD {
 
 					if (pst.executeUpdate() != 1)
 						throw new Exception("ERRO METODE STORE");
-				}
+				
 			}
 		}
 	}

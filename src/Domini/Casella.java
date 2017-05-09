@@ -5,7 +5,6 @@ public class Casella {
 	private int valor;
 	private boolean editable;
 	final static int vDefecte = 0;
-	
 
 	public Casella() {
 		this.editable = true;
@@ -20,15 +19,18 @@ public class Casella {
 		return editable;
 	}
 
-	public void setEditable(boolean v){
-		this.editable=v;
+	public void setEditable(boolean v) {
+		this.editable = v;
 	}
+
 	void setValor(int valor) throws Exception {
-		if (valor < 1 || valor > 9)
+
+		if (valor < 0 || valor > 9)
 			throw new Exception("Error valor casella: fora de rang. Ha de ser 1..9");
 		if (!editable)
 			throw new Exception("Error valor casella: la casella no es editable");
 		this.valor = valor;
+
 	}
 
 	void setCasella(int valor) throws Exception {
@@ -42,5 +44,4 @@ public class Casella {
 		this.valor = vDefecte;
 	}
 
-	
 }

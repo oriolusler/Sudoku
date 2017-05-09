@@ -34,6 +34,8 @@ public class Control {
 
 	public void setEntrada(int fila, int columna, String valor)
 			throws Exception {
+	
+		if(!(valor.equals(" ")))
 		t.canviarValor(fila, columna, Integer.parseInt(valor));
 	}
 

@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import Aplicacio.Control;
 import Aplicacio.LoginControler;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Timestamp;
@@ -67,9 +68,8 @@ public class Presentacio implements ActionListener, FocusListener {
 				} else if (Ids.length == 1)
 					quinSudoku = control.getIdFromTimeStamp(Ids[0]);
 				else {
-					Timestamp input = (Timestamp) JOptionPane.showInputDialog(
-							null, "Choose now...", "The Choice of a Lifetime",
-							JOptionPane.QUESTION_MESSAGE, null, Ids, Ids);
+					Timestamp input = (Timestamp) JOptionPane.showInputDialog(null, "Choose now...",
+							"The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, Ids, Ids);
 
 					quinSudoku = control.getIdFromTimeStamp(input);
 				}
@@ -118,20 +118,15 @@ public class Presentacio implements ActionListener, FocusListener {
 			} else {
 
 				try {
-					int res = JOptionPane
-							.showConfirmDialog(
-									new JFrame(),
-									"Vols crear un Sudoku desde zero?\n - En cas contrari es creara un Sudoku predefinit\n\nBONA SORT",
-									"TRIA", JOptionPane.YES_NO_OPTION,
-									JOptionPane.QUESTION_MESSAGE);
+					int res = JOptionPane.showConfirmDialog(new JFrame(),
+							"Vols crear un Sudoku desde zero?\n - En cas contrari es creara un Sudoku predefinit\n\nBONA SORT",
+							"TRIA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
-						JOptionPane
-								.showMessageDialog(
-										new JFrame(),
-										"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
-												+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
-												+ "\n - Per finalitzar la creacio premeu 'Crear Sudoku' a la part inferior");
+						JOptionPane.showMessageDialog(new JFrame(),
+								"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
+										+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
+										+ "\n - Per finalitzar la creacio premeu 'Crear Sudoku' a la part inferior");
 						control = new Control(true);
 						random.setEnabled(false);
 						crear.setEnabled(true);
@@ -146,16 +141,14 @@ public class Presentacio implements ActionListener, FocusListener {
 					}
 
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(new JFrame(),
-							"Error en crear el sudoku");
+					JOptionPane.showMessageDialog(new JFrame(), "Error en crear el sudoku");
 				}
 
 				try {
 					quinSudoku = control.quantsTaulells() + 1;
 
 				} catch (Exception e) {
-					System.out
-							.println("ERROR AGAFANT NUMERO DE SUDOKUS \n Linia 67");
+					System.out.println("ERROR AGAFANT NUMERO DE SUDOKUS \n Linia 67");
 				}
 
 				actualitzar();
@@ -165,8 +158,8 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(),
-					"Error lectura BBDD", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Error lectura BBDD",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -187,8 +180,7 @@ public class Presentacio implements ActionListener, FocusListener {
 				jpanel[i][j] = new JPanel();
 				panel.add(jpanel[i][j]);
 				jpanel[i][j].setLayout(new GridLayout(3, 3));
-				jpanel[i][j]
-						.setBorder(BorderFactory.createLineBorder(BLACK, 2));
+				jpanel[i][j].setBorder(BorderFactory.createLineBorder(BLACK, 2));
 			}
 		}
 
@@ -200,10 +192,8 @@ public class Presentacio implements ActionListener, FocusListener {
 
 						textField[f][c] = new CasellaGrafica(f, c);
 						jpanel[i][y].add(textField[f][c]);
-						textField[f][c].setBorder(BorderFactory
-								.createLineBorder(BLACK));
-						textField[f][c]
-								.setHorizontalAlignment(SwingConstants.CENTER);
+						textField[f][c].setBorder(BorderFactory.createLineBorder(BLACK));
+						textField[f][c].setHorizontalAlignment(SwingConstants.CENTER);
 						textField[f][c].setFont(new Font("Calibri", 3, 25));
 
 						if (!control.esModificable(f, c)) {
@@ -240,10 +230,8 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if (JOptionPane.showConfirmDialog(frame,
-						"Are you sure to close this window?",
-						"Really Closing?", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+				if (JOptionPane.showConfirmDialog(frame, "Are you sure to close this window?", "Really Closing?",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 					try {
 						control.setEstatJuagdor();
 					} catch (Exception e) {
@@ -260,12 +248,9 @@ public class Presentacio implements ActionListener, FocusListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				int res = JOptionPane
-						.showConfirmDialog(
-								new JFrame(),
-								"Vols guardar el sudoku?\n - En cas contrari es finalitzarà el joc.",
-								"TRIA", JOptionPane.YES_NO_CANCEL_OPTION,
-								JOptionPane.QUESTION_MESSAGE);
+				int res = JOptionPane.showConfirmDialog(new JFrame(),
+						"Vols guardar el sudoku?\n - En cas contrari es finalitzarà el joc.", "TRIA",
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 				if (res == JOptionPane.YES_OPTION) {
 					try {
@@ -274,11 +259,9 @@ public class Presentacio implements ActionListener, FocusListener {
 						// BBDD////////////////////////////////////////////////
 
 						if (!(control.taulellBuit(quinSudoku)))
-							control.actualitzarBBDD(control.getTTaulell(),
-									quinSudoku);
+							control.actualitzarBBDD(control.getTTaulell(), quinSudoku);
 						else
-							control.storeTaulell(control.getTTaulell(),
-									control.quantsTaulells());
+							control.storeTaulell(control.getTTaulell(), control.quantsTaulells());
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -310,32 +293,15 @@ public class Presentacio implements ActionListener, FocusListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				guardarPartida.setEnabled(false);
 				try {
-					int res = JOptionPane.showConfirmDialog(new JFrame(),
-							"Perdras el sudoku actual, vols continuar?",
-							"ALERTA", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
+					int res = JOptionPane.showConfirmDialog(new JFrame(), "Perdras el sudoku actual, vols continuar?",
+							"ALERTA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
 						control.canviarTaulell();
-
-						// ///////////////////////////
-						// ///////////////////////////
-						try {
-							control = new Control(control.getTTaulell());
-
-						} catch (Exception e2) {
-							System.out.println("81");
-						}
-
-						try {
-							quinSudoku = control.quantsTaulells() + 1;
-							System.out.print(quinSudoku);
-						} catch (Exception e3) {
-							System.out
-									.println("ERROR AGAFANT NUMERO DE SUDOKUS \n Linia 67");
-						}
-
+						control = new Control(control.getTTaulell());
+						quinSudoku = control.quantsTaulells() + 1;
 						actualitzar();
 
 					}
@@ -359,15 +325,12 @@ public class Presentacio implements ActionListener, FocusListener {
 						sudokuV3.setEnabled(true);
 						guardarPartida.setEnabled(true);
 					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(new JFrame(),
-								ex.getMessage());
+						JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
 					}
 				else {
 					JOptionPane.showMessageDialog(new JFrame(),
-							"No es posible crear el taulell, has de tenir"
-									+ " 17 o mes numeros introduits"
-									+ "\n(Quantitat de numeros introduits : "
-									+ nEntrades + ")");
+							"No es posible crear el taulell, has de tenir" + " 17 o mes numeros introduits"
+									+ "\n(Quantitat de numeros introduits : " + nEntrades + ")");
 				}
 
 			}
@@ -381,8 +344,7 @@ public class Presentacio implements ActionListener, FocusListener {
 					control = new Control(false);
 					quinSudoku = control.quantsTaulells() + 1;
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(new JFrame(),
-							"Error en crear el sudoku");
+					JOptionPane.showMessageDialog(new JFrame(), "Error en crear el sudoku");
 				}
 				random.setEnabled(true);
 				crear.setEnabled(false);
@@ -411,8 +373,7 @@ public class Presentacio implements ActionListener, FocusListener {
 							textField[f][c].setText(graella[f][c]);
 							textField[f][c].setForeground(BLACK);
 							textField[f][c].setBackground(WHITE);
-							textField[f][c]
-									.addActionListener((ActionListener) this);
+							textField[f][c].addActionListener((ActionListener) this);
 							textField[f][c].setEditable(true);
 						}
 					}
@@ -436,17 +397,17 @@ public class Presentacio implements ActionListener, FocusListener {
 			if (casella.getText().equals("0")) {
 				if (nEntrades > 0)
 					nEntrades--;
+
 				control.esborrarCasella(f, c);
-				textField[f][c].setText(null);
+				textField[f][c].setText(" ");
+
 			} else {
 				control.setEntrada(f, c, casella.getText());
 				nEntrades++;
 			}
 
-			// ///////////////////////////////////////////////
 			if (control.isComplete()) {
-				JOptionPane.showMessageDialog(new JFrame(),
-						"JOC FINALITZAT FELICITATS");
+				JOptionPane.showMessageDialog(new JFrame(), "JOC FINALITZAT FELICITATS");
 				// ESBORRAR JOC BBDD
 			}
 
@@ -460,7 +421,6 @@ public class Presentacio implements ActionListener, FocusListener {
 			if (errors[0][2] != -1)
 				textField[errors[0][2]][errors[1][2]].setBackground(Color.RED);
 			textField[f][c].setText(null);
-
 		}
 	}
 
@@ -472,33 +432,30 @@ public class Presentacio implements ActionListener, FocusListener {
 			public void run() {
 
 				try {
+					boolean logat = false;
+					do {
+						try {
+							JLabel label_login = new JLabel("Usuari:");
+							JTextField login = new JTextField();
 
-					try {
-						JLabel label_login = new JLabel("Usuari:");
-						JTextField login = new JTextField();
+							JLabel label_password = new JLabel("Password:");
+							JPasswordField password = new JPasswordField();
 
-						JLabel label_password = new JLabel("Password:");
-						JPasswordField password = new JPasswordField();
+							Object[] array = { label_login, login, label_password, password };
 
-						Object[] array = { label_login, login, label_password,
-								password };
+							int res = JOptionPane.showConfirmDialog(null, array, "Login BBDD ORACLE",
+									JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-						int res = JOptionPane.showConfirmDialog(null, array,
-								"Login BBDD ORACLE",
-								JOptionPane.OK_CANCEL_OPTION,
-								JOptionPane.PLAIN_MESSAGE);
-
-						if (res == JOptionPane.OK_OPTION) {
-							new LoginControler().Login(login.getText().trim(),
-									new String(password.getPassword()));
-						} else
-							System.exit(0);
-					} catch (Exception e) {
-						JOptionPane.showMessageDialog(new JFrame(),
-								"Error login a la BBDD");
-						System.exit(0);
-
-					}
+							if (res == JOptionPane.OK_OPTION) {
+								new LoginControler().Login(login.getText().trim(), new String(password.getPassword()));
+								logat = true;
+							} else
+								System.exit(0);
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(new JFrame(),
+									"Usuari i/o contrasenya incorrecte.\nTorna a provar.");
+						}
+					} while (!logat);
 
 					Presentacio p = new Presentacio();
 
