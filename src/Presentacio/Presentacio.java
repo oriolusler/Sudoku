@@ -207,28 +207,15 @@ public class Presentacio implements ActionListener, FocusListener {
 								.setHorizontalAlignment(SwingConstants.CENTER);
 						textField[f][c].setFont(new Font("Calibri", 3, 25));
 
-						try {
-							if (control.esModificable(f, c)) {
-								textField[f][c].setText(graella[f][c]);
-								textField[f][c].setForeground(BLACK);
-								textField[f][c].setBackground(WHITE);
-								if (!(graella[f][c] == null)) {
-									control.setEntrada(f, c, graella[f][c]);
-									control.setEditable(f, c, true);
-
-								}
-								textField[f][c].setEditable(true);
-
-							} else {
-								textField[f][c].setText(graella[f][c]);
-								textField[f][c].setForeground(YELLOW);
-								textField[f][c].setBackground(GRAY);
-								control.setEntrada(f, c, graella[f][c]);
-								control.setEditable(f, c, false);
-								textField[f][c].setEditable(false);
-							}
-						} catch (Exception e) {
-						}
+						if (!control.esModificable(f, c)) {
+							textField[f][c].setText(graella[f][c]);
+							textField[f][c].setForeground(YELLOW);
+							textField[f][c].setBackground(GRAY);
+							textField[f][c].setEditable(false);
+						} else {
+							textField[f][c].addActionListener(this);
+							textField[f][c].addFocusListener(this);
+}
 					}
 				}
 			}
@@ -411,8 +398,7 @@ public class Presentacio implements ActionListener, FocusListener {
 							textField[f][c].setText(graella[f][c]);
 							textField[f][c].setForeground(BLACK);
 							textField[f][c].setBackground(WHITE);
-							textField[f][c]
-									.addActionListener((ActionListener) this);
+							textField[f][c].addActionListener(this);
 							textField[f][c].setEditable(true);
 						}
 					}

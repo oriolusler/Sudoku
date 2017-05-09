@@ -168,13 +168,22 @@ public class TaulellBBDD {
 	public static void actualitzarBBDD(Casella[][] taulell, int quinSu)
 			throws Exception {
 
+		String[][] antic = getTaulell(quinSu);
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (antic[i][j] == null)
+					antic[i][j] = "0";
+
+			}
+
+		}
+
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 
-				
-
+				if (!(antic[i][j].equals(String.valueOf(taulell[i][j].getValor())))) {
 					String sql = "UPDATE CASELLA SET valor=?,editable=? WHERE COORX=? AND COORY=? AND IDSUDOKU=?";
 					PreparedStatement pst = connection.prepareStatement(sql);
 
@@ -192,7 +201,9 @@ public class TaulellBBDD {
 
 					if (pst.executeUpdate() != 1)
 						throw new Exception("ERRO METODE STORE");
-				
+
+					System.out.print(1+",");
+				}
 			}
 		}
 	}
