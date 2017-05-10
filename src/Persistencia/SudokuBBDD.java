@@ -48,6 +48,23 @@ public class SudokuBBDD {
 		preparedStatement.close();
 	}
 	
+	public static void esborrarSudoku(int quinSu) throws Exception {
+
+		try {
+	ConnectionBBDD connection = LoginBBDD.getConnection();
+		
+		String sqlTimestampInsertStatement = "DELETE FROM SUDOKU WHERE IDSUDOKU = ?";
+		PreparedStatement preparedStatement = connection
+				.prepareStatement(sqlTimestampInsertStatement);
+		preparedStatement.setInt(1, quinSu);
+		
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		} catch (SQLException e) {
+			throw new Exception("ERROR METODE esborrarSudoku");
+		}
+	}
+	
 	public static Timestamp[] getTimestamps(String nom) throws Exception {
 
 		Timestamp[] partides = new Timestamp[quantsSudokus(nom)];

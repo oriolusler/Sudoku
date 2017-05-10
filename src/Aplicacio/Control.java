@@ -35,6 +35,11 @@ public class Control {
 	public void setEntrada(int fila, int columna, String valor)
 			throws Exception {
 	
+		try {
+			Integer.valueOf(valor);
+		} catch (Exception e) {
+			throw new Exception("Numero introduit esborrat");
+		}
 		//if(!(valor.equals("")))
 		t.canviarValor(fila, columna, Integer.parseInt(valor));
 	}
@@ -153,6 +158,11 @@ public class Control {
 	public void setEstatJuagdor() throws Exception{
 		jugador.setEstat(0);
 		JugadorBBDD.updateJugador(jugador);
+	}
+	
+	public void esborrarSudokuTaulell(int quinSu) throws Exception{
+		TaulellBBDD.esborrarTaulell(quinSu);
+		SudokuBBDD.esborrarSudoku(quinSu);
 	}
 
 }

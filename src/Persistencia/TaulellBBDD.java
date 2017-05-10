@@ -183,7 +183,8 @@ public class TaulellBBDD {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 
-				if (!(antic[i][j].equals(String.valueOf(taulell[i][j].getValor())))) {
+				if (!(antic[i][j].equals(String.valueOf(taulell[i][j]
+						.getValor())))) {
 					String sql = "UPDATE CASELLA SET valor=?,editable=? WHERE COORX=? AND COORY=? AND IDSUDOKU=?";
 					PreparedStatement pst = connection.prepareStatement(sql);
 
@@ -202,10 +203,26 @@ public class TaulellBBDD {
 					if (pst.executeUpdate() != 1)
 						throw new Exception("ERRO METODE STORE");
 
-					System.out.print(1+",");
+					System.out.print(1 + ",");
 				}
 			}
 		}
 	}
 
+	public static void esborrarTaulell(int quinSu) throws Exception {
+
+		try {
+			ConnectionBBDD connection = LoginBBDD.getConnection();
+
+			String sqlTimestampInsertStatement = "DELETE FROM CASELLA WHERE IDSUDOKU = ?";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sqlTimestampInsertStatement);
+			preparedStatement.setInt(1, quinSu);
+
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+		} catch (SQLException e) {
+			throw new Exception("ERROR METODE esborrarTaulell");
+		}
+	}
 }

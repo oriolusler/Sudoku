@@ -34,19 +34,13 @@ public class Presentacio implements ActionListener, FocusListener {
 
 		try {
 			control = new Control(true);
+			quinSudoku = control.quantsTaulells() + 1;
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		guardarPartida.setEnabled(false);
 		crear.setEnabled(false);
 		sudokuV3.setEnabled(false);
-
-		try {
-			quinSudoku = control.quantsTaulells() + 1;
-
-		} catch (Exception e) {
-			System.out.println("ERROR AGAFANT NUMERO DE SUDOKUS \n Linia 67");
-		}
 
 		initComponents();
 	}
@@ -85,33 +79,27 @@ public class Presentacio implements ActionListener, FocusListener {
 				String[][] ediatbles = control.getEditablesBBDD(quinSudoku);
 				control = new Control(true);
 
-				for (int i = 0; i < 3; i++) {
-					for (int x = 0; x < 3; x++) {
-						for (int y = 0; y < 3; y++) {
-							for (int j = 0; j < 3; j++) {
-								int f = i * 3 + x, c = y * 3 + j;
+				for (int f = 0; f < 9; f++) {
+					for (int c = 0; c < 9; c++) {
 
-								if (ediatbles[f][c] == "s") {
-									textField[f][c].setText(graella[f][c]);
-									textField[f][c].setForeground(BLACK);
-									textField[f][c].setBackground(WHITE);
-									if (!(graella[f][c] == null)) {
-										control.setEntrada(f, c, graella[f][c]);
-										control.setEditable(f, c, true);
-
-									}
-									textField[f][c].setEditable(true);
-
-								} else {
-									textField[f][c].setText(graella[f][c]);
-									textField[f][c].setForeground(YELLOW);
-									textField[f][c].setBackground(GRAY);
-									control.setEntrada(f, c, graella[f][c]);
-									control.setEditable(f, c, false);
-									textField[f][c].setEditable(false);
-								}
+						if (ediatbles[f][c] == "s") {
+							textField[f][c].setText(graella[f][c]);
+							textField[f][c].setForeground(BLACK);
+							textField[f][c].setBackground(WHITE);
+							if (!(graella[f][c] == null)) {
+								control.setEntrada(f, c, graella[f][c]);
+								control.setEditable(f, c, true);
 
 							}
+							textField[f][c].setEditable(true);
+
+						} else {
+							textField[f][c].setText(graella[f][c]);
+							textField[f][c].setForeground(YELLOW);
+							textField[f][c].setBackground(GRAY);
+							control.setEntrada(f, c, graella[f][c]);
+							control.setEditable(f, c, false);
+							textField[f][c].setEditable(false);
 						}
 					}
 				}
@@ -151,14 +139,7 @@ public class Presentacio implements ActionListener, FocusListener {
 							"Error en crear el sudoku");
 				}
 
-				try {
-					quinSudoku = control.quantsTaulells() + 1;
-
-				} catch (Exception e) {
-					System.out
-							.println("ERROR AGAFANT NUMERO DE SUDOKUS \n Linia 67");
-				}
-
+				quinSudoku = control.quantsTaulells() + 1;
 				actualitzar();
 				tot.setVisible(true);
 				botons.setVisible(true);
@@ -171,8 +152,6 @@ public class Presentacio implements ActionListener, FocusListener {
 		}
 
 	}
-
-	// /////////////////////////////////////////////
 
 	private void initComponents() {
 
@@ -215,14 +194,13 @@ public class Presentacio implements ActionListener, FocusListener {
 						} else {
 							textField[f][c].addActionListener(this);
 							textField[f][c].addFocusListener(this);
-}
+						}
 					}
 				}
 			}
 		}
 
 		textLog.setText("Introdueix el teu nom");
-
 		iniciar.add(loggin);
 		iniciar.add(textLog);
 
@@ -249,7 +227,6 @@ public class Presentacio implements ActionListener, FocusListener {
 					try {
 						control.setEstatJuagdor();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					System.exit(0);
@@ -282,7 +259,6 @@ public class Presentacio implements ActionListener, FocusListener {
 							control.storeTaulell(control.getTTaulell(),
 									control.quantsTaulells());
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
@@ -290,7 +266,6 @@ public class Presentacio implements ActionListener, FocusListener {
 					System.exit(0);
 
 				} else {
-
 				}
 
 			}
@@ -300,9 +275,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-
 				inici();
-
 			}
 
 		});
@@ -383,25 +356,19 @@ public class Presentacio implements ActionListener, FocusListener {
 	private void actualitzar() {
 		String[][] graella = control.getTaulell();
 
-		for (int i = 0; i < 3; i++) {
-			for (int x = 0; x < 3; x++) {
-				for (int y = 0; y < 3; y++) {
-					for (int j = 0; j < 3; j++) {
-						int f = i * 3 + x, c = y * 3 + j;
-
-						if (!control.esModificable(f, c)) {
-							textField[f][c].setText(graella[f][c]);
-							textField[f][c].setForeground(YELLOW);
-							textField[f][c].setBackground(GRAY);
-							textField[f][c].setEditable(false);
-						} else {
-							textField[f][c].setText(graella[f][c]);
-							textField[f][c].setForeground(BLACK);
-							textField[f][c].setBackground(WHITE);
-							textField[f][c].addActionListener(this);
-							textField[f][c].setEditable(true);
-						}
-					}
+		for (int f = 0; f < graella.length; f++) {
+			for (int c = 0; c < graella.length; c++) {
+				if (!control.esModificable(f, c)) {
+					textField[f][c].setText(graella[f][c]);
+					textField[f][c].setForeground(YELLOW);
+					textField[f][c].setBackground(GRAY);
+					textField[f][c].setEditable(false);
+				} else {
+					textField[f][c].setText(graella[f][c]);
+					textField[f][c].setForeground(BLACK);
+					textField[f][c].setBackground(WHITE);
+					textField[f][c].addActionListener(this);
+					textField[f][c].setEditable(true);
 				}
 			}
 		}
@@ -433,7 +400,11 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			if (control.isComplete()) {
 				JOptionPane.showMessageDialog(new JFrame(),
-						"JOC FINALITZAT FELICITATS");
+						"FELICITATS! JOC FINALITZAT");
+				frame.setEnabled(false);
+				if (!(control.sudokuBuit(quinSudoku)))
+					control.esborrarSudokuTaulell(quinSudoku);
+
 				// ESBORRAR JOC BBDD
 			}
 
@@ -476,9 +447,11 @@ public class Presentacio implements ActionListener, FocusListener {
 									JOptionPane.PLAIN_MESSAGE);
 
 							if (res == JOptionPane.OK_OPTION) {
-								new LoginControler().Login(login.getText()
-										.trim(),
-										new String(password.getPassword()));
+								// new
+								// LoginControler().Login(login.getText().trim(),new
+								// String(password.getPassword()));
+								new LoginControler()
+										.Login("osoler", "38878280");
 								logat = true;
 							} else
 								System.exit(0);

@@ -124,7 +124,7 @@ public class Taulell {
 		valorRepe = this.valorRepe(files, valor, 0) || valorRepe;
 
 		if (valorRepe) {
-			throw new Exception("Error valor repetit....");
+			throw new Exception("Error, valor repetit.");
 		} else {
 			graella[f][c].setValor(valor);
 		}
