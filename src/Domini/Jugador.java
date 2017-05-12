@@ -7,7 +7,7 @@ public class Jugador {
 
 	public Jugador(String nom, int estat) {
 		this.nom = nom;
-		this.estat=estat;
+		this.estat = estat;
 
 	}
 
@@ -18,13 +18,15 @@ public class Jugador {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
+
 	public int getEstat() {
 		return estat;
 	}
 
-	public void setEstat(int estat) {
+	public void setEstat(int estat) throws Exception {
+
 		this.estat = estat;
+
 	}
 
 }

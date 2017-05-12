@@ -27,7 +27,7 @@ public class JugadorBBDD {
 			}
 			return llista;
 		} catch (SQLException e) {
-			throw new Exception("ERROR");
+			throw new Exception("ERROR GETTING JUGADORS");
 		}
 
 	}
@@ -43,7 +43,7 @@ public class JugadorBBDD {
 		pst.setInt(2, jugador.getEstat());
 
 		if (pst.executeUpdate() != 1)
-			throw new Exception("JUGADOR NO GUARDAD!");
+			throw new Exception("JUGADOR NO GUARDAT!");
 	}
 	
 	public static void updateJugador(Jugador jugador) throws Exception {
@@ -57,6 +57,6 @@ public class JugadorBBDD {
 		pst.setString(2, jugador.getNom());
 		
 		if (pst.executeUpdate() != 1)
-			throw new Exception("JUGADOR NO GUARDAD!");
+			throw new Exception("JUGADOR NO ACTUALITZAT!");
 	}
 }

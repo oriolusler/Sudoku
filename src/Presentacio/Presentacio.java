@@ -14,7 +14,7 @@ import static java.awt.Color.*;
 public class Presentacio implements ActionListener, FocusListener {
 
 	private Control control;
-	private JFrame frame;
+	JFrame frame;
 	private JPanel tot = new JPanel(new GridLayout());
 	private JPanel botons = new JPanel(new GridLayout());
 	private JPanel panel = new JPanel(new GridLayout(3, 3));
@@ -217,6 +217,7 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.add(tot, BorderLayout.CENTER);
 
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 				if (JOptionPane
@@ -227,7 +228,8 @@ public class Presentacio implements ActionListener, FocusListener {
 					try {
 						control.setEstatJuagdor();
 					} catch (Exception e) {
-						e.printStackTrace();
+						JOptionPane.showMessageDialog(new JFrame(),
+								e.getMessage());
 					}
 					System.exit(0);
 				}
@@ -250,7 +252,6 @@ public class Presentacio implements ActionListener, FocusListener {
 					try {
 						if (control.sudokuBuit(quinSudoku))
 							control.storeSudoku(quinSudoku);
-						// BBDD////////////////////////////////////////////////
 
 						if (!(control.taulellBuit(quinSudoku)))
 							control.actualitzarBBDD(control.getTTaulell(),
@@ -402,10 +403,10 @@ public class Presentacio implements ActionListener, FocusListener {
 				JOptionPane.showMessageDialog(new JFrame(),
 						"FELICITATS! JOC FINALITZAT");
 				frame.setEnabled(false);
+
 				if (!(control.sudokuBuit(quinSudoku)))
 					control.esborrarSudokuTaulell(quinSudoku);
 
-				// ESBORRAR JOC BBDD
 			}
 
 		} catch (Exception ex) {

@@ -34,13 +34,13 @@ public class Control {
 
 	public void setEntrada(int fila, int columna, String valor)
 			throws Exception {
-	
+
 		try {
 			Integer.valueOf(valor);
 		} catch (Exception e) {
 			throw new Exception("Numero introduit esborrat");
 		}
-		//if(!(valor.equals("")))
+		// if(!(valor.equals("")))
 		t.canviarValor(fila, columna, Integer.parseInt(valor));
 	}
 
@@ -57,7 +57,7 @@ public class Control {
 	}
 
 	public void storeSudoku(int quinSudoku) throws Exception {
-		
+
 		su = new Sudoku(time, quinSudoku, jugador.getNom());
 		SudokuBBDD.storeSudoku(su);
 	}
@@ -86,8 +86,6 @@ public class Control {
 		t.iniciarUsuari();
 	}
 
-	
-
 	public void storeTaulell(Casella[][] taulell, int quantsTaulells)
 			throws Exception {
 		int quants = quantsTaulells + 1;
@@ -105,7 +103,7 @@ public class Control {
 
 	public int nouJugador(String nom) throws Exception {
 
-		jugador = new Jugador(nom,1);
+		jugador = new Jugador(nom, 1);
 
 		try {
 			JugadorBBDD.storeJugador(jugador);
@@ -154,13 +152,17 @@ public class Control {
 		return SudokuBBDD.getIdFromTimeStamp(input);
 
 	}
-	
-	public void setEstatJuagdor() throws Exception{
-		jugador.setEstat(0);
-		JugadorBBDD.updateJugador(jugador);
+
+	public void setEstatJuagdor() throws Exception {
+		try {
+			jugador.setEstat(0);
+			JugadorBBDD.updateJugador(jugador);
+		} catch (Exception e) {
+			throw new Exception("No hi ha cap jugador a la sessió.");
+		}
 	}
-	
-	public void esborrarSudokuTaulell(int quinSu) throws Exception{
+
+	public void esborrarSudokuTaulell(int quinSu) throws Exception {
 		TaulellBBDD.esborrarTaulell(quinSu);
 		SudokuBBDD.esborrarSudoku(quinSu);
 	}
