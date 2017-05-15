@@ -3,8 +3,6 @@ package Presentacio;
 import javax.swing.*;
 
 import Aplicacio.Control;
-import Aplicacio.LoginControler;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Timestamp;
@@ -13,8 +11,8 @@ import static java.awt.Color.*;
 
 public class Presentacio implements ActionListener, FocusListener {
 
+	private JFrame frame;
 	private Control control;
-	JFrame frame;
 	private JPanel tot = new JPanel(new GridLayout());
 	private JPanel botons = new JPanel(new GridLayout());
 	private JPanel panel = new JPanel(new GridLayout(3, 3));
@@ -24,31 +22,32 @@ public class Presentacio implements ActionListener, FocusListener {
 	private JButton crear = new JButton("Crear Sudoku");
 	private JButton sudokuV3 = new JButton("Sudoku V3");
 	private int nEntrades = 0;
-	private JTextField textLog = new JTextField();
 	private JButton guardarPartida = new JButton("Guardar");
 	private int quinSudoku = 0;
 	private JLabel loggin = new JLabel("Introdueix el seu nom per jugar: ");
 	private JPanel iniciar = new JPanel(new GridLayout());
 
-	public Presentacio() {
+	public Presentacio(String nom) {
 
 		try {
 			control = new Control(true);
 			quinSudoku = control.quantsTaulells() + 1;
+
+			guardarPartida.setEnabled(false);
+			crear.setEnabled(false);
+			sudokuV3.setEnabled(false);
+
+			initComponents();
+			inici(nom);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		guardarPartida.setEnabled(false);
-		crear.setEnabled(false);
-		sudokuV3.setEnabled(false);
-
-		initComponents();
 	}
 
-	private void inici() {
+	private void inici(String nom) {
 		try {
 
-			int sudokuUsuari = control.nouJugador(textLog.getText());
+			int sudokuUsuari = control.nouJugador(nom);
 
 			if (!(sudokuUsuari == -2)) {
 				Timestamp[] Ids = control.getTimeStamps();
@@ -63,14 +62,14 @@ public class Presentacio implements ActionListener, FocusListener {
 					quinSudoku = control.getIdFromTimeStamp(Ids[0]);
 				else {
 					Timestamp input = (Timestamp) JOptionPane.showInputDialog(
-							null, "Choose now...", "The Choice of a Lifetime",
+							null, "Quin sudoku vols recuperar?", "Elecció sudoku",
 							JOptionPane.QUESTION_MESSAGE, null, Ids, Ids);
 
 					quinSudoku = control.getIdFromTimeStamp(input);
 				}
 			}
-			textLog.setEditable(false);
-			loggin.setText("El jugador actualment jugant és:");
+
+			loggin.setText("El jugador actualment jugant és: " + nom);
 
 			if (!(sudokuUsuari == -2)) {
 				tot.setVisible(true);
@@ -156,10 +155,13 @@ public class Presentacio implements ActionListener, FocusListener {
 	private void initComponents() {
 
 		frame = new JFrame("EL SUDOKU");
-		sudokuV3.setEnabled(false);
 
 		frame.getContentPane().setLayout(new BorderLayout());
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		frame.setBounds(0, 0, 500, 500);
+		frame.setVisible(true);
 
+		sudokuV3.setEnabled(false);
 		String[][] graella = control.getTaulell();
 
 		for (int i = 0; i < 3; i++) {
@@ -200,9 +202,9 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 		}
 
-		textLog.setText("Introdueix el teu nom");
+		// textLog.setText("Introdueix el teu nom");
 		iniciar.add(loggin);
-		iniciar.add(textLog);
+		// iniciar.add(textLog);
 
 		frame.add(iniciar, BorderLayout.NORTH);
 		botons.add(guardarPartida);
@@ -272,14 +274,13 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 		});
 
-		textLog.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				inici();
-			}
-
-		});
+		/*
+		 * textLog.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent evt) { inici(); }
+		 * 
+		 * });
+		 */
 
 		random.addActionListener(new ActionListener() {
 
@@ -420,60 +421,6 @@ public class Presentacio implements ActionListener, FocusListener {
 				textField[errors[0][2]][errors[1][2]].setBackground(Color.RED);
 			textField[f][c].setText(null);
 		}
-	}
-
-	public static void main(String[] args) {
-
-		EventQueue.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-
-				try {
-					boolean logat = false;
-					do {
-						try {
-							JLabel label_login = new JLabel("Usuari:");
-							JTextField login = new JTextField();
-
-							JLabel label_password = new JLabel("Password:");
-							JPasswordField password = new JPasswordField();
-
-							Object[] array = { label_login, login,
-									label_password, password };
-
-							int res = JOptionPane.showConfirmDialog(null,
-									array, "Login BBDD ORACLE",
-									JOptionPane.OK_CANCEL_OPTION,
-									JOptionPane.PLAIN_MESSAGE);
-
-							if (res == JOptionPane.OK_OPTION) {
-								// new
-								// LoginControler().Login(login.getText().trim(),new
-								// String(password.getPassword()));
-								new LoginControler()
-										.Login("osoler", "38878280");
-								logat = true;
-							} else
-								System.exit(0);
-						} catch (Exception e) {
-							JOptionPane
-									.showMessageDialog(new JFrame(),
-											"Usuari i/o contrasenya incorrecte.\nTorna a provar.");
-						}
-					} while (!logat);
-
-					Presentacio p = new Presentacio();
-
-					p.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-					p.frame.setBounds(0, 0, 500, 500);
-					p.frame.setVisible(true);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 
 	private void posarColor() {
