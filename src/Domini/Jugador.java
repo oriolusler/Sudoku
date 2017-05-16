@@ -5,6 +5,10 @@ public class Jugador {
 	private String nom;
 	private int estat;
 
+	public Jugador(String nom) {
+		this.nom = nom;
+	}
+
 	public Jugador(String nom, int estat) {
 		this.nom = nom;
 		this.estat = estat;

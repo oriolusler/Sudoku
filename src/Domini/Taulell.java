@@ -8,9 +8,7 @@ public class Taulell {
 
 	private Casella[][] graella;
 	private int[][] error = new int[2][3];
-	
-
-	
+		
 	public Taulell(boolean buit) throws Exception {
 
 		

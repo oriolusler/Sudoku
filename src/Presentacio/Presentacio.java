@@ -3,6 +3,8 @@ package Presentacio;
 import javax.swing.*;
 
 import Aplicacio.Control;
+import Aplicacio.ControlBBDD;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Timestamp;
@@ -11,6 +13,7 @@ import static java.awt.Color.*;
 
 public class Presentacio implements ActionListener, FocusListener {
 
+	private ControlBBDD controlBBDD;
 	private JFrame frame;
 	private Control control;
 	private JPanel tot = new JPanel(new GridLayout());
@@ -20,18 +23,20 @@ public class Presentacio implements ActionListener, FocusListener {
 	private CasellaGrafica[][] textField = new CasellaGrafica[9][9];
 	private JButton random = new JButton("Generar Nou Sudoku");
 	private JButton crear = new JButton("Crear Sudoku");
-	private JButton sudokuV3 = new JButton("Sudoku V3");
+	private JButton sudokuV3 = new JButton("Sudoku Principal");
 	private int nEntrades = 0;
 	private JButton guardarPartida = new JButton("Guardar");
-	private int quinSudoku = 0;
 	private JLabel loggin = new JLabel("Introdueix el seu nom per jugar: ");
 	private JPanel iniciar = new JPanel(new GridLayout());
 
 	public Presentacio(String nom) {
 
+		//ITS FINE HERE!
+		
 		try {
+			controlBBDD = new ControlBBDD(nom);
 			control = new Control(true);
-			quinSudoku = control.quantsTaulells() + 1;
+			controlBBDD.iniciarSudoku();
 
 			guardarPartida.setEnabled(false);
 			crear.setEnabled(false);
@@ -47,25 +52,26 @@ public class Presentacio implements ActionListener, FocusListener {
 	private void decidirSudokuAJugar(String nom) {
 		try {
 
-			int sudokuUsuari = control.nouJugador(nom);
+			int sudokuUsuari = controlBBDD.nouJugador(nom);
 
 			if (!(sudokuUsuari == -2)) {
-				Timestamp[] Ids = control.getTimeStamps();
+				Timestamp[] Ids = controlBBDD.getTimeStamps();
 
 				if (Ids.length == 0) {
 					control = new Control(false);
 					actualitzar();
-					quinSudoku = control.quantsTaulells() + 1;
+					controlBBDD.iniciarSudoku();
 					sudokuUsuari = -2;
 
 				} else if (Ids.length == 1)
-					quinSudoku = control.getIdFromTimeStamp(Ids[0]);
+					controlBBDD.setSudokuID(controlBBDD.getIdFromTimeStamp(Ids[0]));
 				else {
 					Timestamp input = (Timestamp) JOptionPane.showInputDialog(
-							null, "Quin sudoku vols recuperar?", "Elecció sudoku",
-							JOptionPane.QUESTION_MESSAGE, null, Ids, Ids);
+							null, "Quin sudoku vols recuperar?",
+							"Elecció sudoku", JOptionPane.QUESTION_MESSAGE,
+							null, Ids, Ids);
 
-					quinSudoku = control.getIdFromTimeStamp(input);
+					controlBBDD.setSudokuID(controlBBDD.getIdFromTimeStamp(input));
 				}
 			}
 
@@ -74,8 +80,8 @@ public class Presentacio implements ActionListener, FocusListener {
 			if (!(sudokuUsuari == -2)) {
 				tot.setVisible(true);
 				botons.setVisible(true);
-				String[][] graella = control.getTaulellBBDD(quinSudoku);
-				String[][] ediatbles = control.getEditablesBBDD(quinSudoku);
+				String[][] graella = controlBBDD.getTaulellBBDD();
+				String[][] ediatbles = controlBBDD.getEditablesBBDD();
 				control = new Control(true);
 
 				for (int f = 0; f < 9; f++) {
@@ -103,6 +109,7 @@ public class Presentacio implements ActionListener, FocusListener {
 					}
 				}
 
+				sudokuV3.setEnabled(true);
 			} else {
 
 				try {
@@ -138,7 +145,7 @@ public class Presentacio implements ActionListener, FocusListener {
 							"Error en crear el sudoku");
 				}
 
-				quinSudoku = control.quantsTaulells() + 1;
+				controlBBDD.iniciarSudoku();
 				actualitzar();
 				tot.setVisible(true);
 				botons.setVisible(true);
@@ -225,7 +232,7 @@ public class Presentacio implements ActionListener, FocusListener {
 								"Tancament joc", JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 					try {
-						control.setEstatJuagdor();
+						controlBBDD.setEstatJuagdor();
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(new JFrame(),
 								e.getMessage());
@@ -249,15 +256,13 @@ public class Presentacio implements ActionListener, FocusListener {
 
 				if (res == JOptionPane.YES_OPTION) {
 					try {
-						if (control.sudokuBuit(quinSudoku))
-							control.storeSudoku(quinSudoku);
+						if (controlBBDD.sudokuBuit())
+							controlBBDD.storeSudoku();
 
-						if (!(control.taulellBuit(quinSudoku)))
-							control.actualitzarBBDD(control.getTTaulell(),
-									quinSudoku);
+						if (!(controlBBDD.taulellBuit()))
+							controlBBDD.actualitzarBBDD(control.getTTaulell());
 						else
-							control.storeTaulell(control.getTTaulell(),
-									control.quantsTaulells());
+							controlBBDD.storeTaulell(control.getTTaulell());
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -286,7 +291,7 @@ public class Presentacio implements ActionListener, FocusListener {
 					if (res == JOptionPane.YES_OPTION) {
 						control.canviarTaulell();
 						control = new Control(control.getTTaulell());
-						quinSudoku = control.quantsTaulells() + 1;
+						controlBBDD.iniciarSudoku();
 						actualitzar();
 
 					}
@@ -301,7 +306,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (nEntrades >= 17)
+				if (nEntrades >= 34)
 					try {
 						control.iniciarUsuari();
 						actualitzar();
@@ -318,7 +323,7 @@ public class Presentacio implements ActionListener, FocusListener {
 							"No es posible crear el taulell, has de tenir"
 									+ " 17 o mes numeros introduits"
 									+ "\n(Quantitat de numeros introduits : "
-									+ nEntrades + ")");
+									+ nEntrades/2 + ")");
 				}
 
 			}
@@ -330,7 +335,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					control = new Control(false);
-					quinSudoku = control.quantsTaulells() + 1;
+					controlBBDD.iniciarSudoku();
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(new JFrame(),
 							"Error en crear el sudoku");
@@ -341,7 +346,6 @@ public class Presentacio implements ActionListener, FocusListener {
 				actualitzar();
 			}
 		});
-
 	}
 
 	private void actualitzar() {
@@ -394,8 +398,8 @@ public class Presentacio implements ActionListener, FocusListener {
 						"FELICITATS! JOC FINALITZAT");
 				frame.setEnabled(false);
 
-				if (!(control.sudokuBuit(quinSudoku)))
-					control.esborrarSudokuTaulell(quinSudoku);
+				if (!(controlBBDD.sudokuBuit()))
+					controlBBDD.esborrarSudokuTaulell();
 
 			}
 

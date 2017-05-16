@@ -10,9 +10,9 @@ import Aplicacio.LoginControler;
 public class UserLoginBBDD {
 
 	private JLabel label_login = new JLabel("Usuari:");
-	private JTextField login = new JTextField();
+	private JTextField login = new JTextField("G2GEILAB1");
 	private JLabel label_password = new JLabel("Password:");
-	private JPasswordField password = new JPasswordField();
+	private JPasswordField password = new JPasswordField("oriolusoler");
 	private JLabel result_label = new JLabel("");
 
 	public static void main(String[] args) {

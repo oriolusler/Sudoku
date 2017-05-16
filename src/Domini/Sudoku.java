@@ -6,15 +6,16 @@ public class Sudoku {
 
 	private java.sql.Timestamp time;
 	private int quinSudoku;
-	private String nom;
+	private Jugador jugador;
+	
 	public Timestamp getTime() {
 		return time;
 	}
 	public int getQuinSudoku() {
 		return quinSudoku;
 	}
-	public String getNom() {
-		return nom;
+	public Jugador getJugador() {
+		return jugador;
 	}
 	public void setTime(Timestamp time) {
 		this.time = time;
@@ -22,15 +23,12 @@ public class Sudoku {
 	public void setQuinSudoku(int quinSudoku) {
 		this.quinSudoku = quinSudoku;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
 	
-	public Sudoku(Timestamp time, int quinSudoku, String nom) {
+	public Sudoku(Timestamp time, int quinSudoku, Jugador jugador) {
 	
 		this.time = time;
 		this.quinSudoku = quinSudoku;
-		this.nom = nom;
+		this.jugador = jugador;
 	}
 	
 	

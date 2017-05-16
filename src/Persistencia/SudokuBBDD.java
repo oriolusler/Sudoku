@@ -4,19 +4,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+
+import Domini.Jugador;
 import Domini.Sudoku;
 
 public class SudokuBBDD {
-	public static boolean estaBuit(int i) throws Exception {
+
+	public boolean estaBuit(Sudoku sudoku) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		try {
-			String sql = "SELECT COUNT(*) AS COUNT FROM SUDOKU WHERE IDSUDOKU = ?";
+			String sql = "SELECT COUNT(*) AS COUNT FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(sql);
 			preparedStatement.clearParameters();
-			preparedStatement.setInt(1, i);
+			preparedStatement.setInt(1, sudoku.getQuinSudoku());
+			preparedStatement.setString(2, sudoku.getJugador().getNom());
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -33,41 +37,43 @@ public class SudokuBBDD {
 
 	}
 
-	public static void storeSudoku(Sudoku su) throws Exception {
+	public void storeSudoku(Sudoku sudoku) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
-		
+
 		String sqlTimestampInsertStatement = "INSERT INTO SUDOKU VALUES (?,?,?)";
 		PreparedStatement preparedStatement = connection
 				.prepareStatement(sqlTimestampInsertStatement);
-		preparedStatement.setInt(2, su.getQuinSudoku());
-		preparedStatement.setString(1, su.getNom());
-		preparedStatement.setTimestamp(3, su.getTime());
+		
+		preparedStatement.setString(1, sudoku.getJugador().getNom());
+		preparedStatement.setInt(2, sudoku.getQuinSudoku());
+		preparedStatement.setTimestamp(3, sudoku.getTime());
 
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 	}
-	
-	public static void esborrarSudoku(int quinSu) throws Exception {
+
+	public void esborrarSudoku(Sudoku sudoku) throws Exception {
 
 		try {
-	ConnectionBBDD connection = LoginBBDD.getConnection();
-		
-		String sqlTimestampInsertStatement = "DELETE FROM SUDOKU WHERE IDSUDOKU = ?";
-		PreparedStatement preparedStatement = connection
-				.prepareStatement(sqlTimestampInsertStatement);
-		preparedStatement.setInt(1, quinSu);
-		
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
+			ConnectionBBDD connection = LoginBBDD.getConnection();
+
+			String sqlTimestampInsertStatement = "DELETE FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sqlTimestampInsertStatement);
+			preparedStatement.setInt(1, sudoku.getQuinSudoku());
+			preparedStatement.setString(2, sudoku.getJugador().getNom());
+
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
 		} catch (SQLException e) {
 			throw new Exception("ERROR METODE esborrarSudoku");
 		}
 	}
-	
-	public static Timestamp[] getTimestamps(String nom) throws Exception {
 
-		Timestamp[] partides = new Timestamp[quantsSudokus(nom)];
+	public Timestamp[] getTimestamps(Sudoku sudoku) throws Exception {
+
+		Timestamp[] partides = new Timestamp[quantsSudokus(sudoku)];
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		int i = 0;
@@ -76,7 +82,7 @@ public class SudokuBBDD {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(sql);
 			preparedStatement.clearParameters();
-			preparedStatement.setString(1, nom);
+			preparedStatement.setString(1, sudoku.getJugador().getNom());
 			ResultSet rs = preparedStatement.executeQuery();
 
 			try {
@@ -95,9 +101,8 @@ public class SudokuBBDD {
 		}
 
 	}
-	
-	
-	public static int getIdFromTimeStamp(Timestamp time) throws Exception {
+
+	public int getIdFromTimeStamp(Timestamp time) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
@@ -123,7 +128,7 @@ public class SudokuBBDD {
 
 	}
 
-	public static int quantsSudokus(String nom) throws Exception {
+	public int quantsSudokus(Sudoku sudoku) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
@@ -132,7 +137,7 @@ public class SudokuBBDD {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement(sql);
 			preparedStatement.clearParameters();
-			preparedStatement.setString(1, nom);
+			preparedStatement.setString(1, sudoku.getJugador().getNom());
 
 			ResultSet rs = preparedStatement.executeQuery();
 
