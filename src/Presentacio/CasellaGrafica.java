@@ -1,6 +1,5 @@
 package Presentacio;
 
-@SuppressWarnings("serial")
 class CasellaGrafica extends javax.swing.JTextField {
 
 	private int fila, columna;

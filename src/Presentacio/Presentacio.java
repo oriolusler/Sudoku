@@ -38,13 +38,13 @@ public class Presentacio implements ActionListener, FocusListener {
 			sudokuV3.setEnabled(false);
 
 			initComponents();
-			inici(nom);
+			decidirSudokuAJugar(nom);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 	}
 
-	private void inici(String nom) {
+	private void decidirSudokuAJugar(String nom) {
 		try {
 
 			int sudokuUsuari = control.nouJugador(nom);
@@ -202,10 +202,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 		}
 
-		// textLog.setText("Introdueix el teu nom");
 		iniciar.add(loggin);
-		// iniciar.add(textLog);
-
 		frame.add(iniciar, BorderLayout.NORTH);
 		botons.add(guardarPartida);
 		botons.add(random, BorderLayout.NORTH);
@@ -273,14 +270,6 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			}
 		});
-
-		/*
-		 * textLog.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent evt) { inici(); }
-		 * 
-		 * });
-		 */
 
 		random.addActionListener(new ActionListener() {
 

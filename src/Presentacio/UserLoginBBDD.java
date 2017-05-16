@@ -20,7 +20,7 @@ public class UserLoginBBDD {
 		UserLoginBBDD login = new UserLoginBBDD();
 		boolean logat = login.DemanarCredencials();
 		if (logat) {
-			LoginSudoku a = new LoginSudoku();
+			new LoginSudoku();
 
 		}
 	}
@@ -46,6 +46,7 @@ public class UserLoginBBDD {
 					result_label.setText("Usuari i/o contrasenya incorrecte.");
 					result_label.setForeground(Color.RED);
 					login.setText("");
+					password.setText("");
 				}
 			} else
 				System.exit(0);
