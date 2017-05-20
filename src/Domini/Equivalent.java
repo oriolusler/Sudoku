@@ -7,8 +7,13 @@ class Equivalent {
 	private int[][] intercanvis = { { 0, 0, 1, 3, 3, 4, 6, 6, 7 }, { 1, 2, 2, 4, 5, 5, 7, 8, 8 } };
 	private Casella[][] graella;
 
-	Equivalent(Casella[][] graella) throws Exception {
-		this.graella = graella;
+	Equivalent() throws Exception {
+
+	}
+
+	public Casella[][] nouCasella(Casella[][] antiga) throws Exception {
+
+		this.graella = antiga;
 		esboorarCasellesJugador();
 
 		int canvis[] = new int[numRandom(1, 6)];
@@ -22,6 +27,8 @@ class Equivalent {
 			canvis[i] = n;
 			canviarTaulell(n);
 		}
+
+		return this.graella;
 	}
 
 	private boolean repe(int[] array, int valor) {

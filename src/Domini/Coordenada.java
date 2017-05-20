@@ -22,7 +22,7 @@ public class Coordenada {
 	}
 
 	LinkedList<Coordenada> mateixaFila() {
-		LinkedList<Coordenada> files = new LinkedList<Coordenada>();
+		LinkedList<Coordenada> files = new LinkedList<>();
 		int i = 0;
 		while (i < 9) {
 			if (i != this.columna) {
@@ -34,7 +34,7 @@ public class Coordenada {
 	}
 
 	LinkedList<Coordenada> mateixaColumna() {
-		LinkedList<Coordenada> columnes = new LinkedList<Coordenada>();
+		LinkedList<Coordenada> columnes = new LinkedList<>();
 		int j = 0;
 		while (j < 9) {
 			if (j != this.fila) {
@@ -46,7 +46,7 @@ public class Coordenada {
 	}
 
 	LinkedList<Coordenada> mateixBloc() {
-		LinkedList<Coordenada> blocs = new LinkedList<Coordenada>();
+		LinkedList<Coordenada> blocs = new LinkedList<>();
 		int f = fila / 3 * 3;
 		int c = columna / 3 * 3;
 

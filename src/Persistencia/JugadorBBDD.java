@@ -18,7 +18,7 @@ public class JugadorBBDD {
 		if (pst.executeUpdate() != 1)
 			throw new Exception("JUGADOR NO GUARDAT!");
 	}
-	
+
 	public void updateJugador(Jugador jugador) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
@@ -28,8 +28,9 @@ public class JugadorBBDD {
 
 		pst.setInt(1, jugador.getEstat());
 		pst.setString(2, jugador.getNom());
-		
+
 		if (pst.executeUpdate() != 1)
 			throw new Exception("JUGADOR NO ACTUALITZAT!");
+
 	}
 }

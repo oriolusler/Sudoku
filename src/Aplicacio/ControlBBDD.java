@@ -22,7 +22,6 @@ public class ControlBBDD {
 	public ControlBBDD(String nom) {
 
 		jugador = new Jugador(nom);
-	
 
 		this.jugadorBBDD = new JugadorBBDD();
 		this.sudokuBBDD = new SudokuBBDD();
@@ -35,8 +34,8 @@ public class ControlBBDD {
 		su = new Sudoku(time, quantsTaulells() + 1, jugador);
 
 	}
-	
-	public void setSudokuID(int quinSudoku){
+
+	public void setSudokuID(int quinSudoku) {
 		this.su.setQuinSudoku(quinSudoku);
 	}
 
@@ -49,7 +48,7 @@ public class ControlBBDD {
 	}
 
 	public void storeTaulell(Casella[][] taulell) throws Exception {
-		setSudokuID(quantsTaulells()+1);
+		setSudokuID(quantsTaulells() + 1);
 		taulellBBDD.storeTaullell(taulell, su);
 	}
 
@@ -95,8 +94,13 @@ public class ControlBBDD {
 	}
 
 	public void setEstatJuagdor() throws Exception {
-		jugador.setEstat(0);
-		jugadorBBDD.updateJugador(jugador);
+		
+		if (!(jugador.getNom().equals("Anonim"))) {
+			jugador.setEstat(0);
+			jugadorBBDD.updateJugador(jugador);
+		} else {
+			System.out.print("OK");
+		}
 	}
 
 	public void esborrarSudokuTaulell() throws Exception {

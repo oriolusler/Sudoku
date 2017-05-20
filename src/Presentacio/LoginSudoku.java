@@ -8,8 +8,7 @@ import javax.swing.JTextField;
 
 public class LoginSudoku {
 
-	private JLabel result_label = new JLabel(
-			"Introdueix el nom d'usuari per jugar");
+	private JLabel result_label = new JLabel("Introdueix el nom d'usuari per jugar");
 	private JLabel label_login = new JLabel("Usuari:");
 	private JTextField login = new JTextField();
 
@@ -29,8 +28,8 @@ public class LoginSudoku {
 
 			Object[] array = { result_label, label_login, login };
 
-			int res = JOptionPane.showConfirmDialog(null, array, "User Login",
-					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			int res = JOptionPane.showConfirmDialog(null, array, "User Login", JOptionPane.OK_CANCEL_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
 
 			if (res == JOptionPane.OK_OPTION) {
 

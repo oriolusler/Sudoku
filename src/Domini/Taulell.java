@@ -2,45 +2,15 @@ package Domini;
 
 import java.util.LinkedList;
 
-import Aplicacio.CrearGraella;
-
 public class Taulell {
 
 	private Casella[][] graella;
 	private int[][] error = new int[2][3];
-		
-	public Taulell(boolean buit) throws Exception {
 
-		
-		graella = new Casella[9][9];
+	public Taulell() throws Exception {
+
 		iniciarErrors();
-		CrearTaulell();
-		if (!buit) {
-			CrearGraella.crearGraella(this);
 
-		}
-	}
-
-	public Taulell(Casella[][] taulell)
-			throws Exception {
-
-		
-		graella = new Casella[9][9];
-		iniciarErrors();
-		CrearTaulell();
-
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if (!(taulell[i][j].isEditable())) {
-					this.setCasella(i, j, taulell[i][j].getValor());
-				}
-			}
-		}
-
-	}
-
-	public Casella[][] getCasella() {
-		return this.graella;
 	}
 
 	public int[][] getError() {
@@ -74,7 +44,7 @@ public class Taulell {
 		}
 	}
 
-	public void CrearTaulell() {
+	private void CrearTaulell() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				graella[i][j] = new Casella();
@@ -100,15 +70,7 @@ public class Taulell {
 		graella[x][y].setCasella(valor);
 	}
 
-	// ////////////////////////////////////////////////////////////////////
-
-	public int getValorCasella(int x, int y) {
-		return graella[x][y].getValor();
-	}
-
-	// ////////////////////////////////////////////////////////////////////
-
-	public void canviarValor(int f, int c, int valor) throws Exception {
+	public boolean canviarValor(int f, int c, int valor) throws Exception {
 
 		iniciarErrors();
 		Coordenada cord = new Coordenada(f, c);
@@ -121,15 +83,10 @@ public class Taulell {
 		valorRepe = this.valorRepe(columnes, valor, 1) || valorRepe;
 		valorRepe = this.valorRepe(files, valor, 0) || valorRepe;
 
-		if (valorRepe) {
-			throw new Exception("Error, valor repetit.");
-		} else {
-			graella[f][c].setValor(valor);
-		}
+		return valorRepe;
 	}
 
-	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor,
-			int llocError) {
+	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor, int llocError) {
 		int fila, columna;
 		for (Coordenada coordenada : coordenades) {
 			fila = coordenada.getFila();
@@ -153,12 +110,13 @@ public class Taulell {
 		return graella[fila][columna].isEditable();
 	}
 
-	public void canvis() throws Exception {
-		new Equivalent(this.graella);
+	public Casella[][] canvis() throws Exception {
+		Equivalent nou = new Equivalent();
+		return nou.nouCasella(this.graella);
 	}
-	
-	public void setEditable(int fila, int columna, boolean editable){
-		new Coordenada(fila, columna);
-		graella[fila][columna].setEditable(editable);
+
+	public void setGraella(Casella[][] caselles) {
+		this.graella = caselles;
+
 	}
 }
