@@ -38,21 +38,20 @@ public class Presentacio implements ActionListener, FocusListener {
 			@Override
 			public void run() {
 				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-						| UnsupportedLookAndFeelException ex) {
+					if (nom.equals("Anonim")) {
+						iniciarAnonim();
+						initComponents();
+						guardarPartida.setEnabled(false);
+						loggin.setText("Aquesta partida no serà guardada a la base de dades");
+					} else {
+						controlBBDD = new ControlBBDD(nom);
+						iniciarAmbPersistencia(nom);
+						loggin.setText("El jugador que actualment està jugant es: " + nom);
+					}
+				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), ex.getStackTrace());
 				}
-				if (nom.equals("Anonim")) {
-					iniciarAnonim();
-					initComponents();
-					guardarPartida.setEnabled(false);
-					loggin.setText("Aquesta partida no serà guardada a la base de dades");
-				} else {
-					controlBBDD = new ControlBBDD(nom);
-					iniciarAmbPersistencia(nom);
-					loggin.setText("El jugador que actualment està jugant es: " + nom);
-				}
+
 			}
 		});
 	}
