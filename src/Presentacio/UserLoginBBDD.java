@@ -38,21 +38,21 @@ public class UserLoginBBDD {
 
 	private JPanel getPanel() {
 		SpringLayout sl_panel = new SpringLayout();
+		sl_panel.putConstraint(SpringLayout.WEST, password, 39, SpringLayout.EAST, label_password);
+		sl_panel.putConstraint(SpringLayout.EAST, label_login, -27, SpringLayout.WEST, login);
 		sl_panel.putConstraint(SpringLayout.NORTH, result_label, 40, SpringLayout.SOUTH, password);
 		sl_panel.putConstraint(SpringLayout.SOUTH, login, -5, SpringLayout.NORTH, password);
-		sl_panel.putConstraint(SpringLayout.EAST, password, 0, SpringLayout.EAST, login);
 		sl_panel.putConstraint(SpringLayout.SOUTH, label_login, -11, SpringLayout.NORTH, label_password);
-		sl_panel.putConstraint(SpringLayout.EAST, label_login, -6, SpringLayout.WEST, login);
 		sl_panel.putConstraint(SpringLayout.NORTH, password, -3, SpringLayout.NORTH, label_password);
 		JPanel panel = new JPanel(sl_panel);
+		sl_panel.putConstraint(SpringLayout.EAST, password, -10, SpringLayout.EAST, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, label_login, 22, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, login, 99, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, result_label, 52, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, result_label, -49, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, result_label, -43, SpringLayout.EAST, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, label_password, 10, SpringLayout.WEST, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, label_login, 22, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, login, -10, SpringLayout.EAST, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, password, 76, SpringLayout.WEST, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, login, 78, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.NORTH, label_password, 74, SpringLayout.NORTH, panel);
 
 		panel.add(label_login, BorderLayout.NORTH);
@@ -61,7 +61,6 @@ public class UserLoginBBDD {
 		panel.add(password, BorderLayout.EAST);
 		panel.add(result_label, BorderLayout.SOUTH);
 		panel.setPreferredSize(new Dimension(200, 200));
-
 		return panel;
 	}
 
