@@ -23,7 +23,7 @@ public class UserLoginBBDD {
 	private JLabel label_login = new JLabel("Usuari:");
 	private JTextField login = new JTextField("G2GEILAB1");
 	private JLabel label_password = new JLabel("Password:");
-	private JPasswordField password = new JPasswordField("oriolusoler");
+	private JPasswordField password = new JPasswordField("G2GEILAB14");
 	private JLabel result_label = new JLabel("");
 
 	public static void main(String[] args) {

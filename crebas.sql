@@ -1,76 +1,78 @@
 /*==============================================================*/
-/* DBMS name:      ORACLE Version 10g                           */
-/* Created on:     04/05/2017 11:32:58                          */
+/* DBMS name: ORACLE Version 10g */
+/* Created on: 16/05/2017 10:50:25 */
 /*==============================================================*/
 
 
 alter table CASELLA
-   drop constraint FK_CASELLA_PERTANYER_SUDOKU;
+drop constraint FK_CASELLA_TE_SUDOKU;
 
 alter table SUDOKU
-   drop constraint FK_SUDOKU_TENIR_JUGADOR;
+drop constraint FK_SUDOKU_GUARDA_JUGADOR;
 
-drop index PERTANYER_FK;
+drop index TE_FK;
 
 drop table CASELLA cascade constraints;
 
 drop table JUGADOR cascade constraints;
 
-drop index TENIR_FK;
+drop index GUARDA_FK;
 
 drop table SUDOKU cascade constraints;
 
 /*==============================================================*/
-/* Table: CASELLA                                               */
+/* Table: CASELLA */
 /*==============================================================*/
-create table CASELLA  (
-   IDSUDOKU             NUMBER(3)                       not null,
-   COORX                NUMBER(1)                       not null,
-   COORY                NUMBER(1)                       not null,
-   VALOR                NUMBER(1),
-   EDITABLE             NUMBER(1),
-   CASELLA              NUMBER(2),
-   constraint PK_CASELLA primary key (IDSUDOKU, COORX, COORY)
+create table CASELLA (
+NOMJUGADOR VARCHAR2(25) not null,
+IDSUDOKU NUMBER(3) not null,
+COORX NUMBER(1) not null,
+COORY NUMBER(1) not null,
+VALOR NUMBER(1),
+EDITABLE NUMBER(1),
+constraint PK_CASELLA primary key (NOMJUGADOR, IDSUDOKU, COORX, COORY),
+constraint CHK_COOR CHECK (COORX BETWEEN 0 AND 9 AND COORY BETWEEN 0 AND 9),
+constraint CHK_VALOR CHECK (VALOR BETWEEN 0 AND 9)
 );
 
 /*==============================================================*/
-/* Index: PERTANYER_FK                                          */
+/* Index: TE_FK */
 /*==============================================================*/
-create index PERTANYER_FK on CASELLA (
-   IDSUDOKU ASC
+create index TE_FK on CASELLA (
+NOMJUGADOR ASC,
+IDSUDOKU ASC
 );
 
 /*==============================================================*/
-/* Table: JUGADOR                                               */
+/* Table: JUGADOR */
 /*==============================================================*/
-create table JUGADOR  (
-   NOMJUAGDOR           VARCHAR2(25)                    not null,
-   ESTAJUGANT           NUMBER(1),
-   constraint PK_JUGADOR primary key (NOMJUAGDOR)
+create table JUGADOR (
+NOMJUGADOR VARCHAR2(25) not null,
+ESTAJUAGNT INTEGER,
+constraint PK_JUGADOR primary key (NOMJUGADOR)
 );
 
 /*==============================================================*/
-/* Table: SUDOKU                                                */
+/* Table: SUDOKU */
 /*==============================================================*/
-create table SUDOKU  (
-   NOMJUAGDOR           VARCHAR2(25)                    not null,
-   IDSUDOKU             NUMBER(3)                       not null,
-   DATACREACIO          TIMESTAMP,
-   constraint PK_SUDOKU primary key (IDSUDOKU)
+create table SUDOKU (
+NOMJUGADOR VARCHAR2(25) not null,
+IDSUDOKU NUMBER(3) not null,
+DATACREACIO TIMESTAMP,
+constraint PK_SUDOKU primary key (NOMJUGADOR, IDSUDOKU)
 );
 
 /*==============================================================*/
-/* Index: TENIR_FK                                              */
+/* Index: GUARDA_FK */
 /*==============================================================*/
-create index TENIR_FK on SUDOKU (
-   NOMJUAGDOR ASC
+create index GUARDA_FK on SUDOKU (
+NOMJUGADOR ASC
 );
 
 alter table CASELLA
-   add constraint FK_CASELLA_PERTANYER_SUDOKU foreign key (IDSUDOKU)
-      references SUDOKU (IDSUDOKU);
+add constraint FK_CASELLA_TE_SUDOKU foreign key (NOMJUGADOR, IDSUDOKU)
+references SUDOKU (NOMJUGADOR, IDSUDOKU);
 
 alter table SUDOKU
-   add constraint FK_SUDOKU_TENIR_JUGADOR foreign key (NOMJUAGDOR)
-      references JUGADOR (NOMJUAGDOR);
-
+add constraint FK_SUDOKU_GUARDA_JUGADOR foreign key (NOMJUGADOR)
+references JUGADOR (NOMJUGADOR);

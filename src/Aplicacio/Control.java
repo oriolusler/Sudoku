@@ -27,7 +27,7 @@ public class Control {
 
 	public void setEntrada(int fila, int columna, String valor) throws Exception {
 		if (t.canviarValor(fila, columna, Integer.parseInt(valor)))
-			throw new Exception("Error valor repetit....");
+			throw new Exception("Error, valor repetit.");
 		else
 			caselles[fila][columna].setValor(Integer.parseInt(valor));
 

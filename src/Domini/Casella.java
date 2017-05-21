@@ -25,9 +25,9 @@ public class Casella {
 
 	public void setValor(int valor) throws Exception {
 		if (valor < 1 || valor > 9)
-			throw new Exception("Error valor casella: fora de rang. Ha de ser 1..9");
+			throw new Exception("Error valor casella: fora de rang. Ha de ser 1 a 9");
 		if (!editable)
-			throw new Exception("Error valor casella: la casella no �s editable");
+			throw new Exception("Error valor casella: la casella no es editable");
 		this.valor = valor;
 	}
 
@@ -38,7 +38,7 @@ public class Casella {
 
 	public void esborrarCasella() throws Exception {
 		if (!editable)
-			throw new Exception("Error valor casella: la casella no �s editable");
+			throw new Exception("Error valor casella: la casella no es editable");
 		this.valor = vDefecte;
 	}
 }

@@ -21,7 +21,7 @@ public class Presentacio implements ActionListener, FocusListener {
 	private CasellaGrafica[][] textField = new CasellaGrafica[9][9];
 	private JButton nouSudoku = new JButton("Generar Nou Sudoku");
 	private JButton crear = new JButton("Crear Sudoku");
-	private JButton sudokuV3 = new JButton("Sudoku estàndard");
+	private JButton sudokuV3 = new JButton("Sudoku estï¿½ndard");
 	private int nEntrades = 0;
 
 	// NOU
@@ -42,11 +42,11 @@ public class Presentacio implements ActionListener, FocusListener {
 						iniciarAnonim();
 						initComponents();
 						guardarPartida.setEnabled(false);
-						loggin.setText("Aquesta partida no serà guardada a la base de dades");
+						loggin.setText("Aquesta partida no sera guardada a la base de dades");
 					} else {
 						controlBBDD = new ControlBBDD(nom);
 						iniciarAmbPersistencia(nom);
-						loggin.setText("El jugador que actualment està jugant es: " + nom);
+						loggin.setText("El jugador que actualment esta jugant es: " + nom);
 					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), ex.getStackTrace());
@@ -60,14 +60,14 @@ public class Presentacio implements ActionListener, FocusListener {
 		try {
 
 			int res = JOptionPane.showConfirmDialog(new JFrame(),
-					"Vols crear un Sudoku desde zero?\n - En cas contrari es crearà un Sudoku predefinit\n\nBONA SORT",
+					"Vols crear un Sudoku desde zero?\n - En cas contrari es creara un Sudoku predefinit\n\nBONA SORT",
 					"TRIA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 			if (res == JOptionPane.YES_OPTION) {
 				JOptionPane.showMessageDialog(new JFrame(),
-						"Instruccions:\n - Un cop introduït un número, fer clic ENTER per confirmar"
-								+ "\n - En cas d'introduir un 0, la casella no tindrà cap valor"
-								+ "\n - Per finalitzar la creació premeu 'Crear Sudoku' a la part inferior");
+						"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
+								+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
+								+ "\n - Per finalitzar la creacia premeu 'Crear Sudoku' a la part inferior");
 				control = new Control();
 				nouSudoku.setEnabled(false);
 			} else if (res == JOptionPane.NO_OPTION) {
@@ -107,7 +107,7 @@ public class Presentacio implements ActionListener, FocusListener {
 					controlBBDD.setSudokuID(controlBBDD.getIdFromTimeStamp(recuperats[0]));
 				else {
 					Timestamp input = (Timestamp) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
-							"Elecció sudoku", JOptionPane.QUESTION_MESSAGE, null, recuperats, recuperats);
+							"Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, recuperats, recuperats);
 
 					controlBBDD.setSudokuID(controlBBDD.getIdFromTimeStamp(input));
 				}

@@ -86,7 +86,8 @@ public class Taulell {
 		return valorRepe;
 	}
 
-	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor, int llocError) {
+	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor,
+			int llocError) {
 		int fila, columna;
 		for (Coordenada coordenada : coordenades) {
 			fila = coordenada.getFila();
@@ -111,8 +112,7 @@ public class Taulell {
 	}
 
 	public Casella[][] canvis() throws Exception {
-		Equivalent nou = new Equivalent();
-		return nou.nouCasella(this.graella);
+		return new Equivalent().nouCasella(this.graella);
 	}
 
 	public void setGraella(Casella[][] caselles) {
