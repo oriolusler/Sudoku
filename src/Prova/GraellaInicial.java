@@ -2,7 +2,6 @@ package Prova;
 
 import Aplicacio.CrearGraella;
 import Domini.Casella;
-import Domini.Taulell;
 
 public class GraellaInicial extends CrearGraella {
 

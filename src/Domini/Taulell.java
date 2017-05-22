@@ -44,14 +44,10 @@ public class Taulell {
 		}
 	}
 
-	private void CrearTaulell() {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				graella[i][j] = new Casella();
-			}
-		}
-	}
-
+	/*
+	 * private void CrearTaulell() { for (int i = 0; i < 9; i++) { for (int j =
+	 * 0; j < 9; j++) { graella[i][j] = new Casella(); } } }
+	 */
 	public String[][] getTaulell() {
 		String[][] taulell = new String[9][9];
 		for (int i = 0; i < 9; i++) {
@@ -86,8 +82,7 @@ public class Taulell {
 		return valorRepe;
 	}
 
-	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor,
-			int llocError) {
+	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor, int llocError) {
 		int fila, columna;
 		for (Coordenada coordenada : coordenades) {
 			fila = coordenada.getFila();

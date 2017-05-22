@@ -1,6 +1,5 @@
 package Presentacio;
 
-import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,11 +15,12 @@ import javax.swing.JRadioButton;
 import Aplicacio.Control;
 import Aplicacio.ControlBBDD;
 
+@SuppressWarnings("serial")
 public class MenuBar extends JMenuBar implements ActionListener {
 
 	JMenu menuPartida, menuPersistencia, recuperarPArtides;
 	JMenu submenuPartida, submenuPersistencia;
-	JMenuItem Sudoku0, SudokiIniciat, GuardarSudokuNou, GenerarSudokuAleatori;
+	JMenuItem Sudoku0, SudokiIniciat, GuardarSudokuNou, GenerarSudokuAleatori, CrearSudokuUsuari;
 	JLabel nomJugadorActual = new JLabel("");
 	Presentacio pr;
 	Control cr;
@@ -38,9 +38,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.nom = p.getNom();
 		this.recuperats = p.getRecuperats();
 
+		CrearSudokuUsuari = new JMenuItem(" !!! Iniciar Sudoku !!! ");
+
 		// ////////////////////// MENU PARTIDA ////////////////////////
+
 		menuPartida = new JMenu("Partida");
-		// SUBMENU PARTIDA
+		// SUBMENU PARTIDA //
 		submenuPartida = new JMenu("Crear sudoku: ");
 
 		Sudoku0 = new JMenuItem("Buit");
@@ -50,19 +53,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		submenuPartida.add(SudokiIniciat);
 		menuPartida.add(submenuPartida);
 
-		// FI SUBMENU
+		// FI SUBMENU //
 		menuPartida.addSeparator();
 		GenerarSudokuAleatori = new JMenuItem("Sudoku Aleatori");
 		menuPartida.add(GenerarSudokuAleatori);
 		// FI MENU PARTIDA
 
 		// ////////////////////// MENU GUARDAR ////////////////////////
+
 		menuPersistencia = new JMenu("Persistencia");
 
 		GuardarSudokuNou = new JMenuItem("Guardar");
 		menuPersistencia.add(GuardarSudokuNou);
-
-		// FI SUBMENU
 
 		// ///////////////////// RECUPERAR PARTIDES MENU ///////////////////////
 
@@ -72,24 +74,50 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.add(menuPersistencia);
 		this.add(recuperarPArtides);
 		this.add(nomJugadorActual);
+		this.add(CrearSudokuUsuari);
+
+		if ((!cr.estaBuit()))
+			CrearSudokuUsuari.setVisible(false);
 
 		if (nom.equals("Anonim")) {
 			menuPersistencia.setEnabled(false);
 			recuperarPArtides.setEnabled(false);
 		} else {
 			nomJugadorActual.setText("Jugador: " + nom);
-			JRadioButton[] fontButtons = new JRadioButton[recuperats.length];
-			ButtonGroup fontGroup = new ButtonGroup();
+			if (recuperats != null) {
+				JRadioButton[] fontButtons = new JRadioButton[recuperats.length];
+				ButtonGroup fontGroup = new ButtonGroup();
 
-			for (int i = 0; i < recuperats.length; i++) {
-				fontButtons[i] = new JRadioButton();
-				fontButtons[i].setText(recuperats[i].toString());
-				fontButtons[i].addActionListener(this);
-				fontGroup.add(fontButtons[i]);
-				recuperarPArtides.add(fontButtons[i]);
+				for (int i = 0; i < recuperats.length; i++) {
+					fontButtons[i] = new JRadioButton();
+					fontButtons[i].setText(recuperats[i].toString());
+					fontButtons[i].addActionListener(this);
+					fontGroup.add(fontButtons[i]);
+					recuperarPArtides.add(fontButtons[i]);
+				}
 			}
-
 		}
+
+		CrearSudokuUsuari.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (pr.getNumeroEntrades() >= 17)
+					try {
+						pr.elimanar();
+						cr.iniciarUsuari();
+						pr.actualitzar();
+						CrearSudokuUsuari.setVisible(false);
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
+					}
+				else {
+					JOptionPane.showMessageDialog(new JFrame(),
+							"No es posible crear el taulell, has de tenir" + " 17 o mes numeros introduits"
+									+ "\n(Quantitat de numeros introduits : " + pr.getNumeroEntrades() + ")");
+				}
+			}
+		});
 
 		GenerarSudokuAleatori.addActionListener(new ActionListener() {
 
@@ -97,10 +125,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				pr.elimanar();
 				try {
-					int res = JOptionPane.showConfirmDialog(new JFrame(),
-							"Perdras el sudoku actual, vols continuar?",
-							"ALERTA", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
+					int res = JOptionPane.showConfirmDialog(new JFrame(), "Perdras el sudoku actual, vols continuar?",
+							"ALERTA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
 						cr.canviarTaulell();
@@ -120,17 +146,17 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (!(nom.equals("Anonim"))) {
-					pr.setBotonsShow(true);
-					pr.elimanar();
-					try {
-						cr.resetejarCasella();
-						pr.actualitzar();
+				CrearSudokuUsuari.setVisible(true);
+				pr.elimanar();
+				try {
+					cr.resetejarCasella();
+					pr.actualitzar();
+					if (crb != null)
 						crb.iniciarSudoku();
-					} catch (Exception error) {
-						error.printStackTrace();
-					}
+				} catch (Exception error) {
+					error.printStackTrace();
 				}
+
 			}
 		});
 
@@ -139,20 +165,19 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (!(nom.equals("Anonim"))) {
-					pr.setBotonsShow(false);
-					pr.elimanar();
-					try {
-						cr.resetejarCasella();
-						cr.inciarCaselles();
-						pr.actualitzar();
+				CrearSudokuUsuari.setVisible(false);
+				pr.elimanar();
+				try {
+					cr.resetejarCasella();
+					cr.inciarCaselles();
+					pr.actualitzar();
+					if (crb != null)
 						crb.iniciarSudoku();
 
-					} catch (Exception error) {
-						error.getStackTrace();
-					}
-
+				} catch (Exception error) {
+					error.getStackTrace();
 				}
+
 			}
 		});
 
@@ -162,12 +187,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					int res = JOptionPane
-							.showConfirmDialog(
-									new JFrame(),
-									"Vols guardar el sudoku?\n - En cas contrari es finalitzarà el joc.",
-									"TRIA", JOptionPane.YES_NO_OPTION,
-									JOptionPane.QUESTION_MESSAGE);
+					int res = JOptionPane.showConfirmDialog(new JFrame(), "Vols guardar el sudoku?\n", "TRIA",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
 						try {
@@ -193,8 +214,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		Timestamp a = Timestamp.valueOf(((JRadioButton) e.getSource())
-				.getText());
+		Timestamp a = Timestamp.valueOf(((JRadioButton) e.getSource()).getText());
 		try {
 			cr.resetejarCasella();
 			crb.setSudokuID(crb.getIdFromTimeStamp(a));
@@ -205,5 +225,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			e1.printStackTrace();
 		}
 
+	}
+
+	public void setControl(Control nouControl) {
+		this.cr = nouControl;
+		if ((!cr.estaBuit()))
+			CrearSudokuUsuari.setVisible(false);
 	}
 }

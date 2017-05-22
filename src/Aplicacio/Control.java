@@ -107,4 +107,15 @@ public class Control {
 		return caselles;
 	}
 
+	public boolean estaBuit() {
+		for (int x = 0; x < 9; x++) {
+			for (int y = 0; y < 9; y++) {
+				if (caselles[x][y].getValor() != 0)
+					return false;
+			}
+		}
+
+		return true;
+	}
+
 }
