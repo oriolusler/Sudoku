@@ -4,13 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Domini.Casella;
-import Domini.Jugador;
+
 import Domini.Sudoku;
 
 public class TaulellBBDD {
 
-	public void storeTaullell(Casella[][] taulell, Sudoku sudoku)
-			throws Exception {
+	public void storeTaullell(Casella[][] taulell, Sudoku sudoku) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
@@ -33,7 +32,7 @@ public class TaulellBBDD {
 				pst.setInt(6, editable);
 
 				if (pst.executeUpdate() != 1)
-					throw new Exception("ERRO METODE STORE");
+					throw new Exception("ERRO METODE storeTaullell");
 			}
 		}
 
@@ -46,8 +45,7 @@ public class TaulellBBDD {
 
 		try {
 			String sql = "SELECT * FROM CASELLA WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
-			PreparedStatement preparedStatement = connection
-					.prepareStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.clearParameters();
 			preparedStatement.setInt(1, sudoku.getQuinSudoku());
 			preparedStatement.setString(2, sudoku.getJugador().getNom());
@@ -66,7 +64,7 @@ public class TaulellBBDD {
 			}
 			return taulell;
 		} catch (SQLException e) {
-			throw new Exception("ERROR METODE GET TAULELL");
+			throw new Exception("ERROR METODE getEditables");
 		}
 
 	}
@@ -79,11 +77,10 @@ public class TaulellBBDD {
 
 		try {
 			String sql = "SELECT * FROM CASELLA WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
-			PreparedStatement preparedStatement = connection
-					.prepareStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.clearParameters();
 			preparedStatement.setInt(1, sudoku.getQuinSudoku());
-			preparedStatement.setString(2,sudoku.getJugador().getNom());
+			preparedStatement.setString(2, sudoku.getJugador().getNom());
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 
@@ -99,7 +96,7 @@ public class TaulellBBDD {
 			}
 			return taulell;
 		} catch (SQLException e) {
-			throw new Exception("ERROR METODE GET TAULELL");
+			throw new Exception("ERROR METODE getTaulell");
 		}
 
 	}
@@ -110,8 +107,7 @@ public class TaulellBBDD {
 
 		try {
 			String sql = "SELECT COUNT(*) AS COUNT FROM CASELLA WHERE IDSUDOKU = ? AND NOMJUGADOR= ?";
-			PreparedStatement preparedStatement = connection
-					.prepareStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.clearParameters();
 			preparedStatement.setInt(1, sudoku.getQuinSudoku());
 			preparedStatement.setString(2, sudoku.getJugador().getNom());
@@ -126,20 +122,19 @@ public class TaulellBBDD {
 
 			throw new Exception("No s'ha trobat valor!");
 		} catch (SQLException e) {
-			throw new Exception("ERROR METODE ESTA BUIT");
+			throw new Exception("ERROR METODE estaBuit");
 		}
 
 	}
 
-	public int quantesPartides(Jugador jugador) throws Exception {
+	public int quantesPartides(Sudoku sudoku) throws Exception {
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		try {
 			String sql = "SELECT MAX(IDSUDOKU) AS ID FROM CASELLA WHERE NOMJUGADOR = ?";
-			PreparedStatement preparedStatement = connection
-					.prepareStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.clearParameters();
-			preparedStatement.setString(1, jugador.getNom());
+			preparedStatement.setString(1, sudoku.getJugador().getNom());
 			ResultSet rs = preparedStatement.executeQuery();
 
 			int maxID = 0;
@@ -151,12 +146,11 @@ public class TaulellBBDD {
 
 			return maxID;
 		} catch (SQLException e) {
-			throw new Exception("ERROR METODE QUANTES PARTIDES");
+			throw new Exception("ERROR METODEquantesPartides");
 		}
 	}
 
-	public void actualitzarBBDD(Casella[][] taulell, Sudoku sudoku)
-			throws Exception {
+	public void actualitzarBBDD(Casella[][] taulell, Sudoku sudoku) throws Exception {
 
 		String[][] antic = getTaulell(sudoku);
 		for (int i = 0; i < 9; i++) {
@@ -173,14 +167,12 @@ public class TaulellBBDD {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 
-				if (!(antic[i][j].equals(String.valueOf(taulell[i][j]
-						.getValor())))) {
+				if (!(antic[i][j].equals(String.valueOf(taulell[i][j].getValor())))) {
 					String sql = "UPDATE CASELLA SET valor=?,editable=? WHERE COORX=? AND COORY=? AND IDSUDOKU=? AND NOMJUGADOR= ? ";
 					PreparedStatement pst = connection.prepareStatement(sql);
 
 					pst.setInt(1, taulell[i][j].getValor());
-					
-					
+
 					int editable;
 					if (taulell[i][j].isEditable())
 						editable = 0;
@@ -191,11 +183,9 @@ public class TaulellBBDD {
 					pst.setInt(4, j);
 					pst.setInt(5, sudoku.getQuinSudoku());
 					pst.setString(6, sudoku.getJugador().getNom());
-					
-					if (pst.executeUpdate() != 1)
-						throw new Exception("ERRO METODE STORE");
 
-					System.out.print(1 + ",");
+					if (pst.executeUpdate() != 1)
+						throw new Exception("ERRO METODE actualitzarBBDD");
 				}
 			}
 		}
@@ -207,8 +197,7 @@ public class TaulellBBDD {
 			ConnectionBBDD connection = LoginBBDD.getConnection();
 
 			String sqlTimestampInsertStatement = "DELETE FROM CASELLA WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
-			PreparedStatement preparedStatement = connection
-					.prepareStatement(sqlTimestampInsertStatement);
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
 			preparedStatement.setInt(1, sudoku.getQuinSudoku());
 			preparedStatement.setString(2, sudoku.getJugador().getNom());
 

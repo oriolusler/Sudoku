@@ -28,7 +28,6 @@ public class Presentacio implements ActionListener, FocusListener {
 	// NOU
 
 	private ControlBBDD controlBBDD;
-	private JButton guardarPartida = new JButton("Guardar");
 
 	// MENU
 
@@ -47,8 +46,7 @@ public class Presentacio implements ActionListener, FocusListener {
 					if (nom.equals("Anonim")) {
 						iniciarAnonim();
 						initComponents();
-						guardarPartida.setEnabled(false);
-
+						
 					} else {
 						controlBBDD = new ControlBBDD(nom);
 						iniciarAmbPersistencia(nom);
@@ -294,7 +292,6 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			if (control.isComplete()) {
 				JOptionPane.showMessageDialog(new JFrame(), "JOC FINALITZAT FELICITATS");
-				guardarPartida.setEnabled(false);
 				if (!(controlBBDD.sudokuBuit()))
 					controlBBDD.esborrarSudokuTaulell();
 			}

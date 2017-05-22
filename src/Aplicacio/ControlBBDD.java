@@ -57,7 +57,7 @@ public class ControlBBDD {
 	}
 
 	public int quantsTaulells() throws Exception {
-		return taulellBBDD.quantesPartides(jugador);
+		return taulellBBDD.quantesPartides(su);
 	}
 
 	public int nouJugador(String nom) throws Exception {
