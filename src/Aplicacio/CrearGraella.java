@@ -1,16 +1,16 @@
 package Aplicacio;
 
-import Domini.Casella;
+import Domini.Taulell;
 import Prova.GraellaInicial;
 
 public abstract class CrearGraella {
 
-	public static void crearGraella(Casella[][] t) throws Exception {
+	public static void crearGraella(Taulell taulell) throws Exception {
 		GraellaInicial gi = new GraellaInicial();
-		gi.iniciarGraella(t);
+		gi.iniciarGraella(taulell);
 
 	}
 
-	public abstract void iniciarGraella(Casella[][] t) throws Exception;
+	public abstract void iniciarGraella(Taulell t) throws Exception;
 
 }

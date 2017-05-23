@@ -2,6 +2,8 @@ package Domini;
 
 import java.util.LinkedList;
 
+import Aplicacio.CrearGraella;
+
 public class Taulell {
 
 	private Casella[][] graella;
@@ -9,8 +11,19 @@ public class Taulell {
 
 	public Taulell() throws Exception {
 
+		graella = new Casella[9][9];
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				graella[i][j] = new Casella();
+			}
+		}
+
 		iniciarErrors();
 
+	}
+
+	public void iniciarTaulell() throws Exception {
+		CrearGraella.crearGraella(this);
 	}
 
 	public int[][] getError() {
@@ -48,6 +61,7 @@ public class Taulell {
 	 * private void CrearTaulell() { for (int i = 0; i < 9; i++) { for (int j =
 	 * 0; j < 9; j++) { graella[i][j] = new Casella(); } } }
 	 */
+	
 	public String[][] getTaulell() {
 		String[][] taulell = new String[9][9];
 		for (int i = 0; i < 9; i++) {
@@ -66,7 +80,7 @@ public class Taulell {
 		graella[x][y].setCasella(valor);
 	}
 
-	public boolean canviarValor(int f, int c, int valor) throws Exception {
+	public void canviarValor(int f, int c, int valor) throws Exception {
 
 		iniciarErrors();
 		Coordenada cord = new Coordenada(f, c);
@@ -79,10 +93,15 @@ public class Taulell {
 		valorRepe = this.valorRepe(columnes, valor, 1) || valorRepe;
 		valorRepe = this.valorRepe(files, valor, 0) || valorRepe;
 
-		return valorRepe;
+		if (valorRepe) {
+			throw new Exception("Error, valor repetit.");
+		} else {
+			graella[f][c].setValor(valor);
+		}
 	}
 
-	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor, int llocError) {
+	private boolean valorRepe(LinkedList<Coordenada> coordenades, int valor,
+			int llocError) {
 		int fila, columna;
 		for (Coordenada coordenada : coordenades) {
 			fila = coordenada.getFila();
@@ -113,5 +132,33 @@ public class Taulell {
 	public void setGraella(Casella[][] caselles) {
 		this.graella = caselles;
 
+	}
+
+	public void setEditable(int fila, int columna, boolean editable) {
+		new Coordenada(fila, columna);
+		graella[fila][columna].setEditable(editable);
+	}
+
+	public Casella[][] getCasella() {
+		return this.graella;
+	}
+
+	public void resetejarCasella() {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				graella[i][j] = new Casella();
+			}
+		}
+	}
+
+	public boolean estaBuit() {
+		for (int x = 0; x < 9; x++) {
+			for (int y = 0; y < 9; y++) {
+				if (graella[x][y].getValor() != 0)
+					return false;
+			}
+		}
+
+		return true;
 	}
 }

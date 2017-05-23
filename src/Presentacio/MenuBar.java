@@ -14,6 +14,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuKeyEvent;
+import javax.swing.event.MenuKeyListener;
+import javax.swing.event.MenuListener;
 
 import Aplicacio.Control;
 import Aplicacio.ControlBBDD;
@@ -30,6 +34,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private Control cr;
 	private ControlBBDD crb;
 
+	private JRadioButton[] fontButtons;
 	private Timestamp[] recuperats;
 
 	private String nom;
@@ -94,19 +99,29 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			recuperarPArtides.setEnabled(false);
 		} else {
 			nomJugadorActual.setText("Jugador: " + nom);
-			if (recuperats != null) {
-				JRadioButton[] fontButtons = new JRadioButton[recuperats.length];
-				ButtonGroup fontGroup = new ButtonGroup();
 
-				for (int i = 0; i < recuperats.length; i++) {
-					fontButtons[i] = new JRadioButton();
-					fontButtons[i].setText(recuperats[i].toString());
-					fontButtons[i].addActionListener(this);
-					fontGroup.add(fontButtons[i]);
-					recuperarPArtides.add(fontButtons[i]);
-				}
-			}
 		}
+
+		recuperarPArtides.addMenuListener(new MenuListener() {
+
+			@Override
+			public void menuSelected(MenuEvent e) {
+				mostratpartidesrecuperades();
+
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		CrearSudokuUsuari.addActionListener(new ActionListener() {
 
@@ -250,6 +265,28 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			e1.printStackTrace();
 		}
 
+	}
+
+	private void mostratpartidesrecuperades() {
+		// Preguntar si vols guardar partida
+
+		if (!(nom.equals("Anonim"))) {
+
+			recuperarPArtides.removeAll();
+			recuperats = pr.getRecuperats();
+			if (recuperats != null) {
+				fontButtons = new JRadioButton[recuperats.length];
+				ButtonGroup fontGroup = new ButtonGroup();
+
+				for (int i = 0; i < recuperats.length; i++) {
+					fontButtons[i] = new JRadioButton();
+					fontButtons[i].setText(recuperats[i].toString());
+					fontButtons[i].addActionListener(this);
+					fontGroup.add(fontButtons[i]);
+					recuperarPArtides.add(fontButtons[i]);
+				}
+			}
+		}
 	}
 
 	public void setControl(Control nouControl) {

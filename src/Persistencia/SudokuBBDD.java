@@ -8,6 +8,12 @@ import Domini.Sudoku;
 
 public class SudokuBBDD {
 
+	private TaulellBBDD taulell;
+
+	public SudokuBBDD() {
+		this.taulell = new TaulellBBDD();
+	}
+
 	public boolean estaBuit(Sudoku sudoku) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
@@ -21,7 +27,7 @@ public class SudokuBBDD {
 			preparedStatement.setString(2, sudoku.getJugador().getNom());
 			ResultSet rs = preparedStatement.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 
 				int value;
 				value = rs.getInt("COUNT");
@@ -42,7 +48,7 @@ public class SudokuBBDD {
 		String sqlTimestampInsertStatement = "INSERT INTO SUDOKU VALUES (?,?,?)";
 		PreparedStatement preparedStatement = connection
 				.prepareStatement(sqlTimestampInsertStatement);
-		
+
 		preparedStatement.setString(1, sudoku.getJugador().getNom());
 		preparedStatement.setInt(2, sudoku.getQuinSudoku());
 		preparedStatement.setTimestamp(3, sudoku.getTime());
@@ -61,6 +67,8 @@ public class SudokuBBDD {
 					.prepareStatement(sqlTimestampInsertStatement);
 			preparedStatement.setInt(1, sudoku.getQuinSudoku());
 			preparedStatement.setString(2, sudoku.getJugador().getNom());
+
+			taulell.esborrarTaulell(sudoku);
 
 			preparedStatement.executeUpdate();
 			preparedStatement.close();

@@ -102,6 +102,8 @@ public class Presentacio implements ActionListener, FocusListener {
 				controlBBDD.iniciarSudoku();
 
 			} else {
+				//pregunyar si vols recuperar la partida
+				
 				controlBBDD.iniciarSudoku();
 				recuperats = controlBBDD.getTimeStamps();
 				if (recuperats.length == 0) {
