@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Domini.Casella;
+import Domini.Jugador;
 
 import Domini.Sudoku;
 
@@ -127,14 +128,14 @@ public class TaulellBBDD {
 
 	}
 
-	public int quantesPartides(Sudoku sudoku) throws Exception {
+	public int quantesPartides(Jugador jugador) throws Exception {
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		try {
 			String sql = "SELECT MAX(IDSUDOKU) AS ID FROM CASELLA WHERE NOMJUGADOR = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.clearParameters();
-			preparedStatement.setString(1, sudoku.getJugador().getNom());
+			preparedStatement.setString(1, jugador.getNom());
 			ResultSet rs = preparedStatement.executeQuery();
 
 			int maxID = 0;
