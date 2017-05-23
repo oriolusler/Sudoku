@@ -16,10 +16,14 @@ public class JugadorBBDD {
 		PreparedStatement pst = connection.prepareStatement(sql);
 
 		pst.setString(1, jugador.getNom());
-		pst.setInt(2, jugador.getEstat());
+		pst.setBoolean(2, jugador.getEstat());
 
-		if (pst.executeUpdate() != 1)
-			throw new Exception("JUGADOR NO GUARDAT!");
+		try {
+			pst.executeUpdate();
+		} catch (Exception e) {
+			updateJugador(jugador);
+		}
+
 	}
 
 	public void updateJugador(Jugador jugador) throws Exception {
@@ -29,21 +33,20 @@ public class JugadorBBDD {
 		String sql = "UPDATE jugador SET   estajuagnt = ? WHERE   nomjugador = ?";
 		PreparedStatement pst = connection.prepareStatement(sql);
 
-		pst.setInt(1, jugador.getEstat());
+		pst.setBoolean(1, jugador.getEstat());
 		pst.setString(2, jugador.getNom());
 
 		if (pst.executeUpdate() != 1)
 			throw new Exception("JUGADOR NO ACTUALITZAT!");
 
 	}
-	
+
 	public int quantesPartides(Jugador jugador) throws Exception {
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		try {
 			String sql = "SELECT MAX(IDSUDOKU) AS ID FROM CASELLA WHERE NOMJUGADOR = ?";
-			PreparedStatement preparedStatement = connection
-					.prepareStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.clearParameters();
 			preparedStatement.setString(1, jugador.getNom());
 			ResultSet rs = preparedStatement.executeQuery();
@@ -61,5 +64,4 @@ public class JugadorBBDD {
 		}
 	}
 
-	
 }

@@ -53,8 +53,10 @@ public class SudokuBBDD {
 		preparedStatement.setInt(2, sudoku.getQuinSudoku());
 		preparedStatement.setTimestamp(3, sudoku.getTime());
 
+		
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
+		taulell.storeTaullell(sudoku);
 	}
 
 	public void esborrarSudoku(Sudoku sudoku) throws Exception {
@@ -160,5 +162,7 @@ public class SudokuBBDD {
 		}
 
 	}
+	
+
 
 }

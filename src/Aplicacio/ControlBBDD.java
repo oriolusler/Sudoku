@@ -3,15 +3,17 @@ package Aplicacio;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-import Domini.Casella;
 import Domini.Jugador;
 import Domini.Sudoku;
+import Domini.Taulell;
 import Persistencia.JugadorBBDD;
 import Persistencia.SudokuBBDD;
 import Persistencia.TaulellBBDD;
 
 public class ControlBBDD {
 
+	private Timestamp[] recup;
+	private Taulell ta;
 	private Sudoku su;
 	private Jugador jugador;
 	private java.sql.Timestamp time;
@@ -22,6 +24,7 @@ public class ControlBBDD {
 	public ControlBBDD(String nom) {
 
 		jugador = new Jugador(nom);
+		su = new Sudoku(time, -1, jugador, ta);
 
 		this.jugadorBBDD = new JugadorBBDD();
 		this.sudokuBBDD = new SudokuBBDD();
@@ -31,7 +34,7 @@ public class ControlBBDD {
 	public void iniciarSudoku() throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		time = new java.sql.Timestamp(calendar.getTime().getTime());
-		su = new Sudoku(time, quantsTaulells() + 1, jugador);
+		su = new Sudoku(time, quantsTaulells() + 1, jugador, ta);
 
 	}
 
@@ -47,30 +50,20 @@ public class ControlBBDD {
 		sudokuBBDD.storeSudoku(su);
 	}
 
-	public void storeTaulell(Casella[][] taulell) throws Exception {
-		setSudokuID(quantsTaulells() + 1);
-		taulellBBDD.storeTaullell(taulell, su);
-	}
-
 	public boolean taulellBuit() throws Exception {
 		return taulellBBDD.estaBuit(su);
 	}
 
 	public int quantsTaulells() throws Exception {
-		return taulellBBDD.quantesPartides(jugador);
+		return jugadorBBDD.quantesPartides(jugador);
 	}
 
-	public int nouJugador(String nom) throws Exception {
+	public void nouJugador(String nom) throws Exception {
 
-		jugador = new Jugador(nom, 1);
+		jugador.setEstat(true);
+		jugadorBBDD.storeJugador(jugador);
+		recup = sudokuBBDD.getTimestamps(su);
 
-		try {
-			jugadorBBDD.storeJugador(jugador);
-			return -2;
-		} catch (Exception e) {
-			jugadorBBDD.updateJugador(jugador);
-			return 1;
-		}
 	}
 
 	public String[][] getTaulellBBDD() throws Exception {
@@ -85,8 +78,8 @@ public class ControlBBDD {
 		return sudokuBBDD.getTimestamps(su);
 	}
 
-	public void actualitzarBBDD(Casella[][] taulell) throws Exception {
-		taulellBBDD.actualitzarBBDD(taulell, su);
+	public void actualitzarBBDD() throws Exception {
+		taulellBBDD.actualitzarBBDD(su);
 	}
 
 	public int getIdFromTimeStamp(Timestamp input) throws Exception {
@@ -94,12 +87,10 @@ public class ControlBBDD {
 	}
 
 	public void setEstatJuagdor() throws Exception {
-		
+
 		if (!(jugador.getNom().equals("Anonim"))) {
-			jugador.setEstat(0);
+			jugador.setEstat(false);
 			jugadorBBDD.updateJugador(jugador);
-		} else {
-			System.out.print("OK");
 		}
 	}
 
@@ -108,4 +99,11 @@ public class ControlBBDD {
 		sudokuBBDD.esborrarSudoku(su);
 	}
 
+	public void setTaulell(Taulell t) {
+		su.setTaulell(t);
+	}
+
+	public Timestamp[] getRecup() {
+		return this.recup;
+	}
 }

@@ -51,8 +51,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 					}
 				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(new JFrame(),
-							ex.getStackTrace());
+					JOptionPane.showMessageDialog(new JFrame(), ex.getStackTrace());
 				}
 
 			}
@@ -62,20 +61,15 @@ public class Presentacio implements ActionListener, FocusListener {
 	private void iniciarAnonim() {
 		try {
 
-			int res = JOptionPane
-					.showConfirmDialog(
-							new JFrame(),
-							"Vols crear un Sudoku desde zero?\n - En cas contrari es creara un Sudoku predefinit\n\nBONA SORT",
-							"TRIA", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
+			int res = JOptionPane.showConfirmDialog(new JFrame(),
+					"Vols crear un Sudoku desde zero?\n - En cas contrari es creara un Sudoku predefinit\n\nBONA SORT",
+					"TRIA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 			if (res == JOptionPane.YES_OPTION) {
-				JOptionPane
-						.showMessageDialog(
-								new JFrame(),
-								"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
-										+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
-										+ "\n - Per finalitzar la creacio premeu 'Iniciar Sudoku' en el menu");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
+								+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
+								+ "\n - Per finalitzar la creacio premeu 'Iniciar Sudoku' en el menu");
 				control = new Control();
 			} else if (res == JOptionPane.NO_OPTION) {
 				control = new Control();
@@ -86,57 +80,58 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(),
-					"Error en crear el sudoku");
+			JOptionPane.showMessageDialog(new JFrame(), "Error en crear el sudoku");
 		}
 	}
 
 	private void iniciarAmbPersistencia(String nom) {
 
-		try {
-			int usuari = controlBBDD.nouJugador(nom); // -2 No existeix || 1 SI
+		boolean itsAllok = false;
 
-			if (usuari == -2) {
+		try {
+			controlBBDD.nouJugador(nom);
+
+			controlBBDD.iniciarSudoku();
+			recuperats = controlBBDD.getRecup();
+			if (recuperats.length == 0) {
 				iniciarAnonim();
 				initComponents();
 				controlBBDD.iniciarSudoku();
-
+				itsAllok = true;
 			} else {
-				//pregunyar si vols recuperar la partida
-				
-				controlBBDD.iniciarSudoku();
-				recuperats = controlBBDD.getTimeStamps();
-				if (recuperats.length == 0) {
+
+				int res = JOptionPane.showConfirmDialog(new JFrame(),
+						"Vols jugar un sudoku guardat?\nEn cas contrari començaras un sudoku nou.", "TRIA",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+				if (res == JOptionPane.YES_OPTION) {
+
+					if (recuperats.length == 1)
+						controlBBDD.setSudokuID(controlBBDD.getIdFromTimeStamp(recuperats[0]));
+					else {
+						Timestamp input = (Timestamp) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
+								"Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, recuperats, recuperats);
+
+						controlBBDD.setSudokuID(controlBBDD.getIdFromTimeStamp(input));
+					}
+				} else {
 					iniciarAnonim();
 					initComponents();
 					controlBBDD.iniciarSudoku();
-					usuari = -2;
-				} else if (recuperats.length == 1)
-					controlBBDD.setSudokuID(controlBBDD
-							.getIdFromTimeStamp(recuperats[0]));
-				else {
-					Timestamp input = (Timestamp) JOptionPane.showInputDialog(
-							null, "Quin sudoku vols recuperar?",
-							"Eleccio sudoku", JOptionPane.QUESTION_MESSAGE,
-							null, recuperats, recuperats);
-
-					controlBBDD.setSudokuID(controlBBDD
-							.getIdFromTimeStamp(input));
+					itsAllok = true;
 				}
-
-				if (!(usuari == -2)) {
-					control = new Control();
-					initComponents();
-					mostratSudokuRecuperat();
-					menu.setControl(control);
-				}
-				actualitzar();
-
 			}
+			if (!(itsAllok)) {
+				control = new Control();
+				initComponents();
+				mostratSudokuRecuperat();
+				menu.setControl(control);
+			}
+			actualitzar();
+
 		} catch (Exception e) {
-			JOptionPane
-					.showMessageDialog(new JFrame(),
-							"Hi ha hagut un problema recuperant el jugador de la base de dades. \n");
+			JOptionPane.showMessageDialog(new JFrame(),
+					"Hi ha hagut un problema recuperant el jugador de la base de dades. \n");
 		}
 	}
 
@@ -174,8 +169,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			} // FI FOR
 		} // FI TRY
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(),
-					"Hi ha hagut un problema mostrant la partida guardada. \n");
+			JOptionPane.showMessageDialog(new JFrame(), "Hi ha hagut un problema mostrant la partida guardada. \n");
 		}
 	}
 
@@ -191,8 +185,7 @@ public class Presentacio implements ActionListener, FocusListener {
 				jpanel[i][j] = new JPanel();
 				panel.add(jpanel[i][j]);
 				jpanel[i][j].setLayout(new GridLayout(3, 3));
-				jpanel[i][j]
-						.setBorder(BorderFactory.createLineBorder(BLACK, 2));
+				jpanel[i][j].setBorder(BorderFactory.createLineBorder(BLACK, 2));
 			}
 		}
 
@@ -204,10 +197,8 @@ public class Presentacio implements ActionListener, FocusListener {
 
 						textField[f][c] = new CasellaGrafica(f, c);
 						jpanel[i][y].add(textField[f][c]);
-						textField[f][c].setBorder(BorderFactory
-								.createLineBorder(BLACK));
-						textField[f][c]
-								.setHorizontalAlignment(SwingConstants.CENTER);
+						textField[f][c].setBorder(BorderFactory.createLineBorder(BLACK));
+						textField[f][c].setHorizontalAlignment(SwingConstants.CENTER);
 						textField[f][c].setFont(new Font("Calibri", 3, 25));
 
 						if (!control.esModificable(f, c)) {
@@ -233,15 +224,13 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if (JOptionPane.showConfirmDialog(frame, "Vols tancar el joc?",
-						"Tancament joc", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+				if (JOptionPane.showConfirmDialog(frame, "Vols tancar el joc?", "Tancament joc",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 					try {
 						if (controlBBDD != null)
 							controlBBDD.setEstatJuagdor();
 					} catch (Exception e) {
-						JOptionPane.showMessageDialog(new JFrame(),
-								e.getMessage());
+						JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
 					}
 					System.exit(0);
 				}
@@ -251,6 +240,7 @@ public class Presentacio implements ActionListener, FocusListener {
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		frame.setBounds(0, 0, 550, 550);
 		frame.setVisible(true);
+
 	}
 
 	public void actualitzar() {
@@ -309,8 +299,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 
 			if (control.isComplete()) {
-				JOptionPane.showMessageDialog(new JFrame(),
-						"JOC FINALITZAT FELICITATS");
+				JOptionPane.showMessageDialog(new JFrame(), "JOC FINALITZAT FELICITATS");
 				if (!(controlBBDD.sudokuBuit()))
 					controlBBDD.esborrarSudokuTaulell();
 			}
@@ -359,10 +348,6 @@ public class Presentacio implements ActionListener, FocusListener {
 			textField[f][c].setBackground(WHITE);
 			casella.setFocus(false);
 		}
-	}
-
-	public Timestamp[] getRecuperats() {
-		return recuperats;
 	}
 
 	public String getNom() {

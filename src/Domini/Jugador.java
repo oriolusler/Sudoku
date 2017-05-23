@@ -3,13 +3,13 @@ package Domini;
 public class Jugador {
 
 	private String nom;
-	private int estat;
+	private boolean estat;
 
 	public Jugador(String nom) {
 		this.nom = nom;
 	}
 
-	public Jugador(String nom, int estat) {
+	public Jugador(String nom, boolean estat) {
 		this.nom = nom;
 		this.estat = estat;
 
@@ -23,11 +23,11 @@ public class Jugador {
 		this.nom = nom;
 	}
 
-	public int getEstat() {
+	public boolean getEstat() {
 		return estat;
 	}
 
-	public void setEstat(int estat) throws Exception {
+	public void setEstat(boolean estat) throws Exception {
 
 		this.estat = estat;
 

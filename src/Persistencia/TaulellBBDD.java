@@ -4,14 +4,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Domini.Casella;
-import Domini.Jugador;
-
 import Domini.Sudoku;
 
 public class TaulellBBDD {
 
-	public void storeTaullell(Casella[][] taulell, Sudoku sudoku) throws Exception {
+	public void storeTaullell(Sudoku sudoku) throws Exception {
 
+		Casella[][] taulell = sudoku.getTaulell().getCasella();
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		for (int i = 0; i < 9; i++) {
@@ -128,30 +127,9 @@ public class TaulellBBDD {
 
 	}
 
-	public int quantesPartides(Jugador jugador) throws Exception {
-		ConnectionBBDD connection = LoginBBDD.getConnection();
+	public void actualitzarBBDD(Sudoku sudoku) throws Exception {
 
-		try {
-			String sql = "SELECT MAX(IDSUDOKU) AS ID FROM CASELLA WHERE NOMJUGADOR = ?";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.clearParameters();
-			preparedStatement.setString(1, jugador.getNom());
-			ResultSet rs = preparedStatement.executeQuery();
-
-			int maxID = 0;
-
-			while (rs.next()) {
-
-				maxID = rs.getInt("ID");
-			}
-
-			return maxID;
-		} catch (SQLException e) {
-			throw new Exception("ERROR METODEquantesPartides");
-		}
-	}
-
-	public void actualitzarBBDD(Casella[][] taulell, Sudoku sudoku) throws Exception {
+		Casella[][] taulell = sudoku.getTaulell().getCasella();
 
 		String[][] antic = getTaulell(sudoku);
 		for (int i = 0; i < 9; i++) {

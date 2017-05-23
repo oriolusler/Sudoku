@@ -15,8 +15,6 @@ import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuKeyEvent;
-import javax.swing.event.MenuKeyListener;
 import javax.swing.event.MenuListener;
 
 import Aplicacio.Control;
@@ -27,8 +25,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	private JMenu menuPartida, menuPersistencia, recuperarPArtides;
 	private JMenu submenuPartida;
-	private JMenuItem Sudoku0, SudokiIniciat, GuardarSudokuNou,
-			GenerarSudokuAleatori, CrearSudokuUsuari;
+	private JMenuItem Sudoku0, SudokiIniciat, GuardarSudokuNou, GenerarSudokuAleatori, CrearSudokuUsuari;
 	private JLabel nomJugadorActual = new JLabel("");
 	private Presentacio pr;
 	private Control cr;
@@ -43,15 +40,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException | UnsupportedLookAndFeelException ex1) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException ex1) {
 		}
 
 		this.pr = p;
 		this.cr = c;
 		this.crb = cb;
 		this.nom = p.getNom();
-		this.recuperats = p.getRecuperats();
 
 		CrearSudokuUsuari = new JMenuItem(" Iniciar Sudoku");
 
@@ -106,19 +102,22 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 			@Override
 			public void menuSelected(MenuEvent e) {
-				mostratpartidesrecuperades();
+				try {
+					mostratpartidesrecuperades();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 
 			@Override
 			public void menuDeselected(MenuEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void menuCanceled(MenuEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -134,15 +133,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 						pr.actualitzar();
 						CrearSudokuUsuari.setVisible(false);
 					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(new JFrame(),
-								ex.getMessage());
+						JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
 					}
 				else {
 					JOptionPane.showMessageDialog(new JFrame(),
-							"No es posible crear el taulell, has de tenir"
-									+ " 17 o mes numeros introduits"
-									+ "\n(Quantitat de numeros introduits : "
-									+ pr.getNumeroEntrades() + ")");
+							"No es posible crear el taulell, has de tenir" + " 17 o mes numeros introduits"
+									+ "\n(Quantitat de numeros introduits : " + pr.getNumeroEntrades() + ")");
 				}
 			}
 		});
@@ -153,10 +149,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				pr.elimanar();
 				try {
-					int res = JOptionPane.showConfirmDialog(new JFrame(),
-							"Perdras el sudoku actual, vols continuar?",
-							"ALERTA", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
+					int res = JOptionPane.showConfirmDialog(new JFrame(), "Perdras el sudoku actual, vols continuar?",
+							"ALERTA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
 						cr.canviarTaulell();
@@ -176,12 +170,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				JOptionPane
-						.showMessageDialog(
-								new JFrame(),
-								"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
-										+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
-										+ "\n - Per finalitzar la creacio premeu 'Iniciar Sudoku' en el menu");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
+								+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
+								+ "\n - Per finalitzar la creacio premeu 'Iniciar Sudoku' en el menu");
 
 				CrearSudokuUsuari.setVisible(true);
 				pr.elimanar();
@@ -222,25 +214,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				crb.setTaulell(cr.getTaulellT());
 				try {
-					int res = JOptionPane.showConfirmDialog(new JFrame(),
-							"Vols guardar el sudoku?\n", "TRIA",
-							JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
+					int res = JOptionPane.showConfirmDialog(new JFrame(), "Vols guardar el sudoku?\n", "TRIA",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
-						try {
-							if (crb.sudokuBuit())
-								crb.storeSudoku();
 
-							if (!(crb.taulellBuit()))
-								crb.actualitzarBBDD(cr.getTTaulell());
-							else
-								crb.storeTaulell(cr.getTTaulell());
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						}
+						guardarSudoku();
 
 					}
 				} catch (HeadlessException e1) {
@@ -252,9 +233,21 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	}
 
+	private void guardarSudoku() {
+		try {
+			if (crb.sudokuBuit())
+				crb.storeSudoku();
+
+			if (!(crb.taulellBuit()))
+				crb.actualitzarBBDD();
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
 	public void actionPerformed(ActionEvent e) {
-		Timestamp a = Timestamp.valueOf(((JRadioButton) e.getSource())
-				.getText());
+		Timestamp a = Timestamp.valueOf(((JRadioButton) e.getSource()).getText());
 		try {
 			cr.resetejarCasella();
 			crb.setSudokuID(crb.getIdFromTimeStamp(a));
@@ -267,13 +260,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	}
 
-	private void mostratpartidesrecuperades() {
+	private void mostratpartidesrecuperades() throws Exception {
 		// Preguntar si vols guardar partida
 
 		if (!(nom.equals("Anonim"))) {
-
 			recuperarPArtides.removeAll();
-			recuperats = pr.getRecuperats();
+			recuperats = crb.getTimeStamps();
+
 			if (recuperats != null) {
 				fontButtons = new JRadioButton[recuperats.length];
 				ButtonGroup fontGroup = new ButtonGroup();

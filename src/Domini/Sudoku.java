@@ -37,12 +37,12 @@ public class Sudoku {
 		this.quinSudoku = quinSudoku;
 	}
 
-	public Sudoku(Timestamp time, int quinSudoku, Jugador jugador) {
+	public Sudoku(Timestamp time, int quinSudoku, Jugador jugador, Taulell ta) {
 
 		this.time = time;
 		this.quinSudoku = quinSudoku;
 		this.jugador = jugador;
-		this.taulell = taulell;
+		this.taulell = ta;
 	}
 
 }
