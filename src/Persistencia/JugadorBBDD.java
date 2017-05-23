@@ -64,4 +64,21 @@ public class JugadorBBDD {
 		}
 	}
 
+	public boolean estaJugantActualment(Jugador jugador) throws Exception {
+
+		ConnectionBBDD connection = LoginBBDD.getConnection();
+
+		String sql = "SELECT ESTAJUAGNT FROM JUGADOR WHERE NOMJUGADOR = ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.clearParameters();
+		preparedStatement.setString(1, jugador.getNom());
+		ResultSet rs = preparedStatement.executeQuery();
+
+		if (rs.next()) {
+			return rs.getBoolean("ESTAJUAGNT");
+		}
+		return false;
+
+	}
+
 }

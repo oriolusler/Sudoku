@@ -2,6 +2,7 @@ package Aplicacio;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Map;
 
 import Domini.Jugador;
 import Domini.Sudoku;
@@ -12,7 +13,7 @@ import Persistencia.TaulellBBDD;
 
 public class ControlBBDD {
 
-	private Timestamp[] recup;
+	private Map<Integer, Timestamp> recup;
 	private Taulell ta;
 	private Sudoku su;
 	private Jugador jugador;
@@ -61,8 +62,11 @@ public class ControlBBDD {
 	public void nouJugador(String nom) throws Exception {
 
 		jugador.setEstat(true);
-		jugadorBBDD.storeJugador(jugador);
-		recup = sudokuBBDD.getTimestamps(su);
+		if (!(jugadorBBDD.estaJugantActualment(jugador))) {
+			jugadorBBDD.storeJugador(jugador);
+			recup = sudokuBBDD.getTimestamps(su);
+		} else
+			throw new Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
 
 	}
 
@@ -74,16 +78,12 @@ public class ControlBBDD {
 		return taulellBBDD.getEditables(su);
 	}
 
-	public Timestamp[] getTimeStamps() throws Exception {
+	public Map<Integer, Timestamp> getTimeStamps() throws Exception {
 		return sudokuBBDD.getTimestamps(su);
 	}
 
 	public void actualitzarBBDD() throws Exception {
 		taulellBBDD.actualitzarBBDD(su);
-	}
-
-	public int getIdFromTimeStamp(Timestamp input) throws Exception {
-		return sudokuBBDD.getIdFromTimeStamp(input);
 	}
 
 	public void setEstatJuagdor() throws Exception {
@@ -103,7 +103,7 @@ public class ControlBBDD {
 		su.setTaulell(t);
 	}
 
-	public Timestamp[] getRecup() {
+	public Map<Integer, Timestamp> getRecup() {
 		return this.recup;
 	}
 }

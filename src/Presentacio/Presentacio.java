@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 import static java.awt.Color.*;
 
@@ -20,7 +23,7 @@ public class Presentacio implements ActionListener, FocusListener {
 	private JPanel[][] jpanel = new JPanel[3][3];
 	private CasellaGrafica[][] textField = new CasellaGrafica[9][9];
 	private int nEntrades = 0;
-	private Timestamp[] recuperats;
+	private Map<Integer, Timestamp> recuperats;
 	private String nom;
 
 	// CONTROL
@@ -89,11 +92,16 @@ public class Presentacio implements ActionListener, FocusListener {
 		boolean itsAllok = false;
 
 		try {
-			controlBBDD.nouJugador(nom);
+			try {
+				controlBBDD.nouJugador(nom);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
+				System.exit(0);
+			}
 
 			controlBBDD.iniciarSudoku();
 			recuperats = controlBBDD.getRecup();
-			if (recuperats.length == 0) {
+			if (recuperats.size() == 0) {
 				iniciarAnonim();
 				initComponents();
 				controlBBDD.iniciarSudoku();
@@ -105,20 +113,35 @@ public class Presentacio implements ActionListener, FocusListener {
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 				if (res == JOptionPane.YES_OPTION) {
+					Set<Integer> IDSfromMAP = recuperats.keySet();
+					Collection<Timestamp> DATAfromMAP = recuperats.values();
 
-					if (recuperats.length == 1)
-						controlBBDD.setSudokuID(controlBBDD.getIdFromTimeStamp(recuperats[0]));
-					else {
-						Timestamp input = (Timestamp) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
-								"Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, recuperats, recuperats);
+					Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP.toArray(new Integer[IDSfromMAP.size()]));
+					Timestamp[] DatesRecuperades = (Timestamp[]) (DATAfromMAP
+							.toArray(new Timestamp[IDSfromMAP.size()]));
+					String[] stringPerMostrat = new String[recuperats.size()];
 
-						controlBBDD.setSudokuID(controlBBDD.getIdFromTimeStamp(input));
+					for (int i = 0; i < recuperats.size(); i++) {
+						stringPerMostrat[i] = IdSudokusRecuperats[i] + " - " + DatesRecuperades[i];
 					}
-				} else {
+
+					if (recuperats.size() == 1)
+						controlBBDD.setSudokuID(IdSudokusRecuperats[0]);
+					else {
+						String input = (String) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
+								"Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, stringPerMostrat,
+								stringPerMostrat);
+
+						String[] parts = input.split(" - ");
+						controlBBDD.setSudokuID(Integer.parseInt(parts[0]));
+					}
+				} else if (res == JOptionPane.NO_OPTION) {
 					iniciarAnonim();
 					initComponents();
 					controlBBDD.iniciarSudoku();
 					itsAllok = true;
+				} else {
+					System.exit(0);
 				}
 			}
 			if (!(itsAllok)) {

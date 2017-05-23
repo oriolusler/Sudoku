@@ -4,6 +4,8 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
+import java.util.Map;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,7 +34,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private ControlBBDD crb;
 
 	private JRadioButton[] fontButtons;
-	private Timestamp[] recuperats;
+	private Map<Integer, Timestamp> recuperats;
 
 	private String nom;
 
@@ -247,10 +249,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		Timestamp a = Timestamp.valueOf(((JRadioButton) e.getSource()).getText());
+
+		int res = JOptionPane.showConfirmDialog(new JFrame(), "Vols guardar el sudoku abans de canviar-lo?", "TRIA",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+		if (res == JOptionPane.YES_OPTION)
+			guardarSudoku();
+
+		String agafat = ((((JRadioButton) e.getSource()).getText()));
+		String[] parts = agafat.split(" - ");
 		try {
 			cr.resetejarCasella();
-			crb.setSudokuID(crb.getIdFromTimeStamp(a));
+			crb.setSudokuID(Integer.parseInt(parts[0]));
 			pr.mostratSudokuRecuperat();
 			pr.actualitzar();
 		} catch (Exception e1) {
@@ -268,16 +278,20 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			recuperats = crb.getTimeStamps();
 
 			if (recuperats != null) {
-				fontButtons = new JRadioButton[recuperats.length];
+				fontButtons = new JRadioButton[recuperats.size()];
 				ButtonGroup fontGroup = new ButtonGroup();
 
-				for (int i = 0; i < recuperats.length; i++) {
+				int i = 0;
+				for (Map.Entry<Integer, Timestamp> entry : recuperats.entrySet()) {
+
 					fontButtons[i] = new JRadioButton();
-					fontButtons[i].setText(recuperats[i].toString());
+					fontButtons[i].setText(entry.getKey() + " - " + entry.getValue());
 					fontButtons[i].addActionListener(this);
 					fontGroup.add(fontButtons[i]);
 					recuperarPArtides.add(fontButtons[i]);
+					i++;
 				}
+
 			}
 		}
 	}
