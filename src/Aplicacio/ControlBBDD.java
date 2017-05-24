@@ -3,6 +3,7 @@ package Aplicacio;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
+import java.util.Set;
 
 import Domini.Jugador;
 import Domini.Sudoku;
@@ -35,8 +36,36 @@ public class ControlBBDD {
 	public void iniciarSudoku() throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		time = new java.sql.Timestamp(calendar.getTime().getTime());
-		su = new Sudoku(time, quantsTaulells() + 1, jugador, ta);
+		crearSudoku();
 
+	}
+
+	public void crearSudoku() throws Exception {
+		recup = sudokuBBDD.getTimestamps(su);
+		Set<Integer> IDSfromMAP = recup.keySet();
+		Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP
+				.toArray(new Integer[IDSfromMAP.size()]));
+
+		boolean[] check = new boolean[999];
+		for (int i = 0; i < check.length; i++) {
+			check[i] = false;
+		}
+		for (int i = 0; i < IdSudokusRecuperats.length; i++) {
+			int quin = IdSudokusRecuperats[i];
+			check[quin] = true;
+		}
+
+		su = new Sudoku(time, getFirstIdLiure(check), jugador, ta);
+
+	}
+
+	public static int getFirstIdLiure(boolean[] q) {
+		int retorn = 0;
+		for (int i = 1; i < q.length; i++) {
+			if (!(q[i]))
+				return i;
+		}
+		return retorn;
 	}
 
 	public int getSudokuID() {
@@ -64,14 +93,6 @@ public class ControlBBDD {
 	}
 
 	public void nouJugador(String nom) throws Exception {
-		//
-		// jugador.setEstat(true);
-		// if (!(jugadorBBDD.estaJugantActualment(jugador))) {
-		// jugadorBBDD.storeJugador(jugador);
-		// recup = sudokuBBDD.getTimestamps(su);
-		// } else
-		// throw new
-		// Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
 
 		Jugador jugadorRecuperatDeDB = jugadorBBDD.getJugadorFromDB(nom);
 

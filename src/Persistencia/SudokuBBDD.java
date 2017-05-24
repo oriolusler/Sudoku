@@ -120,7 +120,7 @@ public class SudokuBBDD {
 
 			ResultSet rs = preparedStatement.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 
 				int value;
 				value = rs.getInt("COUNT(*)");
