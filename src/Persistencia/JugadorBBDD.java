@@ -21,7 +21,8 @@ public class JugadorBBDD {
 		try {
 			pst.executeUpdate();
 		} catch (Exception e) {
-			updateJugador(jugador);
+			throw new Exception("El jugador: " + jugador.getNom()
+					+ ", ja existeix a la base de dades.");
 		}
 
 	}
@@ -46,7 +47,8 @@ public class JugadorBBDD {
 
 		try {
 			String sql = "SELECT MAX(IDSUDOKU) AS ID FROM CASELLA WHERE NOMJUGADOR = ?";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
 			preparedStatement.clearParameters();
 			preparedStatement.setString(1, jugador.getNom());
 			ResultSet rs = preparedStatement.executeQuery();
@@ -64,21 +66,41 @@ public class JugadorBBDD {
 		}
 	}
 
-	public boolean estaJugantActualment(Jugador jugador) throws Exception {
+	// public boolean estaJugantActualment(Jugador jugador) throws Exception {
+	//
+	// ConnectionBBDD connection = LoginBBDD.getConnection();
+	//
+	// String sql = "SELECT ESTAJUAGNT FROM JUGADOR WHERE NOMJUGADOR = ?";
+	// PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	// preparedStatement.clearParameters();
+	// preparedStatement.setString(1, jugador.getNom());
+	// ResultSet rs = preparedStatement.executeQuery();
+	//
+	// if (rs.next()) {
+	// return rs.getBoolean("ESTAJUAGNT");
+	// }
+	// return false;
+	//
+	// }
 
+	public Jugador getJugadorFromDB(String nom) throws Exception {
+
+		Jugador jugadorRecuperat;
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
-		String sql = "SELECT ESTAJUAGNT FROM JUGADOR WHERE NOMJUGADOR = ?";
+		String sql = "SELECT * FROM JUGADOR WHERE NOMJUGADOR = ?";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.clearParameters();
-		preparedStatement.setString(1, jugador.getNom());
+		preparedStatement.setString(1, nom);
 		ResultSet rs = preparedStatement.executeQuery();
 
 		if (rs.next()) {
-			return rs.getBoolean("ESTAJUAGNT");
-		}
-		return false;
+			jugadorRecuperat = new Jugador(nom, rs.getBoolean("ESTAJUAGNT"));
+			return jugadorRecuperat;
 
+		}
+
+		return null;
 	}
 
 }

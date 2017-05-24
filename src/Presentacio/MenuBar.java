@@ -27,7 +27,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	private JMenu menuPartida, menuPersistencia, recuperarPArtides;
 	private JMenu submenuPartida;
-	private JMenuItem Sudoku0, SudokiIniciat, GuardarSudokuNou, GenerarSudokuAleatori, CrearSudokuUsuari;
+	private JMenuItem Sudoku0, SudokiIniciat, GuardarSudokuNou,
+			GenerarSudokuAleatori, CrearSudokuUsuari;
 	private JLabel nomJugadorActual = new JLabel("");
 	private Presentacio pr;
 	private Control cr;
@@ -42,8 +43,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException ex1) {
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException ex1) {
 		}
 
 		this.pr = p;
@@ -106,6 +107,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			public void menuSelected(MenuEvent e) {
 				try {
 					mostratpartidesrecuperades();
+
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -135,12 +137,15 @@ public class MenuBar extends JMenuBar implements ActionListener {
 						pr.actualitzar();
 						CrearSudokuUsuari.setVisible(false);
 					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
+						JOptionPane.showMessageDialog(new JFrame(),
+								ex.getMessage());
 					}
 				else {
 					JOptionPane.showMessageDialog(new JFrame(),
-							"No es posible crear el taulell, has de tenir" + " 17 o mes numeros introduits"
-									+ "\n(Quantitat de numeros introduits : " + pr.getNumeroEntrades() + ")");
+							"No es posible crear el taulell, has de tenir"
+									+ " 17 o mes numeros introduits"
+									+ "\n(Quantitat de numeros introduits : "
+									+ pr.getNumeroEntrades() + ")");
 				}
 			}
 		});
@@ -151,8 +156,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				pr.elimanar();
 				try {
-					int res = JOptionPane.showConfirmDialog(new JFrame(), "Perdras el sudoku actual, vols continuar?",
-							"ALERTA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					int res = JOptionPane.showConfirmDialog(new JFrame(),
+							"Perdras el sudoku actual, vols continuar?",
+							"ALERTA", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
 						cr.canviarTaulell();
@@ -172,10 +179,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				JOptionPane.showMessageDialog(new JFrame(),
-						"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
-								+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
-								+ "\n - Per finalitzar la creacio premeu 'Iniciar Sudoku' en el menu");
+				JOptionPane
+						.showMessageDialog(
+								new JFrame(),
+								"Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
+										+ "\n - En cas d'introduir un 0, la casella no tindra cap valor"
+										+ "\n - Per finalitzar la creacio premeu 'Iniciar Sudoku' en el menu");
 
 				CrearSudokuUsuari.setVisible(true);
 				pr.elimanar();
@@ -218,8 +227,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				crb.setTaulell(cr.getTaulellT());
 				try {
-					int res = JOptionPane.showConfirmDialog(new JFrame(), "Vols guardar el sudoku?\n", "TRIA",
-							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					int res = JOptionPane.showConfirmDialog(new JFrame(),
+							"Vols guardar el sudoku?\n", "TRIA",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE);
 
 					if (res == JOptionPane.YES_OPTION) {
 
@@ -250,11 +261,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 
-		int res = JOptionPane.showConfirmDialog(new JFrame(), "Vols guardar el sudoku abans de canviar-lo?", "TRIA",
+		int res = JOptionPane.showConfirmDialog(new JFrame(),
+				"Vols guardar el sudoku abans de canviar-lo?", "TRIA",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-		if (res == JOptionPane.YES_OPTION)
+		if (res == JOptionPane.YES_OPTION) {
+			crb.setTaulell(cr.getTaulellT());
 			guardarSudoku();
+		}
 
 		String agafat = ((((JRadioButton) e.getSource()).getText()));
 		String[] parts = agafat.split(" - ");
@@ -273,6 +287,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private void mostratpartidesrecuperades() throws Exception {
 		// Preguntar si vols guardar partida
 
+		int quinEstaSelecionat = crb.getSudokuID();
+
 		if (!(nom.equals("Anonim"))) {
 			recuperarPArtides.removeAll();
 			recuperats = crb.getTimeStamps();
@@ -282,16 +298,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				ButtonGroup fontGroup = new ButtonGroup();
 
 				int i = 0;
-				for (Map.Entry<Integer, Timestamp> entry : recuperats.entrySet()) {
+				for (Map.Entry<Integer, Timestamp> entry : recuperats
+						.entrySet()) {
 
 					fontButtons[i] = new JRadioButton();
-					fontButtons[i].setText(entry.getKey() + " - " + entry.getValue());
+					fontButtons[i].setText(entry.getKey() + " - "
+							+ entry.getValue());
 					fontButtons[i].addActionListener(this);
 					fontGroup.add(fontButtons[i]);
 					recuperarPArtides.add(fontButtons[i]);
 					i++;
 				}
-
+				fontButtons[quinEstaSelecionat - 1].setSelected(true);
 			}
 		}
 	}

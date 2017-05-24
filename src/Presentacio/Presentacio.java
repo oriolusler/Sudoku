@@ -109,7 +109,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			} else {
 
 				int res = JOptionPane.showConfirmDialog(new JFrame(),
-						"Vols jugar un sudoku guardat?\nEn cas contrari començaras un sudoku nou.", "TRIA",
+						"Vols jugar un sudoku guardat?\nEn cas contrari comencaras un sudoku nou.", "TRIA",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 				if (res == JOptionPane.YES_OPTION) {
@@ -141,6 +141,7 @@ public class Presentacio implements ActionListener, FocusListener {
 					controlBBDD.iniciarSudoku();
 					itsAllok = true;
 				} else {
+					controlBBDD.setEstatJuagdor();
 					System.exit(0);
 				}
 			}

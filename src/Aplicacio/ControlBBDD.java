@@ -39,6 +39,10 @@ public class ControlBBDD {
 
 	}
 
+	public int getSudokuID() {
+		return this.su.getQuinSudoku();
+	}
+
 	public void setSudokuID(int quinSudoku) {
 		this.su.setQuinSudoku(quinSudoku);
 	}
@@ -60,14 +64,27 @@ public class ControlBBDD {
 	}
 
 	public void nouJugador(String nom) throws Exception {
+		//
+		// jugador.setEstat(true);
+		// if (!(jugadorBBDD.estaJugantActualment(jugador))) {
+		// jugadorBBDD.storeJugador(jugador);
+		// recup = sudokuBBDD.getTimestamps(su);
+		// } else
+		// throw new
+		// Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
 
-		jugador.setEstat(true);
-		if (!(jugadorBBDD.estaJugantActualment(jugador))) {
-			jugadorBBDD.storeJugador(jugador);
+		Jugador jugadorRecuperatDeDB = jugadorBBDD.getJugadorFromDB(nom);
+
+		if (jugadorRecuperatDeDB == null) {
+			jugadorBBDD.storeJugador(jugadorRecuperatDeDB);
+		} else if (jugadorRecuperatDeDB.getEstat() == true)
+			throw new Exception(
+					"Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
+		else {
+			jugador.setEstat(true);
+			jugadorBBDD.updateJugador(jugador);
 			recup = sudokuBBDD.getTimestamps(su);
-		} else
-			throw new Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
-
+		}
 	}
 
 	public String[][] getTaulellBBDD() throws Exception {
