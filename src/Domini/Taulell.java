@@ -8,7 +8,7 @@ public class Taulell {
 	private Casella[][] graella;
 	private int[][] error = new int[2][3];
 
-	public Taulell() throws Exception {
+	public Taulell() {
 
 		graella = new Casella[9][9];
 		for (int i = 0; i < 9; i++) {

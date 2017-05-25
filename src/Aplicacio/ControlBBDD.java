@@ -1,7 +1,7 @@
 package Aplicacio;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,7 +14,7 @@ import Persistencia.TaulellBBDD;
 
 public class ControlBBDD {
 
-	private Map<Integer, Timestamp> recup;
+	private Map<Integer, Date> recup;
 	private Taulell ta;
 	private Sudoku su;
 	private Jugador jugador;
@@ -43,8 +43,7 @@ public class ControlBBDD {
 	private void crearSudoku() throws Exception {
 		recup = sudokuBBDD.getTimestamps(su);
 		Set<Integer> IDSfromMAP = recup.keySet();
-		Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP
-				.toArray(new Integer[IDSfromMAP.size()]));
+		Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP.toArray(new Integer[IDSfromMAP.size()]));
 
 		boolean[] check = new boolean[999];
 		for (int i = 0; i < check.length; i++) {
@@ -96,8 +95,7 @@ public class ControlBBDD {
 			jugador = new Jugador(nom, true);
 			jugadorBBDD.storeJugador(jugador);
 		} else if (jugadorRecuperatDeDB.getEstat() == true)
-			throw new Exception(
-					"Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
+			throw new Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
 		else {
 			jugador.setEstat(true);
 			jugadorBBDD.updateJugador(jugador);
@@ -113,7 +111,7 @@ public class ControlBBDD {
 		return taulellBBDD.getEditables(su);
 	}
 
-	public Map<Integer, Timestamp> getTimeStamps() throws Exception {
+	public Map<Integer, Date> getTimeStamps() throws Exception {
 		return sudokuBBDD.getTimestamps(su);
 	}
 
@@ -138,7 +136,11 @@ public class ControlBBDD {
 		su.setTaulell(t);
 	}
 
-	public Map<Integer, Timestamp> getRecup() {
+	public Map<Integer, Date> getRecup() {
 		return this.recup;
+	}
+
+	public String getNomJugador() {
+		return jugador.getNom();
 	}
 }

@@ -100,7 +100,7 @@ public class UserLoginBBDD {
 					password.setText("");
 				}
 			} else if (value == 1) {
-				new Presentacio("Anonim");
+				new LoginSudoku("Anonim");
 				logat = true;
 			} else
 				System.exit(0);

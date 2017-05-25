@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +46,7 @@ public class SudokuBBDD {
 
 	public void storeSudoku(Sudoku sudoku) throws Exception {
 
+		Timestamp nouAfegir = new Timestamp(sudoku.getTime().getTime());
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		String sqlTimestampInsertStatement = "INSERT INTO SUDOKU VALUES (?,?,?)";
@@ -52,7 +54,7 @@ public class SudokuBBDD {
 
 		preparedStatement.setString(1, sudoku.getJugador().getNom());
 		preparedStatement.setInt(2, sudoku.getQuinSudoku());
-		preparedStatement.setTimestamp(3, sudoku.getTime());
+		preparedStatement.setTimestamp(3, nouAfegir);
 
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
@@ -78,9 +80,9 @@ public class SudokuBBDD {
 		}
 	}
 
-	public Map<Integer, Timestamp> getTimestamps(Sudoku sudoku) throws Exception {
+	public Map<Integer, Date> getTimestamps(Sudoku sudoku) throws Exception {
 
-		Map<Integer, Timestamp> recuperats = new HashMap<Integer, Timestamp>();
+		Map<Integer, Date> recuperats = new HashMap<Integer, Date>();
 		// Timestamp[] partides = new Timestamp[quantsSudokus(sudoku)];
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
@@ -93,8 +95,8 @@ public class SudokuBBDD {
 
 			try {
 				while (rs.next()) {
-
-					recuperats.put(rs.getInt("IDSUDOKU"), rs.getTimestamp("DATACREACIO"));
+					Date date = new Date(rs.getTimestamp("DATACREACIO").getTime());
+					recuperats.put(rs.getInt("IDSUDOKU"), date);
 
 				}
 			} catch (Exception e) {

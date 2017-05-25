@@ -1,10 +1,11 @@
 package Domini;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Sudoku {
 
-	private java.sql.Timestamp time;
+	private Date time;
 	private int quinSudoku;
 	private Jugador jugador;
 	private Taulell taulell;
@@ -17,7 +18,7 @@ public class Sudoku {
 		this.taulell = t;
 	}
 
-	public Timestamp getTime() {
+	public Date getTime() {
 		return time;
 	}
 
