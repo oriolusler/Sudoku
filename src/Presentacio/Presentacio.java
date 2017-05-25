@@ -40,6 +40,7 @@ public class Presentacio implements ActionListener, FocusListener {
 						initGraella();
 						mostratSudokuRecuperat();
 						initComponents();
+						actualitzar();
 					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), ex.getStackTrace());
@@ -79,7 +80,7 @@ public class Presentacio implements ActionListener, FocusListener {
 	public void mostratSudokuRecuperat() {
 		try {
 			control.recuperarTaulell();
-			actualitzar();
+
 
 		} // FI TRY
 		catch (Exception e) {

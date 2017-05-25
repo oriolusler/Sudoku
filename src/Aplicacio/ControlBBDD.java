@@ -1,6 +1,5 @@
 package Aplicacio;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
@@ -16,7 +15,7 @@ public class ControlBBDD {
 	private Map<Integer, Date> partidesRecuperades;
 	private Sudoku sudoku;
 	private Jugador jugador;
-	private java.sql.Timestamp time;
+	private Date time;
 	private JugadorBBDD jugadorBBDD;
 	private SudokuBBDD sudokuBBDD;
 	private boolean inciar = false;
@@ -39,18 +38,19 @@ public class ControlBBDD {
 	}
 
 	public void iniciarSudoku() throws Exception {
-		Calendar calendar = Calendar.getInstance();
-		time = new java.sql.Timestamp(calendar.getTime().getTime());
+
+		time = new Date();
 		crearSudoku();
 
 	}
 
 	private void crearSudoku() throws Exception {
+
 		partidesRecuperades = sudokuBBDD.getTimestamps(sudoku);
 		Set<Integer> IDSfromMAP = partidesRecuperades.keySet();
 		Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP.toArray(new Integer[IDSfromMAP.size()]));
 
-		boolean[] check = new boolean[999];
+		boolean[] check = new boolean[1000];
 		for (int i = 0; i < check.length; i++) {
 			check[i] = false;
 		}
@@ -63,13 +63,12 @@ public class ControlBBDD {
 
 	}
 
-	private int getFirstIdLiure(boolean[] q) {
-		int retorn = 0;
+	private int getFirstIdLiure(boolean[] q) throws Exception {
 		for (int i = 1; i < q.length; i++) {
 			if (!(q[i]))
 				return i;
 		}
-		return retorn;
+		throw new Exception("Maxim partides guardades");
 	}
 
 	public void storeSudoku(Taulell t) throws Exception {
