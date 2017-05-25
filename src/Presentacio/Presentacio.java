@@ -25,6 +25,10 @@ public class Presentacio implements ActionListener, FocusListener {
 	private int nEntrades = 0;
 	private String nom;
 
+	// PROVA
+
+	private boolean hiHaAlgunaCasellaModificada = false;
+
 	// CONTROL
 
 	private Control control;
@@ -84,6 +88,8 @@ public class Presentacio implements ActionListener, FocusListener {
 				control.inciarCaselles();
 
 			} else {
+				if (controlBBDD != null)
+					controlBBDD.setEstatJuagdor();
 				System.exit(0);
 			}
 
@@ -123,6 +129,7 @@ public class Presentacio implements ActionListener, FocusListener {
 								JOptionPane.QUESTION_MESSAGE);
 
 				if (res == JOptionPane.YES_OPTION) {
+
 					Set<Integer> IDSfromMAP = recuperats.keySet();
 					Collection<Timestamp> DATAfromMAP = recuperats.values();
 
@@ -339,6 +346,7 @@ public class Presentacio implements ActionListener, FocusListener {
 				textField[f][c].setText(null);
 			} else {
 				control.setEntrada(f, c, casella.getText());
+				setHiHaAlgunaCasellaModificada(true);
 				nEntrades++;
 			}
 
@@ -401,6 +409,15 @@ public class Presentacio implements ActionListener, FocusListener {
 
 	public int getNumeroEntrades() {
 		return this.nEntrades;
+	}
+
+	public boolean getHiHaAlgunaCasellaModificada() {
+		return hiHaAlgunaCasellaModificada;
+	}
+
+	public void setHiHaAlgunaCasellaModificada(
+			boolean hiHaAlgunaCasellaModificada) {
+		this.hiHaAlgunaCasellaModificada = hiHaAlgunaCasellaModificada;
 	}
 
 }

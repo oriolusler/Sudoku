@@ -40,7 +40,7 @@ public class ControlBBDD {
 
 	}
 
-	public void crearSudoku() throws Exception {
+	private void crearSudoku() throws Exception {
 		recup = sudokuBBDD.getTimestamps(su);
 		Set<Integer> IDSfromMAP = recup.keySet();
 		Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP
@@ -59,7 +59,7 @@ public class ControlBBDD {
 
 	}
 
-	public static int getFirstIdLiure(boolean[] q) {
+	private int getFirstIdLiure(boolean[] q) {
 		int retorn = 0;
 		for (int i = 1; i < q.length; i++) {
 			if (!(q[i]))
@@ -88,16 +88,13 @@ public class ControlBBDD {
 		return taulellBBDD.estaBuit(su);
 	}
 
-	public int quantsTaulells() throws Exception {
-		return jugadorBBDD.quantesPartides(jugador);
-	}
-
 	public void nouJugador(String nom) throws Exception {
 
 		Jugador jugadorRecuperatDeDB = jugadorBBDD.getJugadorFromDB(nom);
 
 		if (jugadorRecuperatDeDB == null) {
-			jugadorBBDD.storeJugador(jugadorRecuperatDeDB);
+			jugador = new Jugador(nom, true);
+			jugadorBBDD.storeJugador(jugador);
 		} else if (jugadorRecuperatDeDB.getEstat() == true)
 			throw new Exception(
 					"Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");

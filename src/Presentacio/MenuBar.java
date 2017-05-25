@@ -38,6 +38,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private Map<Integer, Timestamp> recuperats;
 
 	private String nom;
+	private String nomJugadorPerJLbael;
 
 	public MenuBar(Presentacio p, Control c, final ControlBBDD cb) {
 
@@ -84,6 +85,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		recuperarPArtides = new JMenu("Recuperar partides");
 
+		nomJugadorPerJLbael = "Jugador: " + nom;
 		this.add(menuPartida);
 		this.add(menuPersistencia);
 		this.add(recuperarPArtides);
@@ -97,9 +99,35 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			menuPersistencia.setEnabled(false);
 			recuperarPArtides.setEnabled(false);
 		} else {
-			nomJugadorActual.setText("Jugador: " + nom);
+			nomJugadorActual.setText(nomJugadorPerJLbael + " ID: "
+					+ getIdSudokuActual());
 
 		}
+
+		menuPersistencia.addMenuListener(new MenuListener() {
+
+			@Override
+			public void menuSelected(MenuEvent e) {
+				if (!(pr.getHiHaAlgunaCasellaModificada())) {
+					GuardarSudokuNou.setEnabled(false);
+				} else {
+					GuardarSudokuNou.setEnabled(true);
+				}
+
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		recuperarPArtides.addMenuListener(new MenuListener() {
 
@@ -135,6 +163,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 						pr.elimanar();
 						cr.iniciarUsuari();
 						pr.actualitzar();
+						actualitzarNom();
 						CrearSudokuUsuari.setVisible(false);
 					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(new JFrame(),
@@ -163,9 +192,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 					if (res == JOptionPane.YES_OPTION) {
 						cr.canviarTaulell();
-						if (crb != null)
+						if (crb != null) {
 							crb.iniciarSudoku();
+							actualitzarNom();
+						}
 						pr.actualitzar();
+
 					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
@@ -191,8 +223,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				try {
 					cr.resetejarCasella();
 					pr.actualitzar();
-					if (crb != null)
+					if (crb != null) {
 						crb.iniciarSudoku();
+						actualitzarNom();
+					}
 				} catch (Exception error) {
 					error.printStackTrace();
 				}
@@ -211,9 +245,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					cr.resetejarCasella();
 					cr.inciarCaselles();
 					pr.actualitzar();
-					if (crb != null)
-						crb.iniciarSudoku();
 
+					if (crb != null) {
+						crb.iniciarSudoku();
+						actualitzarNom();
+					}
 				} catch (Exception error) {
 					error.getStackTrace();
 				}
@@ -235,7 +271,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					if (res == JOptionPane.YES_OPTION) {
 
 						guardarSudoku();
-
+						pr.setHiHaAlgunaCasellaModificada(false);
 					}
 				} catch (HeadlessException e1) {
 
@@ -244,6 +280,15 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			}
 		});
 
+	}
+
+	private String getIdSudokuActual() {
+		return String.valueOf(crb.getSudokuID());
+	}
+
+	private void actualitzarNom() {
+		nomJugadorActual.setText(nomJugadorPerJLbael + " ID: "
+				+ getIdSudokuActual());
 	}
 
 	private void guardarSudoku() {
@@ -261,15 +306,17 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 
-		int res = JOptionPane.showConfirmDialog(new JFrame(),
-				"Vols guardar el sudoku abans de canviar-lo?", "TRIA",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if (pr.getHiHaAlgunaCasellaModificada()) {
+			int res = JOptionPane.showConfirmDialog(new JFrame(),
+					"Vols guardar el sudoku abans de canviar-lo?", "TRIA",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-		if (res == JOptionPane.YES_OPTION) {
-			crb.setTaulell(cr.getTaulellT());
-			guardarSudoku();
+			if (res == JOptionPane.YES_OPTION) {
+				crb.setTaulell(cr.getTaulellT());
+				guardarSudoku();
+				pr.setHiHaAlgunaCasellaModificada(false);
+			}
 		}
-
 		String agafat = ((((JRadioButton) e.getSource()).getText()));
 		String[] parts = agafat.split(" - ");
 		try {
@@ -277,6 +324,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			crb.setSudokuID(Integer.parseInt(parts[0]));
 			pr.mostratSudokuRecuperat();
 			pr.actualitzar();
+			actualitzarNom();
 		} catch (Exception e1) {
 
 			e1.printStackTrace();
@@ -309,7 +357,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					recuperarPArtides.add(fontButtons[i]);
 					i++;
 				}
-				fontButtons[quinEstaSelecionat - 1].setSelected(true);
+				try {
+					fontButtons[quinEstaSelecionat - 1].setSelected(true);
+				} catch (ArrayIndexOutOfBoundsException e) {
+
+				}
 			}
 		}
 	}

@@ -113,7 +113,7 @@ public class TaulellBBDD {
 			preparedStatement.setString(2, sudoku.getJugador().getNom());
 			ResultSet rs = preparedStatement.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 
 				int value;
 				value = rs.getInt("COUNT");

@@ -32,7 +32,8 @@ VALOR NUMBER(1),
 EDITABLE NUMBER(1),
 constraint PK_CASELLA primary key (NOMJUGADOR, IDSUDOKU, COORX, COORY),
 constraint CHK_COOR CHECK (COORX BETWEEN 0 AND 9 AND COORY BETWEEN 0 AND 9),
-constraint CHK_VALOR CHECK (VALOR BETWEEN 0 AND 9)
+constraint CHK_VALOR CHECK (VALOR BETWEEN 0 AND 9),
+constraint CHK_EDITABLE CHECK (EDITABLE BETWEEN 0 AND 1)
 );
 
 /*==============================================================*/
@@ -49,7 +50,8 @@ IDSUDOKU ASC
 create table JUGADOR (
 NOMJUGADOR VARCHAR2(25) not null,
 ESTAJUAGNT INTEGER,
-constraint PK_JUGADOR primary key (NOMJUGADOR)
+constraint PK_JUGADOR primary key (NOMJUGADOR),
+constraint CHK_ESTAJUAGNT CHECK (ESTAJUAGNT BETWEEN 0 AND 1)
 );
 
 /*==============================================================*/

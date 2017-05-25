@@ -1,7 +1,6 @@
 package Domini;
 
 import java.util.LinkedList;
-
 import Aplicacio.CrearGraella;
 
 public class Taulell {
