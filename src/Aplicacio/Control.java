@@ -3,7 +3,8 @@ package Aplicacio;
 import java.util.Date;
 import java.util.Map;
 
-import Domini.Casella;
+import Domini.Jugador;
+import Domini.Sudoku;
 import Domini.Taulell;
 
 public class Control {
@@ -11,135 +12,113 @@ public class Control {
 	private Taulell taulell;
 	private ControlBBDD controlBBDD;
 
+	// OK
 	public Control(ControlBBDD controlBBDD) {
-
 		taulell = new Taulell();
 		this.controlBBDD = controlBBDD;
 	}
 
-	public Taulell getTaulellT() {
-		return this.taulell;
-	}
-
-	public void inciarCaselles() throws Exception {
+	// OK
+	public void iniciarSudokuPredefinit() throws Exception {
 		CrearGraella.crearGraella(taulell);
 	}
 
-	public void setEntrada(int fila, int columna, String valor) throws Exception {
-		taulell.canviarValor(fila, columna, Integer.parseInt(valor));
-
-	}
-
-	public void resetejarCasella() {
+	// OK
+	public void inciarSudokuBuit() {
 		taulell.resetejarCasella();
 	}
 
+	// OK
+	public void setEntrada(int fila, int columna, String valor) throws Exception {
+		taulell.canviarValor(fila, columna, Integer.parseInt(valor));
+	}
+
+	// IDK
 	public boolean estaBuit() {
 		return taulell.estaBuit();
 	}
 
+	// OK
 	public void esborrarCasella(int fila, int columna) throws Exception {
 		taulell.esborrarCasella(fila, columna);
 	}
 
+	// OK
 	public String[][] getTaulell() {
 		return taulell.getTaulell();
 	}
 
-	public Casella[][] getTTaulell() {
-		return taulell.getCasella();
-	}
-
+	// OK
 	public int[][] error() {
 		return taulell.getError();
 	}
 
+	// OK
 	public boolean isComplete() {
 		return taulell.esComplet();
 	}
 
+	// OK
 	public boolean esModificable(int fila, int columna) {
 		return taulell.esModificable(fila, columna);
 	}
 
+	// OK
 	public void canviarTaulell() throws Exception {
 		taulell.canvis();
 	}
 
+	// OK
 	public void iniciarUsuari() throws Exception {
 		taulell.iniciarUsuari();
 	}
 
-	public void setEditable(int fila, int columna, boolean editable) {
-		taulell.setEditable(fila, columna, editable);
-	}
+	// OK
+	public void setTaulell(Taulell nouTaulell) {
+		this.taulell = nouTaulell;
 
-	public void setCasella(int fila, int columna, int valor) throws Exception {
-		taulell.setCasella(fila, columna, valor);
 	}
 
 	// METODES CONTROL BBDD //
-	
-	public String getNomJugador() {
-		return controlBBDD.getNomJugador();
+
+	// OK
+	public Jugador getJugador() {
+		return controlBBDD.getJugador();
 	}
 
-	public String[][] getTaulellBBDD() throws Exception {
-		return controlBBDD.getTaulellBBDD();
-	}
-
-	public String[][] getEditablesBBDD() throws Exception {
-		return controlBBDD.getEditablesBBDD();
-	}
-
-	public int getSudokuID() {
-		return controlBBDD.getSudokuID();
-	}
-
+	// OK
 	public Map<Integer, Date> getTimeStamps() throws Exception {
 		return controlBBDD.getTimeStamps();
 	}
 
+	// OK
 	public void iniciarSudoku() throws Exception {
 		controlBBDD.iniciarSudoku();
-
 	}
 
-	public void setTaulell(Taulell taulellT) {
-		controlBBDD.setTaulell(taulellT);
-
-	}
-
-	public boolean sudokuBuit() throws Exception {
-		return controlBBDD.sudokuBuit();
-	}
-
+	// OK
 	public void storeSudoku() throws Exception {
-		controlBBDD.storeSudoku();
-
+		controlBBDD.storeSudoku(this.taulell);
 	}
 
-	public boolean taulellBuit() throws Exception {
-		return controlBBDD.taulellBuit();
+	//OK
+	public Sudoku getSudoku(){
+		return controlBBDD.getSudoku();
 	}
 
-	public void actualitzarBBDD() throws Exception {
-		controlBBDD.actualitzarBBDD();
-
-	}
-
-	public void setSudokuID(int iDsudoku) {
-		controlBBDD.setSudokuID(iDsudoku);
-
-	}
-
+	//OK
 	public void setEstatJuagdor() throws Exception {
 		controlBBDD.setEstatJuagdor();
-		
 	}
 
+	//OK
 	public void esborrarSudokuTaulell() throws Exception {
 		controlBBDD.esborrarSudokuTaulell();
-		
+	}
+
+	//OK
+	public void recuperarTaulell() throws Exception {
+		controlBBDD.recuperarTaulellGuardat();
+		setTaulell(controlBBDD.getTaulellFromSudoku());
 	}
 }

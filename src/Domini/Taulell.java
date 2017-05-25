@@ -56,10 +56,6 @@ public class Taulell {
 		}
 	}
 
-	/*
-	 * private void CrearTaulell() { for (int i = 0; i < 9; i++) { for (int j =
-	 * 0; j < 9; j++) { graella[i][j] = new Casella(); } } }
-	 */
 	
 	public String[][] getTaulell() {
 		String[][] taulell = new String[9][9];
@@ -126,16 +122,6 @@ public class Taulell {
 
 	public Casella[][] canvis() throws Exception {
 		return new Equivalent().nouCasella(this.graella);
-	}
-
-	public void setGraella(Casella[][] caselles) {
-		this.graella = caselles;
-
-	}
-
-	public void setEditable(int fila, int columna, boolean editable) {
-		new Coordenada(fila, columna);
-		graella[fila][columna].setEditable(editable);
 	}
 
 	public Casella[][] getCasella() {

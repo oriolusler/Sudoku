@@ -24,7 +24,6 @@ public class LoginSudoku {
 	public LoginSudoku() {
 
 		DemanarCredencials();
-		System.out.println("DONE IT");
 		new Presentacio(controlBBDD);
 
 	}
@@ -50,10 +49,11 @@ public class LoginSudoku {
 				Map<Integer, Date> recuperats = null;
 
 				controlBBDD = new ControlBBDD(nom);
+
 				controlBBDD.nouJugador(nom);
 
 				controlBBDD.iniciarSudoku();
-				recuperats = controlBBDD.getRecup();
+				recuperats = controlBBDD.getPartidesRecuperades();
 
 				if (recuperats.size() == 0) {
 					controlBBDD.iniciarSudoku();
@@ -79,15 +79,18 @@ public class LoginSudoku {
 							stringPerMostrat[i] = IdSudokusRecuperats[i] + " - " + DatesRecuperades[i];
 						}
 
-						if (recuperats.size() == 1)
-							controlBBDD.setSudokuID(IdSudokusRecuperats[0]);
-						else {
+						if (recuperats.size() == 1) {
+							controlBBDD.getSudoku().setIdSudoku(IdSudokusRecuperats[0]);
+							controlBBDD.setInciar(true);
+						} else {
 							String input = (String) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
 									"Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, stringPerMostrat,
 									stringPerMostrat);
 
 							String[] parts = input.split(" - ");
-							controlBBDD.setSudokuID(Integer.parseInt(parts[0]));
+							controlBBDD.getSudoku().setIdSudoku(Integer.parseInt(parts[0]));
+							controlBBDD.setInciar(true);
+
 						}
 					} else if (preguntaSiVolJugarSudokuGuardat == JOptionPane.NO_OPTION) {
 

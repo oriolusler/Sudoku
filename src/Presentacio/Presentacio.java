@@ -17,8 +17,7 @@ public class Presentacio implements ActionListener, FocusListener {
 	private JPanel[][] jpanel = new JPanel[3][3];
 	private CasellaGrafica[][] textField = new CasellaGrafica[9][9];
 	private int nEntrades = 0;
-	// PROVA
-	private boolean hiHaAlgunaCasellaModificada = false;
+	private boolean iniciar;
 	// CONTROL
 	private Control control;
 	// MENU
@@ -26,27 +25,25 @@ public class Presentacio implements ActionListener, FocusListener {
 
 	public Presentacio(ControlBBDD controlBBDD) {
 
+		iniciar = controlBBDD.getInciar();
 		control = new Control(controlBBDD);
 
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				try {
-
-					if (control.getNomJugador().equals("Anonim") || control.getSudokuID() == 1) {
+					if (control.getJugador().getNom().equals("Anonim") || !iniciar) {
 						iniciarAnonim();
+						initGraella();
 						initComponents();
-
 					} else {
-						initComponents();
+						initGraella();
 						mostratSudokuRecuperat();
-
+						initComponents();
 					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), ex.getStackTrace());
-
 				}
-
 			}
 		});
 	}
@@ -66,10 +63,10 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			} else if (res == JOptionPane.NO_OPTION) {
 
-				control.inciarCaselles();
+				control.iniciarSudokuPredefinit();
 
 			} else {
-				if (!(control.getNomJugador().equals("Anonim")))
+				if (!(control.getJugador().getNom().equals("Anonim")))
 					control.setEstatJuagdor();
 				System.exit(0);
 			}
@@ -81,36 +78,9 @@ public class Presentacio implements ActionListener, FocusListener {
 
 	public void mostratSudokuRecuperat() {
 		try {
+			control.recuperarTaulell();
+			actualitzar();
 
-			String[][] graella = control.getTaulellBBDD();
-			String[][] ediatbles = control.getEditablesBBDD();
-
-			elimanar();
-			for (int f = 0; f < 9; f++) {
-				for (int c = 0; c < 9; c++) {
-
-					if (ediatbles[f][c] == "s") {
-						textField[f][c].setText(graella[f][c]);
-						textField[f][c].setForeground(BLACK);
-						textField[f][c].setBackground(WHITE);
-						if (!(graella[f][c] == null)) {
-							control.setEntrada(f, c, graella[f][c]);
-							control.setEditable(f, c, true);
-
-						}
-						textField[f][c].setEditable(true);
-
-					} else {
-						textField[f][c].setText(graella[f][c]);
-						textField[f][c].setForeground(YELLOW);
-						textField[f][c].setBackground(GRAY);
-						control.setEntrada(f, c, graella[f][c]);
-						control.setEditable(f, c, false);
-						textField[f][c].setEditable(false);
-					}
-
-				}
-			} // FI FOR
 		} // FI TRY
 		catch (Exception e) {
 			// JOptionPane.showMessageDialog(new JFrame(), "Hi ha hagut un
@@ -119,11 +89,7 @@ public class Presentacio implements ActionListener, FocusListener {
 		}
 	}
 
-	private void initComponents() {
-
-		frame = new JFrame("EL SUDOKU");
-
-		frame.getContentPane().setLayout(new BorderLayout());
+	private void initGraella() {
 
 		String[][] graella = control.getTaulell();
 		for (int i = 0; i < 3; i++) {
@@ -160,6 +126,12 @@ public class Presentacio implements ActionListener, FocusListener {
 				}
 			}
 		}
+	}
+
+	private void initComponents() {
+		frame = new JFrame("EL SUDOKU");
+
+		frame.getContentPane().setLayout(new BorderLayout());
 
 		menu = new MenuBar(this, control);
 		tot.add(panel);
@@ -173,7 +145,7 @@ public class Presentacio implements ActionListener, FocusListener {
 				if (JOptionPane.showConfirmDialog(frame, "Vols tancar el joc?", "Tancament joc",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 					try {
-						if (!(control.getNomJugador().equals("Anonim")))
+						if (!(control.getJugador().getNom().equals("Anonim")))
 							control.setEstatJuagdor();
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
@@ -190,6 +162,8 @@ public class Presentacio implements ActionListener, FocusListener {
 	}
 
 	public void actualitzar() {
+
+		elimanar();
 		String[][] graella = control.getTaulell();
 		for (int i = 0; i < 3; i++) {
 			for (int x = 0; x < 3; x++) {
@@ -241,14 +215,13 @@ public class Presentacio implements ActionListener, FocusListener {
 				textField[f][c].setText(null);
 			} else {
 				control.setEntrada(f, c, casella.getText());
-				setHiHaAlgunaCasellaModificada(true);
 				nEntrades++;
 			}
 
 			if (control.isComplete()) {
 				JOptionPane.showMessageDialog(new JFrame(), "JOC FINALITZAT FELICITATS");
-				if (!(control.sudokuBuit()))
-					control.esborrarSudokuTaulell();
+				control.esborrarSudokuTaulell();
+				System.exit(0);
 			}
 
 		} catch (Exception ex) {
@@ -301,12 +274,7 @@ public class Presentacio implements ActionListener, FocusListener {
 		return this.nEntrades;
 	}
 
-	public boolean getHiHaAlgunaCasellaModificada() {
-		return hiHaAlgunaCasellaModificada;
+	public void setNumeroEntraddes(int nouNumero) {
+		this.nEntrades = nouNumero;
 	}
-
-	public void setHiHaAlgunaCasellaModificada(boolean hiHaAlgunaCasellaModificada) {
-		this.hiHaAlgunaCasellaModificada = hiHaAlgunaCasellaModificada;
-	}
-
 }

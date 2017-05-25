@@ -27,7 +27,7 @@ public class Jugador {
 		return estat;
 	}
 
-	public void setEstat(boolean estat) throws Exception {
+	public void setEstat(boolean estat) {
 
 		this.estat = estat;
 

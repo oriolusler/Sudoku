@@ -18,6 +18,10 @@ public class SudokuBBDD {
 		this.taulell = new TaulellBBDD();
 	}
 
+	public void recuperarTaulellFromSudoku(Sudoku sudoku) throws Exception {
+		taulell.recuperarTaulell(sudoku);
+	}
+
 	public boolean estaBuit(Sudoku sudoku) throws Exception {
 
 		ConnectionBBDD connection = LoginBBDD.getConnection();
@@ -26,7 +30,7 @@ public class SudokuBBDD {
 			String sql = "SELECT COUNT(*) AS COUNT FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.clearParameters();
-			preparedStatement.setInt(1, sudoku.getQuinSudoku());
+			preparedStatement.setInt(1, sudoku.getIdSudoku());
 			preparedStatement.setString(2, sudoku.getJugador().getNom());
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -46,29 +50,38 @@ public class SudokuBBDD {
 
 	public void storeSudoku(Sudoku sudoku) throws Exception {
 
-		Timestamp nouAfegir = new Timestamp(sudoku.getTime().getTime());
-		ConnectionBBDD connection = LoginBBDD.getConnection();
+		try {
+			Timestamp nouAfegir = new Timestamp(sudoku.getTime().getTime());
+			ConnectionBBDD connection = LoginBBDD.getConnection();
 
-		String sqlTimestampInsertStatement = "INSERT INTO SUDOKU VALUES (?,?,?)";
-		PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
+			String sqlTimestampInsertStatement = "INSERT INTO SUDOKU VALUES (?,?,?)";
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
 
-		preparedStatement.setString(1, sudoku.getJugador().getNom());
-		preparedStatement.setInt(2, sudoku.getQuinSudoku());
-		preparedStatement.setTimestamp(3, nouAfegir);
+			preparedStatement.setString(1, sudoku.getJugador().getNom());
+			preparedStatement.setInt(2, sudoku.getIdSudoku());
+			preparedStatement.setTimestamp(3, nouAfegir);
 
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		taulell.storeTaullell(sudoku);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+			taulell.storeTaullell(sudoku);
+		} catch (Exception e) {
+			// Si no es pot guardar anteriorment es perquqe ja existeix el
+			// Sudoku(PARTIDA) i quan arriba en el catch el guarda
+			taulell.storeTaullell(sudoku);
+		}
+
 	}
 
 	public void esborrarSudoku(Sudoku sudoku) throws Exception {
+
+		taulell.esborrarTaulell(sudoku);
 
 		try {
 			ConnectionBBDD connection = LoginBBDD.getConnection();
 
 			String sqlTimestampInsertStatement = "DELETE FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
-			preparedStatement.setInt(1, sudoku.getQuinSudoku());
+			preparedStatement.setInt(1, sudoku.getIdSudoku());
 			preparedStatement.setString(2, sudoku.getJugador().getNom());
 
 			taulell.esborrarTaulell(sudoku);
@@ -83,7 +96,6 @@ public class SudokuBBDD {
 	public Map<Integer, Date> getTimestamps(Sudoku sudoku) throws Exception {
 
 		Map<Integer, Date> recuperats = new HashMap<Integer, Date>();
-		// Timestamp[] partides = new Timestamp[quantsSudokus(sudoku)];
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
 		try {
@@ -93,45 +105,15 @@ public class SudokuBBDD {
 			preparedStatement.setString(1, sudoku.getJugador().getNom());
 			ResultSet rs = preparedStatement.executeQuery();
 
-			try {
-				while (rs.next()) {
-					Date date = new Date(rs.getTimestamp("DATACREACIO").getTime());
-					recuperats.put(rs.getInt("IDSUDOKU"), date);
+			while (rs.next()) {
+				Date date = new Date(rs.getTimestamp("DATACREACIO").getTime());
+				recuperats.put(rs.getInt("IDSUDOKU"), date);
 
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				throw new Exception("Accedit el numero permes");
 			}
+
 			return recuperats;
 		} catch (SQLException e) {
-			throw new Exception("ERROR METODE GET ID SU");
-		}
-
-	}
-
-	public int quantsSudokus(Sudoku sudoku) throws Exception {
-
-		ConnectionBBDD connection = LoginBBDD.getConnection();
-
-		try {
-			String sql = "SELECT COUNT(*) FROM SUDOKU WHERE NOMJUGADOR= ?";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.clearParameters();
-			preparedStatement.setString(1, sudoku.getJugador().getNom());
-
-			ResultSet rs = preparedStatement.executeQuery();
-
-			if (rs.next()) {
-
-				int value;
-				value = rs.getInt("COUNT(*)");
-				return value;
-			}
-
-			throw new Exception("No s'ha trobat valor!");
-		} catch (SQLException e) {
-			throw new Exception("ERROR METODE quantsSudokus");
+			throw new Exception("ERROR METODE getTimestamps");
 		}
 
 	}
