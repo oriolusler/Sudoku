@@ -223,6 +223,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
             if (control.isComplete()) {
                 JOptionPane.showMessageDialog(new JFrame(), "JOC FINALITZAT FELICITATS");
+                control.setEstatJuagdor();
                 control.esborrarSudokuTaulell();
                 System.exit(0);
             }
