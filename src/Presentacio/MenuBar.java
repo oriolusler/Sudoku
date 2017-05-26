@@ -163,7 +163,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					if (res == JOptionPane.YES_OPTION) {
 						controlClasse.canviarTaulell();
 						if (!(nom.equals("Anonim"))) {
-							controlClasse.iniciarSudoku();
+							intentarIntentarSudoku();
 							actualitzarNom();
 						}
 						presentacioClasse.actualitzar();
@@ -193,7 +193,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					controlClasse.inciarSudokuBuit();
 					presentacioClasse.actualitzar();
 					if (!(nom.equals("Anonim"))) {
-						controlClasse.iniciarSudoku();
+						intentarIntentarSudoku();
 						actualitzarNom();
 					}
 				} catch (Exception error) {
@@ -216,7 +216,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					presentacioClasse.actualitzar();
 
 					if (!(nom.equals("Anonim"))) {
-						controlClasse.iniciarSudoku();
+						intentarIntentarSudoku();
 						actualitzarNom();
 					}
 				} catch (Exception error) {
@@ -319,5 +319,16 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	public void setControlClasse(Control control) {
 		this.controlClasse = control;
 
+	}
+
+	private void intentarIntentarSudoku() throws Exception {
+		try {
+			controlClasse.iniciarSudoku();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
+			controlClasse.setEstatJuagdor();
+			System.exit(0);
+		}
 	}
 }

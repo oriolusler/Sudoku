@@ -49,4 +49,7 @@ public class Sudoku {
 		this.taulell = ta;
 	}
 
+	public Sudoku(Jugador jugador) {
+		this.jugador = jugador;
+	}
 }

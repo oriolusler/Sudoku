@@ -1,130 +1,118 @@
 package Aplicacio;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
-
 import Domini.Jugador;
 import Domini.Sudoku;
 import Domini.Taulell;
 import Persistencia.JugadorBBDD;
 import Persistencia.SudokuBBDD;
 
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
+
 public class ControlBBDD {
 
-	private Map<Integer, Date> partidesRecuperades;
-	private Sudoku sudoku;
-	private Jugador jugador;
-	private Date time;
-	private JugadorBBDD jugadorBBDD;
-	private SudokuBBDD sudokuBBDD;
-	private boolean inciar = false;
+    private Map<Integer, Date> partidesRecuperades;
+    private Sudoku sudoku;
+    private Jugador jugador;
+    private Date time;
+    private JugadorBBDD jugadorBBDD;
+    private SudokuBBDD sudokuBBDD;
+    private boolean inciar = false;
 
-	public boolean getInciar() {
-		return inciar;
-	}
+    public boolean getInciar() {
+        return inciar;
+    }
 
-	public void setInciar(boolean inciar) {
-		this.inciar = inciar;
-	}
+    public void setInciar(boolean inciar) {
+        this.inciar = inciar;
+    }
 
-	public ControlBBDD(String nom) {
+    public ControlBBDD(String nom) {
 
-		jugador = new Jugador(nom);
-		sudoku = new Sudoku(time, -1, jugador, null);
+        jugador = new Jugador(nom);
+        sudoku = new Sudoku(jugador);
 
-		this.jugadorBBDD = new JugadorBBDD();
-		this.sudokuBBDD = new SudokuBBDD();
-	}
+        this.jugadorBBDD = new JugadorBBDD();
+        this.sudokuBBDD = new SudokuBBDD();
+        try {
+            this.partidesRecuperades = sudokuBBDD.getTimestamps(sudoku);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void iniciarSudoku() throws Exception {
+    public void iniciarSudoku() throws Exception {
 
-		time = new Date();
-		crearSudoku();
+        time = new Date();
+        this.partidesRecuperades = sudokuBBDD.getTimestamps(sudoku);
+        sudoku = new Sudoku(time, getFirstIdLiure(partidesRecuperades), jugador, null);
+    }
 
-	}
+    private int getFirstIdLiure(Map<Integer, Date> recuperats) throws Exception {
+        Set<Integer> IDSfromMAP = recuperats.keySet();
+        for (int i = 1; i < 1000; i++) {
+            if (!(IDSfromMAP.contains(i))) return i;
+        }
+        throw new Exception("Maxim partides guardades");
+    }
 
-	private void crearSudoku() throws Exception {
+    public void storeSudoku(Taulell t) throws Exception {
+        sudoku.setTaulell(t);
+        sudokuBBDD.storeSudoku(sudoku);
+    }
 
-		partidesRecuperades = sudokuBBDD.getTimestamps(sudoku);
-		Set<Integer> IDSfromMAP = partidesRecuperades.keySet();
-		Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP.toArray(new Integer[IDSfromMAP.size()]));
+    public void nouJugador(String nom) throws Exception {
 
-		boolean[] check = new boolean[1000];
-		for (int i = 0; i < check.length; i++) {
-			check[i] = false;
-		}
-		for (int i = 0; i < IdSudokusRecuperats.length; i++) {
-			int quin = IdSudokusRecuperats[i];
-			check[quin] = true;
-		}
+        Jugador jugadorRecuperatDeDB = jugadorBBDD.getJugadorFromDB(nom);
 
-		sudoku = new Sudoku(time, getFirstIdLiure(check), jugador, null);
+        if (jugadorRecuperatDeDB == null) {
+            jugador = new Jugador(nom, true);
+            jugadorBBDD.storeJugador(jugador);
 
-	}
+        } else if (jugadorRecuperatDeDB.getEstat() == true) {
+            throw new Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
+        } else {
+            jugador.setEstat(true);
+            jugadorBBDD.updateJugador(jugador);
+            partidesRecuperades = sudokuBBDD.getTimestamps(sudoku);
 
-	private int getFirstIdLiure(boolean[] q) throws Exception {
-		for (int i = 1; i < q.length; i++) {
-			if (!(q[i]))
-				return i;
-		}
-		throw new Exception("Maxim partides guardades");
-	}
+        }
+    }
 
-	public void storeSudoku(Taulell t) throws Exception {
-		sudoku.setTaulell(t);
-		sudokuBBDD.storeSudoku(sudoku);
-	}
+    public Map<Integer, Date> getTimeStamps() throws Exception {
+        return sudokuBBDD.getTimestamps(sudoku);
+    }
 
-	public void nouJugador(String nom) throws Exception {
+    public void esborrarSudokuTaulell() throws Exception {
+        sudokuBBDD.esborrarSudoku(sudoku);
+    }
 
-		Jugador jugadorRecuperatDeDB = jugadorBBDD.getJugadorFromDB(nom);
+    public Map<Integer, Date> getPartidesRecuperades() {
+        return this.partidesRecuperades;
+    }
 
-		if (jugadorRecuperatDeDB == null) {
-			jugador = new Jugador(nom, true);
-			jugadorBBDD.storeJugador(jugador);
-		} else if (jugadorRecuperatDeDB.getEstat() == true) {
-			throw new Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
-		} else {
-			jugador.setEstat(true);
-			jugadorBBDD.updateJugador(jugador);
-			partidesRecuperades = sudokuBBDD.getTimestamps(sudoku);
-		}
-	}
+    public Jugador getJugador() {
+        return this.jugador;
+    }
 
-	public Map<Integer, Date> getTimeStamps() throws Exception {
-		return sudokuBBDD.getTimestamps(sudoku);
-	}
+    public void setEstatJuagdor() throws Exception {
 
-	public void esborrarSudokuTaulell() throws Exception {
-		sudokuBBDD.esborrarSudoku(sudoku);
-	}
+        if (!(jugador.getNom().equals("Anonim"))) {
+            jugador.setEstat(false);
+            jugadorBBDD.updateJugador(jugador);
+        }
+    }
 
-	public Map<Integer, Date> getPartidesRecuperades() {
-		return this.partidesRecuperades;
-	}
+    public void recuperarTaulellGuardat() throws Exception {
+        sudokuBBDD.recuperarTaulellFromSudoku(sudoku);
+    }
 
-	public Jugador getJugador() {
-		return this.jugador;
-	}
+    public Taulell getTaulellFromSudoku() {
+        return sudoku.getTaulell();
+    }
 
-	public void setEstatJuagdor() throws Exception {
-
-		if (!(jugador.getNom().equals("Anonim"))) {
-			jugador.setEstat(false);
-			jugadorBBDD.updateJugador(jugador);
-		}
-	}
-
-	public void recuperarTaulellGuardat() throws Exception {
-		sudokuBBDD.recuperarTaulellFromSudoku(sudoku);
-	}
-
-	public Taulell getTaulellFromSudoku() {
-		return sudoku.getTaulell();
-	}
-
-	public Sudoku getSudoku() {
-		return sudoku;
-	}
+    public Sudoku getSudoku() {
+        return sudoku;
+    }
 }
