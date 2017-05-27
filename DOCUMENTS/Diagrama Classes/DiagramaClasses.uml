@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="562.4523809523811" y="0.0">Persistencia.ConnectionBBDD</node>
+    <node x="91.4796626984127" y="160.0">Domini.Taulell</node>
+    <node x="-23.198908730158763" y="681.0">Presentacio.Presentacio</node>
+    <node x="241.45238095238102" y="320.0">Persistencia.JugadorBBDD</node>
+    <node x="754.9523809523811" y="0.0">Aplicacio.CrearGraella</node>
+    <node x="161.06977513227525" y="840.0">Presentacio.UserLoginBBDD</node>
+    <node x="244.31977513227525" y="760.0">Presentacio.LoginSudoku</node>
+    <node x="245.2296626984127" y="420.0">Aplicacio.ControlBBDD</node>
+    <node x="57.97966269841268" y="0.0">Domini.Casella</node>
+    <node x="754.4523809523811" y="80.0">Prova.GraellaInicial</node>
+    <node x="393.952380952381" y="240.0">Persistencia.TaulellBBDD</node>
+    <node x="164.7296626984127" y="580.0">Presentacio.CasellaGrafica</node>
+    <node x="578.4523809523811" y="80.0">Persistencia.LoginBBDD</node>
+    <node x="166.7296626984127" y="80.0">Domini.Coordenada</node>
+    <node x="87.20238095238103" y="319.0">Domini.Sudoku</node>
+    <node x="-95.0" y="581.0">Presentacio.MenuBar</node>
+    <node x="-37.29761904761895" y="501.0">Aplicacio.Control</node>
+    <node x="27.72966269841268" y="80.0">Domini.Equivalent</node>
+    <node x="92.31977513227524" y="760.0">Aplicacio.LoginControler</node>
+    <node x="221.92344576719586" y="229.0">Domini.Jugador</node>
+    <node x="391.452380952381" y="320.0">Persistencia.SudokuBBDD</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Persistencia.JugadorBBDD" target="Domini.Jugador">
+      <point x="0.0" y="-15.0" />
+      <point x="305.952380952381" y="300.0" />
+      <point x="282.29844576719586" y="300.0" />
+      <point x="11.875" y="15.0" />
+    </edge>
+    <edge source="Persistencia.TaulellBBDD" target="Domini.Taulell">
+      <point x="0.0" y="-15.0" />
+      <point x="454.452380952381" y="220.0" />
+      <point x="167.6046626984127" y="220.0" />
+      <point x="32.625" y="15.0" />
+    </edge>
+    <edge source="Presentacio.Presentacio" target="Aplicacio.Control">
+      <point x="16.571428571428555" y="-15.0" />
+      <point x="51.37251984126979" y="661.0" />
+      <point x="59.22966269841271" y="661.0" />
+      <point x="59.22966269841271" y="556.0" />
+      <point x="37.70238095238105" y="556.0" />
+      <point x="30.0" y="15.0" />
+    </edge>
+    <edge source="Aplicacio.Control" target="Aplicacio.ControlBBDD">
+      <point x="30.0" y="-15.0" />
+      <point x="37.70238095238105" y="476.0" />
+      <point x="265.89632936507934" y="475.0" />
+      <point x="-41.33333333333334" y="15.0" />
+    </edge>
+    <edge source="Aplicacio.CrearGraella" target="Prova.GraellaInicial">
+      <point x="30.25" y="15.0" />
+      <point x="30.5" y="-15.0" />
+    </edge>
+    <edge source="Domini.Taulell" target="Domini.Casella">
+      <point x="10.875" y="-15.0" />
+      <point x="145.8546626984127" y="140.0" />
+      <point x="156.2296626984127" y="140.0" />
+      <point x="156.2296626984127" y="50.0" />
+      <point x="139.35466269841268" y="50.0" />
+      <point x="34.875" y="15.0" />
+    </edge>
+    <edge source="Persistencia.LoginBBDD" target="Persistencia.ConnectionBBDD">
+      <point x="-28.75" y="-15.0" />
+      <point x="607.2023809523811" y="55.0" />
+      <point x="599.2023809523811" y="55.0" />
+      <point x="-36.75" y="15.0" />
+    </edge>
+    <edge source="Aplicacio.Control" target="Domini.Taulell">
+      <point x="0.0" y="-15.0" />
+      <point x="7.7023809523810485" y="476.0" />
+      <point x="7.0" y="497.0" />
+      <point x="8.714285714285722" y="220.42857142857147" />
+      <point x="124.1046626984127" y="220.0" />
+      <point x="-10.875" y="15.0" />
+    </edge>
+    <edge source="Aplicacio.ControlBBDD" target="Domini.Jugador">
+      <point x="-23.25" y="-15.0" />
+      <point x="283.9796626984127" y="380.0" />
+      <point x="215.70238095238102" y="380.0" />
+      <point x="215.70238095238102" y="300.0" />
+      <point x="258.54844576719586" y="300.0" />
+      <point x="-11.875" y="15.0" />
+    </edge>
+    <edge source="Domini.Equivalent" target="Domini.Casella">
+      <point x="26.75" y="-15.0" />
+      <point x="107.97966269841268" y="60.0" />
+      <point x="92.85466269841268" y="60.0" />
+      <point x="-11.625" y="15.0" />
+    </edge>
+    <edge source="Presentacio.UserLoginBBDD" target="Presentacio.LoginSudoku">
+      <point x="35.5" y="-15.0" />
+      <point x="267.56977513227525" y="815.0" />
+      <point x="305.81977513227525" y="815.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Presentacio.MenuBar" target="Presentacio.Presentacio">
+      <point x="33.0" y="15.0" />
+      <point x="-12.5" y="641.0" />
+      <point x="18.22966269841268" y="641.0" />
+      <point x="-16.571428571428555" y="-15.0" />
+    </edge>
+    <edge source="Presentacio.MenuBar" target="Aplicacio.Control">
+      <point x="0.0" y="-15.0" />
+      <point x="-45.5" y="556.0" />
+      <point x="-22.29761904761895" y="556.0" />
+      <point x="-30.0" y="15.0" />
+    </edge>
+    <edge source="Presentacio.LoginSudoku" target="Aplicacio.ControlBBDD">
+      <point x="0.0" y="-15.0" />
+      <point x="305.81977513227525" y="735.0" />
+      <point x="306.2296626984127" y="718.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Domini.Sudoku" target="Domini.Taulell">
+      <point x="-23.0" y="-15.0" />
+      <point x="123.20238095238102" y="291.0" />
+      <point x="145.8546626984127" y="220.0" />
+      <point x="10.875" y="15.0" />
+    </edge>
+    <edge source="Presentacio.Presentacio" target="Presentacio.MenuBar">
+      <point x="-49.71428571428572" y="-15.0" />
+      <point x="-79.07986111111111" y="681.0" />
+      <point x="-78.5" y="661.0" />
+      <point x="-33.0" y="15.0" />
+    </edge>
+    <edge source="Persistencia.SudokuBBDD" target="Persistencia.TaulellBBDD">
+      <point x="31.5" y="-15.0" />
+      <point x="485.9523809523811" y="300.0" />
+      <point x="484.7023809523811" y="300.0" />
+      <point x="30.25" y="15.0" />
+    </edge>
+    <edge source="Presentacio.LoginSudoku" target="Presentacio.Presentacio">
+      <point x="-41.0" y="-15.0" />
+      <point x="264.81977513227525" y="735.0" />
+      <point x="35.912202380952436" y="736.9444444444445" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Domini.Taulell" target="Domini.Equivalent">
+      <point x="-32.625" y="-15.0" />
+      <point x="102.3546626984127" y="140.0" />
+      <point x="81.22966269841268" y="140.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Aplicacio.ControlBBDD" target="Domini.Sudoku">
+      <point x="-38.75" y="-15.0" />
+      <point x="268.4796626984127" y="390.0" />
+      <point x="158.20238095238102" y="389.0" />
+      <point x="23.0" y="15.0" />
+    </edge>
+    <edge source="Aplicacio.ControlBBDD" target="Persistencia.JugadorBBDD">
+      <point x="-7.75" y="-15.0" />
+      <point x="299.4796626984127" y="370.0" />
+      <point x="273.702380952381" y="370.0" />
+      <point x="-32.25" y="15.0" />
+    </edge>
+    <edge source="Presentacio.Presentacio" target="Presentacio.CasellaGrafica">
+      <point x="49.71428571428572" y="-15.0" />
+      <point x="84.51537698412696" y="661.0" />
+      <point x="263.7296626984127" y="660.0" />
+      <point x="33.0" y="15.0" />
+    </edge>
+    <edge source="Domini.Sudoku" target="Domini.Jugador">
+      <point x="23.0" y="-15.0" />
+      <point x="156.20238095238102" y="291.0" />
+      <point x="234.79844576719586" y="290.0" />
+      <point x="-35.625" y="15.0" />
+    </edge>
+    <edge source="Prova.GraellaInicial" target="Aplicacio.CrearGraella">
+      <point x="-30.5" y="-15.0" />
+      <point x="-30.25" y="15.0" />
+    </edge>
+    <edge source="Presentacio.UserLoginBBDD" target="Aplicacio.LoginControler">
+      <point x="-35.5" y="-15.0" />
+      <point x="196.56977513227525" y="815.0" />
+      <point x="158.31977513227525" y="815.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Domini.Taulell" target="Domini.Coordenada">
+      <point x="32.625" y="-15.0" />
+      <point x="167.6046626984127" y="140.0" />
+      <point x="226.2296626984127" y="140.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Aplicacio.ControlBBDD" target="Persistencia.SudokuBBDD">
+      <point x="54.25" y="-15.0" />
+      <point x="361.47966269841265" y="400.0" />
+      <point x="485.9523809523811" y="400.0" />
+      <point x="31.5" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="-84.5" y="525.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
