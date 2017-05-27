@@ -53,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/src/Aplicacio/Control.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="391">
-              <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+              <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
               <folding>
                 <element signature="e#1091#1092#0" expanded="true" />
                 <element signature="e#1133#1134#0" expanded="true" />
@@ -83,14 +83,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MenuBar.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MenuBar.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Presentacio/MenuBar.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="150" column="56" lean-forward="true" selection-start-line="150" selection-start-column="56" selection-end-line="150" selection-end-column="56" />
+              <caret line="150" column="56" lean-forward="false" selection-start-line="150" selection-start-column="56" selection-end-line="150" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="crebas.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/crebas.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="35" lean-forward="false" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -156,6 +166,7 @@
         <option value="$PROJECT_DIR$/src/Aplicacio/Control.java" />
         <option value="$PROJECT_DIR$/src/Aplicacio/ControlBBDD.java" />
         <option value="$PROJECT_DIR$/src/Aplicacio/CrearGraella.java" />
+        <option value="$PROJECT_DIR$/crebas.sql" />
       </list>
     </option>
   </component>
@@ -745,12 +756,12 @@
       <option name="presentableId" value="Default" />
       <updated>1495752837764</updated>
       <workItem from="1495752852911" duration="717000" />
-      <workItem from="1495873451475" duration="4548000" />
+      <workItem from="1495873451475" duration="4818000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11988000" />
+    <option name="totallyTimeSpent" value="12258000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1104,7 +1115,7 @@
     <entry file="file://$PROJECT_DIR$/src/Aplicacio/Control.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+          <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
           <folding>
             <element signature="e#1091#1092#0" expanded="true" />
             <element signature="e#1133#1134#0" expanded="true" />
@@ -1178,10 +1189,18 @@
     <entry file="file://$PROJECT_DIR$/src/Presentacio/MenuBar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="150" column="56" lean-forward="true" selection-start-line="150" selection-start-column="56" selection-end-line="150" selection-end-column="56" />
+          <caret line="150" column="56" lean-forward="false" selection-start-line="150" selection-start-column="56" selection-end-line="150" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crebas.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="35" lean-forward="false" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
