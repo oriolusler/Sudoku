@@ -20,14 +20,6 @@ public class ControlBBDD {
     private SudokuBBDD sudokuBBDD;
     private boolean inciar = false;
 
-    public boolean getInciar() {
-        return inciar;
-    }
-
-    public void setInciar(boolean inciar) {
-        this.inciar = inciar;
-    }
-
     public ControlBBDD(String nom) {
 
         jugador = new Jugador(nom);
@@ -40,6 +32,14 @@ public class ControlBBDD {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean getInciar() {
+        return inciar;
+    }
+
+    public void setInciar(boolean inciar) {
+        this.inciar = inciar;
     }
 
     public void iniciarSudoku() throws Exception {
@@ -92,6 +92,10 @@ public class ControlBBDD {
         return this.partidesRecuperades;
     }
 
+    public Sudoku getSudoku() {
+        return sudoku;
+    }
+
     public Jugador getJugador() {
         return this.jugador;
     }
@@ -112,7 +116,4 @@ public class ControlBBDD {
         return sudoku.getTaulell();
     }
 
-    public Sudoku getSudoku() {
-        return sudoku;
-    }
 }

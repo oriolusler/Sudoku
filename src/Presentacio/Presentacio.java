@@ -47,7 +47,7 @@ public class Presentacio implements ActionListener, FocusListener {
                         actualitzar();
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(new JFrame(), ex.getStackTrace());
+                    JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
                 }
             }
         });
@@ -66,6 +66,7 @@ public class Presentacio implements ActionListener, FocusListener {
                                 + "\n - En cas d'introduir un 0, la casella no tindra cap valor"
                                 + "\n - Per finalitzar la creacio premeu 'Iniciar Sudoku' en el menu");
 
+                //menu.setMenuPersistenica(false);
             } else if (res == JOptionPane.NO_OPTION) {
 
                 control.iniciarSudokuPredefinit();
@@ -84,8 +85,7 @@ public class Presentacio implements ActionListener, FocusListener {
     public void mostratSudokuRecuperat() {
         try {
             control.recuperarTaulell();
-
-        } // FI TRY
+        }
         catch (Exception e) {
             JOptionPane.showMessageDialog(new JFrame(), "Hi ha hagut un problema mostrant la partida guardada. \n");
 
