@@ -85,7 +85,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
         if ((!controlClasse.estaBuit()))
             CrearSudokuUsuari.setVisible(false);
-        else setMenuPersistenica(false);
+        else {
+            setMenuPersistenica(false);
+            setSudokuAleatori(false);
+        }
 
         if (controlClasse.getJugador().getNom().equals("Anonim")) {
             setMenuPersistenica(false);
@@ -126,6 +129,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 if (presentacioClasse.getNumeroEntrades() >= 17)
                     try {
+                        setSudokuAleatori(true);
                         controlClasse.iniciarUsuari();
                         presentacioClasse.actualitzar();
                         actualitzarNom();
@@ -183,6 +187,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
                                 + "\n - En cas d'introduir un 0, la casella no tindra cap valor"
                                 + "\n - Per finalitzar la creacio premeu 'Iniciar Sudoku' en el menu");
 
+                setSudokuAleatori(false);
                 setMenuPersistenica(false);
                 presentacioClasse.setNumeroEntraddes(0);
                 CrearSudokuUsuari.setVisible(true);
@@ -205,7 +210,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                setSudokuAleatori(true);
                 CrearSudokuUsuari.setVisible(false);
                 presentacioClasse.elimanar();
                 try {
@@ -322,6 +327,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
     public void setControlClasse(Control control) {
         this.controlClasse = control;
 
+    }
+
+    public void setSudokuAleatori(boolean estat) {
+        GenerarSudokuAleatori.setEnabled(estat);
     }
 
     private void intentarIntentarSudoku() throws Exception {

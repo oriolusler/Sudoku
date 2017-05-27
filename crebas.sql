@@ -61,7 +61,8 @@ create table SUDOKU (
 NOMJUGADOR VARCHAR2(25) not null,
 IDSUDOKU NUMBER(3) not null,
 DATACREACIO TIMESTAMP,
-constraint PK_SUDOKU primary key (NOMJUGADOR, IDSUDOKU)
+constraint PK_SUDOKU primary key (NOMJUGADOR, IDSUDOKU),
+constraint IDSUDOKU CHECK (IDSUDOKU<1000)
 );
 
 /*==============================================================*/

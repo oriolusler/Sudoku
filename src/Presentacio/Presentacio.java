@@ -65,8 +65,6 @@ public class Presentacio implements ActionListener, FocusListener {
                         "Instruccions:\n - Un cop introduit un numero, fer clic ENTER per confirmar"
                                 + "\n - En cas d'introduir un 0, la casella no tindra cap valor"
                                 + "\n - Per finalitzar la creacio premeu 'Iniciar Sudoku' en el menu");
-
-                //menu.setMenuPersistenica(false);
             } else if (res == JOptionPane.NO_OPTION) {
 
                 control.iniciarSudokuPredefinit();

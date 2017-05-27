@@ -25,82 +25,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserLoginBBDD.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacio/UserLoginBBDD.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1111">
-              <caret line="95" column="27" lean-forward="false" selection-start-line="95" selection-start-column="27" selection-end-line="95" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginSudoku.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacio/LoginSudoku.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-249">
-              <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Control.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Aplicacio/Control.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-              <folding>
-                <element signature="e#1091#1092#0" expanded="true" />
-                <element signature="e#1133#1134#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ControlBBDD.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Aplicacio/ControlBBDD.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#ControlBBDD#0;class#ControlBBDD#0" expanded="false" />
-                <element signature="method#iniciarSudoku#0;class#ControlBBDD#0" expanded="false" />
-                <element signature="method#getFirstIdLiure#0;class#ControlBBDD#0" expanded="false" />
-                <element signature="method#storeSudoku#0;class#ControlBBDD#0" expanded="false" />
-                <element signature="method#nouJugador#0;class#ControlBBDD#0" expanded="false" />
-                <element signature="method#getTimeStamps#0;class#ControlBBDD#0" expanded="false" />
-                <element signature="method#esborrarSudokuTaulell#0;class#ControlBBDD#0" expanded="false" />
-                <element signature="method#setEstatJuagdor#0;class#ControlBBDD#0" expanded="false" />
-                <element signature="method#recuperarTaulellGuardat#0;class#ControlBBDD#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MenuBar.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Presentacio/MenuBar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="150" column="56" lean-forward="false" selection-start-line="150" selection-start-column="56" selection-end-line="150" selection-end-column="56" />
+            <state relative-caret-position="275">
+              <caret line="89" column="35" lean-forward="false" selection-start-line="89" selection-start-column="35" selection-end-line="89" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="class#3143:3670" expanded="false" />
+                <element signature="class#3722:4883" expanded="false" />
+                <element signature="class#4939:5974" expanded="false" />
+                <element signature="class#6016:7145" expanded="false" />
+                <element signature="class#7193:7968" expanded="false" />
+                <element signature="class#8019:8597" expanded="false" />
+                <element signature="e#11145#11146#0" expanded="true" />
+                <element signature="e#11200#11201#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="crebas.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/crebas.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="35" lean-forward="false" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -115,22 +55,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginControler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Aplicacio/LoginControler.java">
+      <file leaf-file-name="Presentacio.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Presentacio/Presentacio.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Casella.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Domini/Casella.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-130">
-              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="372">
+              <caret line="67" column="12" lean-forward="false" selection-start-line="67" selection-start-column="12" selection-end-line="67" selection-end-column="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -161,12 +94,12 @@
         <option value="$PROJECT_DIR$/src/Domini/Sudoku.java" />
         <option value="$PROJECT_DIR$/src/Presentacio/LoginSudoku.java" />
         <option value="$PROJECT_DIR$/src/Persistencia/SudokuBBDD.java" />
-        <option value="$PROJECT_DIR$/src/Presentacio/Presentacio.java" />
-        <option value="$PROJECT_DIR$/src/Presentacio/MenuBar.java" />
         <option value="$PROJECT_DIR$/src/Aplicacio/Control.java" />
         <option value="$PROJECT_DIR$/src/Aplicacio/ControlBBDD.java" />
         <option value="$PROJECT_DIR$/src/Aplicacio/CrearGraella.java" />
         <option value="$PROJECT_DIR$/crebas.sql" />
+        <option value="$PROJECT_DIR$/src/Presentacio/MenuBar.java" />
+        <option value="$PROJECT_DIR$/src/Presentacio/Presentacio.java" />
       </list>
     </option>
   </component>
@@ -756,12 +689,12 @@
       <option name="presentableId" value="Default" />
       <updated>1495752837764</updated>
       <workItem from="1495752852911" duration="717000" />
-      <workItem from="1495873451475" duration="4818000" />
+      <workItem from="1495873451475" duration="7319000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12258000" />
+    <option name="totallyTimeSpent" value="14759000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -786,7 +719,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -815,7 +748,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -858,6 +791,14 @@
           <caret line="329" column="14" lean-forward="false" selection-start-line="329" selection-start-column="14" selection-end-line="329" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="class#3143:3670" expanded="false" />
+            <element signature="class#3722:4883" expanded="false" />
+            <element signature="class#4939:5974" expanded="false" />
+            <element signature="class#6016:7145" expanded="false" />
+            <element signature="class#7193:7968" expanded="false" />
+            <element signature="class#8019:8597" expanded="false" />
+            <element signature="e#11145#11146#0" expanded="true" />
+            <element signature="e#11200#11201#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -978,6 +919,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1036,17 +978,6 @@
     <entry file="file://$PROJECT_DIR$/sudokuSolucionat.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Presentacio/Presentacio.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="68" column="18" lean-forward="false" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Domini/Sudoku.java">
@@ -1112,36 +1043,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Aplicacio/Control.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-          <folding>
-            <element signature="e#1091#1092#0" expanded="true" />
-            <element signature="e#1133#1134#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Aplicacio/ControlBBDD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#ControlBBDD#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#iniciarSudoku#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getFirstIdLiure#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#storeSudoku#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#nouJugador#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getTimeStamps#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#esborrarSudokuTaulell#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#setEstatJuagdor#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#recuperarTaulellGuardat#0;class#ControlBBDD#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Aplicacio/CrearGraella.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1176,6 +1077,59 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/crebas.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="35" lean-forward="false" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DiagramaClasses.uml">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement />
+          <nodes>
+            <node x="" y="">Persistencia.ConnectionBBDD</node>
+            <node x="" y="">Domini.Taulell</node>
+            <node x="" y="">Presentacio.Presentacio</node>
+            <node x="" y="">Persistencia.JugadorBBDD</node>
+            <node x="" y="">Aplicacio.CrearGraella</node>
+            <node x="" y="">Presentacio.LoginSudoku</node>
+            <node x="" y="">Presentacio.UserLoginBBDD</node>
+            <node x="" y="">Aplicacio.ControlBBDD</node>
+            <node x="" y="">Domini.Casella</node>
+            <node x="" y="">Persistencia.TaulellBBDD</node>
+            <node x="" y="">Presentacio.CasellaGrafica</node>
+            <node x="" y="">Persistencia.LoginBBDD</node>
+            <node x="" y="">Domini.Coordenada</node>
+            <node x="" y="">Domini.Sudoku</node>
+            <node x="" y="">Presentacio.MenuBar</node>
+            <node x="" y="">Aplicacio.Control</node>
+            <node x="" y="">Domini.Equivalent</node>
+            <node x="" y="">Aplicacio.LoginControler</node>
+            <node x="" y="">Domini.Jugador</node>
+            <node x="" y="">Persistencia.SudokuBBDD</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.9999999999999999" x="-95.49999999999989" y="687.5" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SUDOKU.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Presentacio/LoginSudoku.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-249">
@@ -1186,21 +1140,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Presentacio/MenuBar.java">
+    <entry file="file://$PROJECT_DIR$/src/Aplicacio/Control.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="150" column="56" lean-forward="false" selection-start-line="150" selection-start-column="56" selection-end-line="150" selection-end-column="56" />
+        <state relative-caret-position="391">
+          <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1091#1092#0" expanded="true" />
+            <element signature="e#1133#1134#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crebas.sql">
+    <entry file="file://$PROJECT_DIR$/src/Aplicacio/ControlBBDD.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="35" lean-forward="false" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
-          <folding />
+        <state relative-caret-position="466">
+          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#ControlBBDD#0;class#ControlBBDD#0" expanded="false" />
+            <element signature="method#iniciarSudoku#0;class#ControlBBDD#0" expanded="false" />
+            <element signature="method#getFirstIdLiure#0;class#ControlBBDD#0" expanded="false" />
+            <element signature="method#storeSudoku#0;class#ControlBBDD#0" expanded="false" />
+            <element signature="method#nouJugador#0;class#ControlBBDD#0" expanded="false" />
+            <element signature="method#getTimeStamps#0;class#ControlBBDD#0" expanded="false" />
+            <element signature="method#esborrarSudokuTaulell#0;class#ControlBBDD#0" expanded="false" />
+            <element signature="method#setEstatJuagdor#0;class#ControlBBDD#0" expanded="false" />
+            <element signature="method#recuperarTaulellGuardat#0;class#ControlBBDD#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacio/MenuBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="89" column="35" lean-forward="false" selection-start-line="89" selection-start-column="35" selection-end-line="89" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#3143:3670" expanded="false" />
+            <element signature="class#3722:4883" expanded="false" />
+            <element signature="class#4939:5974" expanded="false" />
+            <element signature="class#6016:7145" expanded="false" />
+            <element signature="class#7193:7968" expanded="false" />
+            <element signature="class#8019:8597" expanded="false" />
+            <element signature="e#11145#11146#0" expanded="true" />
+            <element signature="e#11200#11201#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacio/Presentacio.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="67" column="12" lean-forward="false" selection-start-line="67" selection-start-column="12" selection-end-line="67" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
