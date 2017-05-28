@@ -3,6 +3,7 @@ package Presentacio;
 import Aplicacio.ControlBBDD;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -18,9 +19,12 @@ public class LoginSudoku {
 
     public LoginSudoku() {
 
-        DemanarCredencials();
-        new Presentacio(controlBBDD);
 
+        boolean logat = DemanarCredencials();
+
+        if (logat) {
+            new Presentacio(controlBBDD);
+        }
     }
 
     public LoginSudoku(String nom) {
@@ -30,97 +34,122 @@ public class LoginSudoku {
 
     }
 
-    private void DemanarCredencials() {
+    private boolean DemanarCredencials() {
 
-        Object[] array = {result_label, label_login, login};
+        boolean logat = false;
+        while (!logat) {
 
-        int preguntaNomUsuari = JOptionPane.showConfirmDialog(null, array, "User Login", JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE);
+            Object[] array = {result_label, label_login, login};
 
-        if (preguntaNomUsuari == JOptionPane.OK_OPTION) {
+            int preguntaNomUsuari = JOptionPane.showConfirmDialog(null, array, "User Login", JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE);
 
-
-            nom = login.getText();
-            Map<Integer, Date> recuperats = null;
-
-            controlBBDD = new ControlBBDD(nom);
-
-            try {
-                controlBBDD.nouJugador(nom);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
+            if (preguntaNomUsuari == JOptionPane.CANCEL_OPTION || preguntaNomUsuari == JOptionPane.CLOSED_OPTION) {
                 System.exit(0);
-            }
+            } else if (preguntaNomUsuari == JOptionPane.OK_OPTION) {
 
-            recuperats = controlBBDD.getPartidesRecuperades();
 
-            if (recuperats.size() == 0) {
-                try {
-                    intentarCrearSudoku();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
-                    System.exit(0);
-                }
-
-            } else {
-
-                // RECUPERACIO SUDOKU
-                int preguntaSiVolJugarSudokuGuardat = JOptionPane.showConfirmDialog(new JFrame(),
-                        "Vols jugar un sudoku guardat?\nEn cas contrari comencaras un sudoku nou.", "TRIA",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-                if (preguntaSiVolJugarSudokuGuardat == JOptionPane.YES_OPTION) {
-
-                    Set<Integer> IDSfromMAP = recuperats.keySet();
-                    Collection<Date> DATAfromMAP = recuperats.values();
-
-                    Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP
-                            .toArray(new Integer[IDSfromMAP.size()]));
-                    Date[] DatesRecuperades = (Date[]) (DATAfromMAP.toArray(new Date[IDSfromMAP.size()]));
-                    String[] stringPerMostrat = new String[recuperats.size()];
-
-                    for (int i = 0; i < recuperats.size(); i++) {
-                        stringPerMostrat[i] = IdSudokusRecuperats[i] + " - " + DatesRecuperades[i];
-                    }
-
-                    if (recuperats.size() == 1) {
-                        controlBBDD.getSudoku().setIdSudoku(IdSudokusRecuperats[0]);
-                        controlBBDD.setInciar(true);
-                    } else {
-                        String input = (String) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
-                                "Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, stringPerMostrat,
-                                stringPerMostrat);
-
-                        String[] parts = input.split(" - ");
-                        controlBBDD.getSudoku().setIdSudoku(Integer.parseInt(parts[0]));
-                        controlBBDD.setInciar(true);
-
-                    }
-                } else if (preguntaSiVolJugarSudokuGuardat == JOptionPane.NO_OPTION) {
-                    try {
-                        intentarCrearSudoku();
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
-                        System.exit(0);
-                    }
-
+                nom = login.getText();
+                if (nom.equals("")) {
+                    result_label.setText("El nom d'usuari no pot ser buit.\nEscriu un nom:");
+                    result_label.setForeground(Color.RED);
                 } else {
+                    Map<Integer, Date> recuperats = null;
+
+                    controlBBDD = new ControlBBDD(nom);
+
                     try {
-                        controlBBDD.setEstatJuagdor();
-                        System.exit(0);
+                        controlBBDD.nouJugador(nom);
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
                         System.exit(0);
                     }
 
+                    recuperats = controlBBDD.getPartidesRecuperades();
+
+                    if (recuperats.size() == 0) {
+                        try {
+                            intentarCrearSudoku();
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
+                            System.exit(0);
+                        }
+
+                    } else {
+
+                        // RECUPERACIO SUDOKU
+                        int preguntaSiVolJugarSudokuGuardat = JOptionPane.showConfirmDialog(new JFrame(),
+                                "Vols jugar un sudoku guardat?\nEn cas contrari comencaras un sudoku nou.", "TRIA",
+                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                        if (preguntaSiVolJugarSudokuGuardat == JOptionPane.YES_OPTION) {
+
+                            Set<Integer> IDSfromMAP = recuperats.keySet();
+                            Collection<Date> DATAfromMAP = recuperats.values();
+
+                            Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP
+                                    .toArray(new Integer[IDSfromMAP.size()]));
+                            Date[] DatesRecuperades = (Date[]) (DATAfromMAP.toArray(new Date[IDSfromMAP.size()]));
+                            String[] stringPerMostrat = new String[recuperats.size()];
+
+                            for (int i = 0; i < recuperats.size(); i++) {
+                                stringPerMostrat[i] = IdSudokusRecuperats[i] + " - " + DatesRecuperades[i];
+                            }
+
+                            if (recuperats.size() == 1) {
+                                controlBBDD.getSudoku().setIdSudoku(IdSudokusRecuperats[0]);
+                                controlBBDD.setInciar(true);
+                            } else {
+                                String input = (String) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
+                                        "Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, stringPerMostrat,
+                                        stringPerMostrat);
+
+                                if (input == null) {
+                                    try {
+                                        controlBBDD.setEstatJuagdor();
+                                        System.exit(0);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                } else {
+                                    String[] parts = input.split(" - ");
+                                    controlBBDD.getSudoku().setIdSudoku(Integer.parseInt(parts[0]));
+                                    controlBBDD.setInciar(true);
+                                }
+
+                            }
+                        } else if (preguntaSiVolJugarSudokuGuardat == JOptionPane.NO_OPTION) {
+                            try {
+                                intentarCrearSudoku();
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
+                                System.exit(0);
+                            }
+
+                        } else {
+                            try {
+                                controlBBDD.setEstatJuagdor();
+                                System.exit(0);
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
+                                System.exit(0);
+                            }
+
+                        }
+                    }
+
+                    // FI DE RECUPERACIO
+
+
+                    logat = true;
+                    return true;
                 }
+
             }
 
-            // FI DE RECUPERACIO
-
-        } else
-            System.exit(0);
-
+        }
+        return false;
     }
 
     private void intentarCrearSudoku() throws Exception {

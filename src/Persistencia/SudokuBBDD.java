@@ -66,7 +66,7 @@ public class SudokuBBDD {
             taulell.storeTaullell(sudoku);
         } catch (Exception e) {
             // Si no es pot guardar anteriorment es perquqe ja existeix el
-            // Sudoku(PARTIDA) i quan arriba en el catch el guarda
+            // Sudoku(PARTIDA) i quan arriba en el catch el guarda com si actualitzes
             taulell.storeTaullell(sudoku);
         }
 
