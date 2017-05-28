@@ -19,29 +19,25 @@
     <option name="SHOW_EMPTY_GROUPS" value="false" />
     <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="sudokuSolucionat.jpg" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/DOCUMENTS/sudokuSolucionat.jpg">
-                <provider selected="true" editor-type-id="images">
-                  <state />
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="SUDOKU" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="LoginSudoku.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Presentacio/LoginSudoku.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="99" column="92" lean-forward="true" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="92" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -104,8 +100,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -211,6 +205,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -672,12 +668,13 @@
       <workItem from="1495873451475" duration="7964000" />
       <workItem from="1495894673353" duration="3000" />
       <workItem from="1495902781380" duration="5101000" />
-      <workItem from="1495956286704" duration="5304000" />
+      <workItem from="1495956286704" duration="5417000" />
+      <workItem from="1495984467984" duration="777000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26306000" />
+    <option name="totallyTimeSpent" value="27196000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -689,7 +686,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -700,8 +698,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -712,8 +710,8 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39978904" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -760,7 +758,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -768,17 +765,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="466">
           <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#ControlBBDD#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#iniciarSudoku#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getFirstIdLiure#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#nouJugador#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getTimeStamps#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#esborrarSudokuTaulell#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#setEstatJuagdor#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#recuperarTaulellGuardat#0;class#ControlBBDD#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -786,14 +772,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1360">
           <caret line="89" column="35" lean-forward="false" selection-start-line="89" selection-start-column="35" selection-end-line="89" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="class#3143:3670" expanded="false" />
-            <element signature="class#3722:4883" expanded="false" />
-            <element signature="class#4939:5974" expanded="false" />
-            <element signature="class#6016:7145" expanded="false" />
-            <element signature="class#7193:7968" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -801,10 +779,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="67" column="12" lean-forward="false" selection-start-line="67" selection-start-column="12" selection-end-line="67" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -836,14 +810,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5593">
           <caret line="329" column="14" lean-forward="false" selection-start-line="329" selection-start-column="14" selection-end-line="329" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="class#3143:3670" expanded="false" />
-            <element signature="class#3722:4883" expanded="false" />
-            <element signature="class#4939:5974" expanded="false" />
-            <element signature="class#6016:7145" expanded="false" />
-            <element signature="class#7193:7968" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -851,17 +817,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#ControlBBDD#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#iniciarSudoku#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getFirstIdLiure#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#nouJugador#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getTimeStamps#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#esborrarSudokuTaulell#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#setEstatJuagdor#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#recuperarTaulellGuardat#0;class#ControlBBDD#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -876,14 +831,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1836">
           <caret line="118" column="9" lean-forward="false" selection-start-line="118" selection-start-column="9" selection-end-line="118" selection-end-column="9" />
-          <folding>
-            <element signature="e#322#323#0" expanded="true" />
-            <element signature="e#370#371#0" expanded="true" />
-            <marker date="1495960878574" expanded="true" signature="666:740" ph="SELECT COUNT... " />
-            <marker date="1495960878574" expanded="true" signature="1668:1701" ph="INSERT INTO SUDOKU... " />
-            <marker date="1495960878574" expanded="true" signature="2632:2688" ph="DELETE FROM " />
-            <marker date="1495960878574" expanded="true" signature="3518:3578" ph="SELECT IDSUD... SUDOKU" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -891,9 +838,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-          <folding>
-            <element signature="e#860#861#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -901,7 +845,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1309">
           <caret line="96" column="5" lean-forward="true" selection-start-line="94" selection-start-column="4" selection-end-line="96" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -909,10 +852,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3825">
           <caret line="225" column="42" lean-forward="false" selection-start-line="225" selection-start-column="42" selection-end-line="225" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -984,10 +923,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="45" column="84" lean-forward="true" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1003,9 +938,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="526">
           <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-          <folding>
-            <element signature="e#860#861#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1020,9 +952,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1053,27 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="59" column="16" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#ControlBBDD#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#iniciarSudoku#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getFirstIdLiure#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#nouJugador#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getTimeStamps#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#esborrarSudokuTaulell#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#setEstatJuagdor#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#recuperarTaulellGuardat#0;class#ControlBBDD#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Presentacio/LoginSudoku.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2482">
-          <caret line="146" column="17" lean-forward="false" selection-start-line="55" selection-start-column="23" selection-end-line="146" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1081,11 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1139">
           <caret line="72" column="17" lean-forward="true" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
-          <folding>
-            <marker date="1495752691884" expanded="true" signature="571:610" ph="INSERT INTO CASELLA... " />
-            <marker date="1495752691884" expanded="true" signature="1433:1492" ph="SELECT * FRO... CASELLA" />
-            <marker date="1495752691884" expanded="true" signature="2441:2498" ph="DELETE FROM " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1093,14 +996,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-470">
           <caret line="68" column="85" lean-forward="false" selection-start-line="68" selection-start-column="85" selection-end-line="68" selection-end-column="85" />
-          <folding>
-            <element signature="e#322#323#0" expanded="true" />
-            <element signature="e#370#371#0" expanded="true" />
-            <marker date="1495960878574" expanded="true" signature="666:740" ph="SELECT COUNT... " />
-            <marker date="1495960878574" expanded="true" signature="1668:1701" ph="INSERT INTO SUDOKU... " />
-            <marker date="1495960878574" expanded="true" signature="2632:2688" ph="DELETE FROM " />
-            <marker date="1495960878574" expanded="true" signature="3518:3578" ph="SELECT IDSUD... SUDOKU" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1108,7 +1003,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="18" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1116,11 +1010,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="8" column="16" lean-forward="false" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-          <folding>
-            <marker date="1495752691870" expanded="true" signature="274:305" ph="INSERT INTO JUGADOR... " />
-            <marker date="1495752691870" expanded="true" signature="756:814" ph="UPDATE jugad... " />
-            <marker date="1495752691870" expanded="true" signature="1213:1255" ph="SELECT * FRO... JUGADOR" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1128,7 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-493">
           <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1140,11 +1028,6 @@
             <element signature="method#getPanel#0;class#UserLoginBBDD#0" expanded="false" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DOCUMENTS/sudokuSolucionat.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DOCUMENTS/Diagrama Classes/DiagramaClasses.uml">
@@ -1177,11 +1060,11 @@
           </nodes>
           <notes />
           <edges />
-          <settings layout="Hierarchic Group" zoom="0.2744821092278719" x="729.9433962264152" y="1192.0" />
+          <settings layout="Hierarchic Group" zoom="0.2744821092278719" x="730.0" y="1192.0" />
           <SelectedNodes />
           <Categories>
-            <Category>Inner Classes</Category>
             <Category>Fields</Category>
+            <Category>Inner Classes</Category>
           </Categories>
           <SCOPE>All</SCOPE>
           <VISIBILITY>private</VISIBILITY>
@@ -1192,7 +1075,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1200,7 +1082,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
           <caret line="82" column="28" lean-forward="false" selection-start-line="82" selection-start-column="28" selection-end-line="82" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1208,9 +1089,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3304">
           <caret line="242" column="41" lean-forward="false" selection-start-line="242" selection-start-column="41" selection-end-line="242" selection-end-column="41" />
-          <folding>
-            <element signature="class#3143:3670" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1218,9 +1096,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="278" column="34" lean-forward="false" selection-start-line="278" selection-start-column="16" selection-end-line="278" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DOCUMENTS/sudokuSolucionat.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacio/LoginSudoku.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="99" column="92" lean-forward="true" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="92" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
           </folding>
         </state>
       </provider>
