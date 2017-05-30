@@ -291,6 +291,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
     private void mostratpartidesrecuperades() throws Exception {
 
+        menuPersistencia.setEnabled(true);
         int quinEstaSelecionat = controlClasse.getSudoku().getIdSudoku();
 
         if (!(nom.equals("Anonim"))) {
