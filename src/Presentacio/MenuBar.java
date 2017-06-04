@@ -163,7 +163,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
                     if (res == JOptionPane.YES_OPTION) {
                         controlClasse.canviarTaulell();
                         if (!(nom.equals("Anonim"))) {
-                            intentarIntentarSudoku();
+                           // intentarIntentarSudoku();
                             actualitzarNom();
                             setMenuPersistenica(true);
                         }
@@ -219,7 +219,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
                     presentacioClasse.actualitzar();
 
                     if (!(nom.equals("Anonim"))) {
-                        intentarIntentarSudoku();
+                    	intentarIntentarSudoku();
                         actualitzarNom();
                         setMenuPersistenica(true);
                     }

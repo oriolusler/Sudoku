@@ -4,11 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import Domini.Jugador;
 
-public class JugadorBBDD {
+class JugadorBBDD {
 
 	public void storeJugador(Jugador jugador) throws Exception {
 
-		ConnectionBBDD connection = LoginBBDD.getConnection();
+		ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
 		String sql = "INSERT INTO JUGADOR VALUES(?,?)";
 		PreparedStatement pst = connection.prepareStatement(sql);
@@ -27,7 +27,7 @@ public class JugadorBBDD {
 
 	public void updateJugador(Jugador jugador) throws Exception {
 
-		ConnectionBBDD connection = LoginBBDD.getConnection();
+		ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
 		String sql = "UPDATE jugador SET   estajuagnt = ? WHERE   nomjugador = ?";
 		PreparedStatement pst = connection.prepareStatement(sql);
@@ -43,7 +43,7 @@ public class JugadorBBDD {
 	public Jugador getJugadorFromDB(String nom) throws Exception {
 
 		Jugador jugadorRecuperat;
-		ConnectionBBDD connection = LoginBBDD.getConnection();
+		ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
 		String sql = "SELECT * FROM JUGADOR WHERE NOMJUGADOR = ?";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);

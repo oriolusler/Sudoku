@@ -29,8 +29,10 @@ public class LoginSudoku {
 
     public LoginSudoku(String nom) {
 
-        controlBBDD = new ControlBBDD(nom);
-        new Presentacio(controlBBDD);
+    
+			controlBBDD = new ControlBBDD(nom);
+			new Presentacio(controlBBDD);
+		
 
     }
 

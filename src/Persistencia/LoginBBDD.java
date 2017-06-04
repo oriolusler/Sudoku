@@ -4,7 +4,7 @@ public class LoginBBDD {
 
 	private static ConnectionBBDD connection;
 	
-	public  static void login(String user, String password) throws Exception {
+	public static void login(String user, String password) throws Exception {
 		if (connection == null) {
 			connection = new ConnectionBBDD(user, password);
 		}

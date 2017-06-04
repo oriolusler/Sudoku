@@ -28,30 +28,25 @@
       <file leaf-file-name="LoginSudoku.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Presentacio/LoginSudoku.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="145" column="32" lean-forward="false" selection-start-line="145" selection-start-column="32" selection-end-line="145" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MenuBar.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Presentacio/MenuBar.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="293" column="40" lean-forward="false" selection-start-line="293" selection-start-column="40" selection-end-line="293" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserLoginBBDD.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacio/UserLoginBBDD.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="90" column="18" lean-forward="false" selection-start-line="90" selection-start-column="18" selection-end-line="90" selection-end-column="58" />
+            <state relative-caret-position="306">
+              <caret line="25" column="21" lean-forward="false" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
               <folding>
-                <element signature="method#getPanel#0;class#UserLoginBBDD#0" expanded="false" />
+                <marker date="1496602147051" expanded="true" signature="1675:5884" ph="{...}" />
+                <marker date="1496602147051" expanded="true" signature="5942:6191" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Presentacio.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Presentacio/Presentacio.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+              <folding>
+                <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
+                <element signature="e#10088#10089#0" expanded="true" />
+                <element signature="e#10130#10131#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -60,23 +55,46 @@
       <file leaf-file-name="TaulellBBDD.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Persistencia/TaulellBBDD.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="72" column="17" lean-forward="true" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
+            <state relative-caret-position="1139">
+              <caret line="72" column="17" lean-forward="false" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
               <folding>
-                <marker date="1495752691884" expanded="true" signature="571:610" ph="INSERT INTO CASELLA... " />
-                <marker date="1495752691884" expanded="true" signature="1433:1492" ph="SELECT * FRO... CASELLA" />
-                <marker date="1495752691884" expanded="true" signature="2441:2498" ph="DELETE FROM " />
+                <marker date="1496599533931" expanded="true" signature="2346:2882" ph="{...}" />
+                <marker date="1496599533931" expanded="true" signature="2443:2500" ph="DELETE FROM " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CasellaGrafica.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacio/CasellaGrafica.java">
+      <file leaf-file-name="ControlBBDD.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Aplicacio/ControlBBDD.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+            <state relative-caret-position="527">
+              <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserLoginBBDD.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Presentacio/UserLoginBBDD.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+              <folding>
+                <element signature="method#getPanel#0;class#UserLoginBBDD#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Control.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Aplicacio/Control.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="901">
+              <caret line="70" column="16" lean-forward="false" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
+              <folding>
+                <marker date="1496601129149" expanded="true" signature="2126:2127" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,10 +120,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Presentacio/UserLoginBBDD.java" />
         <option value="$PROJECT_DIR$/bin/Aplicacio/Control.class" />
         <option value="$PROJECT_DIR$/src/Domini/Sudoku.java" />
-        <option value="$PROJECT_DIR$/src/Aplicacio/Control.java" />
         <option value="$PROJECT_DIR$/src/Aplicacio/ControlBBDD.java" />
         <option value="$PROJECT_DIR$/src/Aplicacio/CrearGraella.java" />
         <option value="$PROJECT_DIR$/crebas.sql" />
@@ -114,6 +130,8 @@
         <option value="$PROJECT_DIR$/src/Persistencia/SudokuBBDD.java" />
         <option value="$PROJECT_DIR$/src/Persistencia/LoginBBDD.java" />
         <option value="$PROJECT_DIR$/src/Presentacio/MenuBar.java" />
+        <option value="$PROJECT_DIR$/src/Presentacio/UserLoginBBDD.java" />
+        <option value="$PROJECT_DIR$/src/Aplicacio/Control.java" />
       </list>
     </option>
   </component>
@@ -126,8 +144,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1370" />
-    <option name="height" value="744" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -144,7 +162,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -242,22 +260,18 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Aplicacio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/07" />
+    <property name="last_opened_file_path" value="D:/PracticaGrup07LABSOFT" />
     <property name="SearchEverywhereHistoryKey" value="settin&#9;ACTION&#9;Database.Settings&#10;configua&#9;ACTION&#9;Arrangement.Custom.Token.Rule.Edit&#10;configuration&#9;ACTION&#9;WebDeployment.Configuration&#10;confi&#9;ACTION&#9;WebDeployment.Configuration" />
   </component>
   <component name="RecentsManager">
@@ -716,12 +730,16 @@
       <workItem from="1495984467984" duration="1444000" />
       <workItem from="1495989198529" duration="599000" />
       <workItem from="1496053791500" duration="1290000" />
-      <workItem from="1496131575693" duration="2157000" />
+      <workItem from="1496131575693" duration="3867000" />
+      <workItem from="1496312372330" duration="720000" />
+      <workItem from="1496392451968" duration="837000" />
+      <workItem from="1496598990604" duration="152000" />
+      <workItem from="1496603187837" duration="43000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31909000" />
+    <option name="totallyTimeSpent" value="35371000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -733,7 +751,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -746,12 +764,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32861635" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32805908" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24889217" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24583334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -764,7 +782,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32861635" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -784,16 +802,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Presentacio/LoginSudoku.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-249">
-          <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Aplicacio/Control.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -805,16 +813,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="466">
           <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-          <folding>
-            <element signature="method#ControlBBDD#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#iniciarSudoku#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getFirstIdLiure#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#nouJugador#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getTimeStamps#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#esborrarSudokuTaulell#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#setEstatJuagdor#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#recuperarTaulellGuardat#0;class#ControlBBDD#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -830,8 +829,9 @@
         <state relative-caret-position="17">
           <caret line="67" column="12" lean-forward="false" selection-start-line="67" selection-start-column="12" selection-end-line="67" selection-end-column="12" />
           <folding>
-            <element signature="imports" expanded="false" />
             <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
+            <element signature="e#10088#10089#0" expanded="true" />
+            <element signature="e#10130#10131#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -848,7 +848,8 @@
         <state relative-caret-position="476">
           <caret line="28" column="20" lean-forward="true" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
           <folding>
-            <element signature="imports" expanded="false" />
+            <marker date="1496602147051" expanded="true" signature="1675:5884" ph="{...}" />
+            <marker date="1496602147051" expanded="true" signature="5942:6191" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -871,16 +872,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
-          <folding>
-            <element signature="method#ControlBBDD#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#iniciarSudoku#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getFirstIdLiure#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#nouJugador#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getTimeStamps#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#esborrarSudokuTaulell#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#setEstatJuagdor#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#recuperarTaulellGuardat#0;class#ControlBBDD#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -917,8 +909,9 @@
         <state relative-caret-position="3825">
           <caret line="225" column="42" lean-forward="false" selection-start-line="225" selection-start-column="42" selection-end-line="225" selection-end-column="42" />
           <folding>
-            <element signature="imports" expanded="false" />
             <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
+            <element signature="e#10088#10089#0" expanded="true" />
+            <element signature="e#10130#10131#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -985,8 +978,9 @@
         <state relative-caret-position="408">
           <caret line="45" column="84" lean-forward="true" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="84" />
           <folding>
-            <element signature="imports" expanded="false" />
             <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
+            <element signature="e#10088#10089#0" expanded="true" />
+            <element signature="e#10130#10131#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1010,13 +1004,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
           <caret line="39" column="19" lean-forward="false" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Aplicacio/CrearGraella.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1119,73 +1106,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Aplicacio/Control.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="82" column="28" lean-forward="false" selection-start-line="82" selection-start-column="28" selection-end-line="82" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Presentacio/Presentacio.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="278" column="34" lean-forward="false" selection-start-line="278" selection-start-column="16" selection-end-line="278" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DOCUMENTS/sudokuSolucionat.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DOCUMENTS/crebas.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1128">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Aplicacio/ControlBBDD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="59" column="16" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
-          <folding>
-            <element signature="method#ControlBBDD#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#iniciarSudoku#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getFirstIdLiure#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#nouJugador#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#getTimeStamps#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#esborrarSudokuTaulell#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#setEstatJuagdor#0;class#ControlBBDD#0" expanded="false" />
-            <element signature="method#recuperarTaulellGuardat#0;class#ControlBBDD#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Presentacio/UserLoginBBDD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="90" column="18" lean-forward="false" selection-start-line="90" selection-start-column="18" selection-end-line="90" selection-end-column="58" />
-          <folding>
-            <element signature="method#getPanel#0;class#UserLoginBBDD#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Persistencia/TaulellBBDD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="72" column="17" lean-forward="true" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
-          <folding>
-            <marker date="1495752691884" expanded="true" signature="571:610" ph="INSERT INTO CASELLA... " />
-            <marker date="1495752691884" expanded="true" signature="1433:1492" ph="SELECT * FRO... CASELLA" />
-            <marker date="1495752691884" expanded="true" signature="2441:2498" ph="DELETE FROM " />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Presentacio/CasellaGrafica.java">
@@ -1196,19 +1119,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Presentacio/LoginSudoku.java">
+    <entry file="file://$PROJECT_DIR$/src/Presentacio/MenuBar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="145" column="32" lean-forward="false" selection-start-line="145" selection-start-column="32" selection-end-line="145" selection-end-column="32" />
+        <state relative-caret-position="18">
+          <caret line="293" column="42" lean-forward="true" selection-start-line="293" selection-start-column="6" selection-end-line="293" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Presentacio/MenuBar.java">
+    <entry file="file://$PROJECT_DIR$/src/Prova/GraellaInicial.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="293" column="40" lean-forward="false" selection-start-line="293" selection-start-column="40" selection-end-line="293" selection-end-column="40" />
+        <state relative-caret-position="119">
+          <caret line="8" column="16" lean-forward="false" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Aplicacio/CrearGraella.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacio/LoginSudoku.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="25" column="21" lean-forward="false" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+          <folding>
+            <marker date="1496602147051" expanded="true" signature="1675:5884" ph="{...}" />
+            <marker date="1496602147051" expanded="true" signature="5942:6191" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacio/Presentacio.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="method#initGraella#0;class#Presentacio#0" expanded="false" />
+            <element signature="e#10088#10089#0" expanded="true" />
+            <element signature="e#10130#10131#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Persistencia/TaulellBBDD.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1139">
+          <caret line="72" column="17" lean-forward="false" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
+          <folding>
+            <marker date="1496599533931" expanded="true" signature="2346:2882" ph="{...}" />
+            <marker date="1496599533931" expanded="true" signature="2443:2500" ph="DELETE FROM " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DOCUMENTS/crebas.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Aplicacio/Control.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="70" column="16" lean-forward="false" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
+          <folding>
+            <marker date="1496601129149" expanded="true" signature="2126:2127" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Aplicacio/ControlBBDD.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacio/UserLoginBBDD.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding>
+            <element signature="method#getPanel#0;class#UserLoginBBDD#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

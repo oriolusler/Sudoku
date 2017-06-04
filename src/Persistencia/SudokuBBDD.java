@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SudokuBBDD {
+class SudokuBBDD {
 
     private TaulellBBDD taulell;
 
@@ -24,7 +24,7 @@ public class SudokuBBDD {
 
     public boolean estaBuit(Sudoku sudoku) throws Exception {
 
-        ConnectionBBDD connection = LoginBBDD.getConnection();
+        ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
         try {
             String sql = "SELECT COUNT(*) AS COUNT FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
@@ -52,7 +52,7 @@ public class SudokuBBDD {
 
         try {
             Timestamp nouAfegir = new Timestamp(sudoku.getTime().getTime());
-            ConnectionBBDD connection = LoginBBDD.getConnection();
+            ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
             String sqlTimestampInsertStatement = "INSERT INTO SUDOKU VALUES (?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
@@ -77,7 +77,7 @@ public class SudokuBBDD {
         taulell.esborrarTaulell(sudoku);
 
         try {
-            ConnectionBBDD connection = LoginBBDD.getConnection();
+            ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
             String sqlTimestampInsertStatement = "DELETE FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
@@ -97,7 +97,7 @@ public class SudokuBBDD {
 
         if (!(sudoku.getJugador().getNom().equals("Anonim"))) {
             Map<Integer, Date> recuperats = new HashMap<Integer, Date>();
-            ConnectionBBDD connection = LoginBBDD.getConnection();
+            ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
             try {
                 String sql = "SELECT IDSUDOKU,DATACREACIO FROM SUDOKU WHERE NOMJUGADOR = ?";

@@ -7,13 +7,13 @@ import Domini.Casella;
 import Domini.Sudoku;
 import Domini.Taulell;
 
-public class TaulellBBDD {
+class TaulellBBDD {
 
 	public void storeTaullell(Sudoku sudoku) throws Exception {
 
 		try {
 			Casella[][] taulell = sudoku.getTaulell().getCasella();
-			ConnectionBBDD connection = LoginBBDD.getConnection();
+			ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 			esborrarTaulell(sudoku);
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++) {
@@ -46,7 +46,7 @@ public class TaulellBBDD {
 	public void recuperarTaulell(Sudoku sudoku) throws Exception {
 
 		try {
-			ConnectionBBDD connection = LoginBBDD.getConnection();
+			ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
 			Taulell nouTauell = new Taulell();
 			Casella[][] noves = nouTauell.getCasella();
@@ -84,7 +84,7 @@ public class TaulellBBDD {
 	public void esborrarTaulell(Sudoku sudoku) throws Exception {
 
 		try {
-			ConnectionBBDD connection = LoginBBDD.getConnection();
+			ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
 			String sqlTimestampInsertStatement = "DELETE FROM CASELLA WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
