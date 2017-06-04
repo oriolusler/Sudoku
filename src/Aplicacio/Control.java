@@ -71,8 +71,8 @@ public class Control {
 		return controlBBDD.getJugador();
 	}
 
-	public Map<Integer, Date> getTimeStamps() throws Exception {
-		return controlBBDD.getTimeStamps();
+	public Map<Integer, Date> getPartidesRecuperades() throws Exception {
+		return controlBBDD.getPartidesRecuperades();
 	}
 
 	public void iniciarSudoku() throws Exception {

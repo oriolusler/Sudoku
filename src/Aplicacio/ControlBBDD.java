@@ -17,21 +17,59 @@ public class ControlBBDD {
 
 	private boolean inciar = false;
 
-	public void logIn(String user, String password) throws Exception {
-		FacanaBBDD.LoginUser(user, password);
-	}
-
 	public ControlBBDD(String nom) {
 		jugador = new Jugador(nom);
 		sudoku = new Sudoku(jugador);
 	}
 
+	// LOGIN
+	public void logIn(String user, String password) throws Exception {
+		FacanaBBDD.LoginUser(user, password);
+	}
+
+	// CONTROLADOR INICIAT
 	public boolean getInciar() {
 		return inciar;
 	}
 
 	public void setInciar(boolean inciar) {
 		this.inciar = inciar;
+	}
+
+	// JUGADOR
+	public Jugador getJugador() {
+		return this.jugador;
+	}
+
+	public void nouJugador(String nom) throws Exception {
+
+		jugador = FacanaBBDD.getInstance().getJugadorFromDB(nom);
+
+		if (jugador == null) {
+			jugador = new Jugador(nom, true);
+			FacanaBBDD.getInstance().storeJugador(jugador);
+
+		} else if (jugador.getEstat() == true) {
+			throw new Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
+		} else {
+			jugador.setEstat(true);
+			FacanaBBDD.getInstance().updateJugador(jugador);
+			partidesRecuperades = FacanaBBDD.getInstance().getTimestamps(sudoku);
+
+		}
+	}
+
+	public void setEstatJuagdor() throws Exception {
+
+		if (!(jugador.getNom().equals("Anonim"))) {
+			jugador.setEstat(false);
+			FacanaBBDD.getInstance().updateJugador(jugador);
+		}
+	}
+
+	// PARTIDA
+	public Sudoku getSudoku() {
+		return sudoku;
 	}
 
 	public void iniciarSudoku() throws Exception {
@@ -54,58 +92,22 @@ public class ControlBBDD {
 		FacanaBBDD.getInstance().storeSudoku(sudoku);
 	}
 
-	public void nouJugador(String nom) throws Exception {
-
-		jugador = FacanaBBDD.getInstance().getJugadorFromDB(nom);
-
-		if (jugador == null) {
-			jugador = new Jugador(nom, true);
-			FacanaBBDD.getInstance().storeJugador(jugador);
-
-		} else if (jugador.getEstat() == true) {
-			throw new Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
-		} else {
-			jugador.setEstat(true);
-			FacanaBBDD.getInstance().updateJugador(jugador);
-			partidesRecuperades = FacanaBBDD.getInstance().getTimestamps(sudoku);
-
-		}
-	}
-
-	public Map<Integer, Date> getTimeStamps() throws Exception {
-		return this.partidesRecuperades;
-	}
-
 	public void esborrarSudokuTaulell() throws Exception {
 		FacanaBBDD.getInstance().esborrarSudoku(sudoku);
 	}
 
-	public Map<Integer, Date> getPartidesRecuperades() {
-		return this.partidesRecuperades;
-	}
-
-	public Sudoku getSudoku() {
-		return sudoku;
-	}
-
-	public Jugador getJugador() {
-		return this.jugador;
-	}
-
-	public void setEstatJuagdor() throws Exception {
-
-		if (!(jugador.getNom().equals("Anonim"))) {
-			jugador.setEstat(false);
-			FacanaBBDD.getInstance().updateJugador(jugador);
-		}
-	}
-
+	// TAULELL
 	public void recuperarTaulellGuardat() throws Exception {
 		FacanaBBDD.getInstance().recuperarTaulellFromSudoku(sudoku);
 	}
 
 	public Taulell getTaulellFromSudoku() {
 		return sudoku.getTaulell();
+	}
+
+	// PARTIDES RECUPERADES
+	public Map<Integer, Date> getPartidesRecuperades() {
+		return this.partidesRecuperades;
 	}
 
 }

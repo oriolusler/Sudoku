@@ -296,7 +296,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
         if (!(nom.equals("Anonim"))) {
             recuperarPArtides.removeAll();
-            recuperats = controlClasse.getTimeStamps();
+            recuperats = controlClasse.getPartidesRecuperades();
 
             if (recuperats != null) {
                 fontButtons = new JRadioButton[recuperats.size()];
