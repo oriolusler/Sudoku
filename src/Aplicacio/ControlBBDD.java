@@ -101,10 +101,6 @@ public class ControlBBDD {
 		FacanaBBDD.getInstance().recuperarTaulellFromSudoku(sudoku);
 	}
 
-	public Taulell getTaulellFromSudoku() {
-		return sudoku.getTaulell();
-	}
-
 	// PARTIDES RECUPERADES
 	public Map<Integer, Date> getPartidesRecuperades() {
 		return this.partidesRecuperades;

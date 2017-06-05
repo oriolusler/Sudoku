@@ -63,10 +63,9 @@ public class Control {
 
 	public void setTaulell(Taulell nouTaulell) {
 		this.taulell = nouTaulell;
-
 	}
-	// METODES CONTROL BBDD //
 
+	// METODES CONTROL BBDD //
 	public Jugador getJugador() {
 		return controlBBDD.getJugador();
 	}
@@ -97,6 +96,6 @@ public class Control {
 
 	public void recuperarTaulell() throws Exception {
 		controlBBDD.recuperarTaulellGuardat();
-		setTaulell(controlBBDD.getTaulellFromSudoku());
+		setTaulell(controlBBDD.getSudoku().getTaulell());
 	}
 }

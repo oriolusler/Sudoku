@@ -37,7 +37,7 @@ public class Presentacio implements ActionListener, FocusListener {
             public void run() {
                 try {
                     if (control.getJugador().getNom().equals("Anonim") || !iniciar) {
-                        iniciarAnonim();
+                        initJocPrincipal();
                         initGraella();
                         initComponents();
                     } else {
@@ -53,7 +53,7 @@ public class Presentacio implements ActionListener, FocusListener {
         });
     }
 
-    private void iniciarAnonim() {
+    private void initJocPrincipal() {
         try {
 
             int res = JOptionPane.showConfirmDialog(new JFrame(),

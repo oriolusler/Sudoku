@@ -8,24 +8,20 @@ import Domini.Sudoku;
 
 public class FacanaBBDD {
 
-	private static FacanaBBDD instancia;
+	private static FacanaBBDD facana;
 
 	private JugadorBBDD jugadorBBDD;
 	private SudokuBBDD sudokuBBDD;
 
 	// LOGIN USER
 	public static void LoginUser(String user, String password) throws Exception {
-		if (instancia == null) {
-			instancia = new FacanaBBDD(user, password);
+		if (facana == null) {
+			facana = new FacanaBBDD(user, password);
 		}
-
 	}
 
 	public static FacanaBBDD getInstance() throws Exception {
-		if (instancia == null) {
-			throw new Exception("Error de la façana.");
-		}
-		return instancia;
+		return facana;
 	}
 
 	private FacanaBBDD(String user, String password) throws Exception {

@@ -1,6 +1,6 @@
 package Persistencia;
 
-public class LoginBBDD {
+class LoginBBDD {
 
 	private static ConnectionBBDD connection;
 	
