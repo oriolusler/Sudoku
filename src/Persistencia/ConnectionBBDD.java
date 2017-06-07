@@ -11,13 +11,13 @@ public class ConnectionBBDD extends ConnectionBBDDAbstracte {
 
 	private Connection connection;
 
-	public ConnectionBBDD(String USER, String PASSWORD) throws Exception {
+	ConnectionBBDD(String USER, String PASSWORD) throws Exception {
 		try {
 			DriverManager.registerDriver(new OracleDriver());
 			connection = DriverManager.getConnection("jdbc:oracle:thin:@Kali.eupmt.tecnocampus.cat:1521:sapiens", USER,
 					PASSWORD);
 		} catch (Exception e) {
-			throw new Exception("ERROR");
+			throw new Exception(e.getMessage());
 		}
 	}
 

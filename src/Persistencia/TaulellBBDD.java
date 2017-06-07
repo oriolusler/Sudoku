@@ -1,5 +1,6 @@
 package Persistencia;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,12 +10,19 @@ import Domini.Taulell;
 
 class TaulellBBDD {
 
-	public void storeTaullell(Sudoku sudoku) throws Exception {
+	private Connection conn;
 
+	TaulellBBDD() throws Exception {
+		conn = LoginBBDD.getConnection();
+	}
+
+	void storeTaullell(Sudoku sudoku) throws Exception {
+
+		Casella[][] taulell = sudoku.getTaulell().getCasella();
+		PreparedStatement pst = null;
+		esborrarTaulell(sudoku);
 		try {
-			Casella[][] taulell = sudoku.getTaulell().getCasella();
-			ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
-			esborrarTaulell(sudoku);
+
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++) {
 
@@ -22,7 +30,7 @@ class TaulellBBDD {
 
 						if (taulell[i][j].getValor() != 0) {
 							String sql = "INSERT INTO CASELLA VALUES(?,?,?,?,?,?)";
-							PreparedStatement pst = connection.prepareStatement(sql);
+							pst = conn.prepareStatement(sql);
 							pst.setString(1, sudoku.getJugador().getNom());
 							pst.setInt(2, sudoku.getIdSudoku());
 							pst.setInt(3, i);
@@ -37,26 +45,30 @@ class TaulellBBDD {
 					}
 				}
 			}
+		} catch (SQLException e) {
+			throw new Exception("SQL/TAULELLBBDD/storeTaullell\n" + e.getMessage());
 		} catch (Exception e) {
-			throw new Exception("ERROR METODE storeTaullell");
+			throw new Exception("CLASS/TAULELLBBDD/storeTaullell\n" + e.getMessage());
+		} finally {
+			if (pst != null)
+				pst.close();
 		}
 
 	}
 
-	public void recuperarTaulell(Sudoku sudoku) throws Exception {
+	void recuperarTaulell(Sudoku sudoku) throws Exception {
 
+		PreparedStatement pst = null;
 		try {
-			ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
-
 			Taulell nouTauell = new Taulell();
 			Casella[][] noves = nouTauell.getCasella();
 
 			String sql = "SELECT * FROM CASELLA WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.clearParameters();
-			preparedStatement.setInt(1, sudoku.getIdSudoku());
-			preparedStatement.setString(2, sudoku.getJugador().getNom());
-			ResultSet rs = preparedStatement.executeQuery();
+			pst = conn.prepareStatement(sql);
+			pst.clearParameters();
+			pst.setInt(1, sudoku.getIdSudoku());
+			pst.setString(2, sudoku.getJugador().getNom());
+			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
 
@@ -75,27 +87,35 @@ class TaulellBBDD {
 
 			sudoku.setTaulell(nouTauell);
 
+		} catch (SQLException e) {
+			throw new Exception("SQL/TAULELLBBDD/recuperarTaulell\n" + e.getMessage());
 		} catch (Exception e) {
-			throw new Exception("ERROR METODE recuperarTaulell");
+			throw new Exception("CLASS/TAULELLBBDD/recuperarTaulell\n" + e.getMessage());
+		} finally {
+			if (pst != null)
+				pst.close();
 		}
 
 	}
 
-	public void esborrarTaulell(Sudoku sudoku) throws Exception {
+	void esborrarTaulell(Sudoku sudoku) throws Exception {
 
+		PreparedStatement pst = null;
 		try {
-			ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
 
-			String sqlTimestampInsertStatement = "DELETE FROM CASELLA WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
-			PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
-			preparedStatement.setInt(1, sudoku.getIdSudoku());
-			preparedStatement.setString(2, sudoku.getJugador().getNom());
-
-			preparedStatement.executeUpdate();
-			preparedStatement.close();
+			String sql = "DELETE FROM CASELLA WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, sudoku.getIdSudoku());
+			pst.setString(2, sudoku.getJugador().getNom());
+			pst.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new Exception("ERROR METODE esborrarTaulell");
+			throw new Exception("SQL/TAULELLBBDD/esborrarTaulell\n" + e.getMessage());
+		} catch (Exception e) {
+			throw new Exception("CLASS/TAULELLBBDD/esborrarTaulell\n" + e.getMessage());
+		} finally {
+			if (pst != null)
+				pst.close();
 		}
 	}
 

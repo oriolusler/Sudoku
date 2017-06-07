@@ -13,15 +13,23 @@ public class UserLoginBBDD {
 	private JLabel label_password = new JLabel("Password:");
 	private JPasswordField password = new JPasswordField("G2GEILAB14");
 	private JLabel result_label = new JLabel("");
+	private ControlBBDD controlBBDD;
 
 	public static void main(String[] args) {
 
 		UserLoginBBDD login = new UserLoginBBDD();
-		boolean logat = login.DemanarCredencials();
+		login.iniciarJOC();
+	}
 
-		if (logat) {
-			new LoginSudoku();
-		}
+	private void iniciarJOC() {
+
+		controlBBDD = new ControlBBDD(null);
+		boolean logat = DemanarCredencials();
+		if (logat)
+			new LoginSudoku(null, controlBBDD);
+		else
+			new LoginSudoku("Anonim", controlBBDD);
+
 	}
 
 	private JPanel getPanel() {
@@ -67,18 +75,18 @@ public class UserLoginBBDD {
 
 				try {
 
-					new ControlBBDD(null).logIn(login.getText().trim(), new String(password.getPassword()));
+					controlBBDD.logIn(login.getText().trim(), new String(password.getPassword()));
 					logat = true;
 					return true;
 				} catch (Exception e) {
-					result_label.setText("Usuari i/o contrasenya incorrecte.");
+					result_label.setText(e.getMessage());
 					result_label.setForeground(Color.RED);
 					login.setText("");
 					password.setText("");
 				}
 			} else if (value == 1) {
-				new LoginSudoku("Anonim");
 				logat = true;
+				return false;
 			} else
 				System.exit(0);
 		}

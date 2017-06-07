@@ -15,8 +15,6 @@ public class ControlBBDD {
 	private Sudoku sudoku;
 	private Jugador jugador;
 
-	private boolean inciar = false;
-
 	public ControlBBDD(String nom) {
 		jugador = new Jugador(nom);
 		sudoku = new Sudoku(jugador);
@@ -27,31 +25,22 @@ public class ControlBBDD {
 		FacanaBBDD.LoginUser(user, password);
 	}
 
-	// CONTROLADOR INICIAT
-	public boolean getInciar() {
-		return inciar;
-	}
-
-	public void setInciar(boolean inciar) {
-		this.inciar = inciar;
-	}
-
 	// JUGADOR
-	public Jugador getJugador() {
+	Jugador getJugador() {
 		return this.jugador;
 	}
 
-	public void nouJugador(String nom) throws Exception {
+	public void nouJugador() throws Exception {
 
+		String nom = jugador.getNom();
 		jugador = FacanaBBDD.getInstance().getJugadorFromDB(nom);
-
 		if (jugador == null) {
 			jugador = new Jugador(nom, true);
 			FacanaBBDD.getInstance().storeJugador(jugador);
-
 		} else if (jugador.getEstat() == true) {
 			throw new Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
 		} else {
+
 			jugador.setEstat(true);
 			FacanaBBDD.getInstance().updateJugador(jugador);
 			partidesRecuperades = FacanaBBDD.getInstance().getTimestamps(sudoku);
@@ -68,13 +57,14 @@ public class ControlBBDD {
 	}
 
 	// PARTIDA
-	public Sudoku getSudoku() {
+	Sudoku getSudoku() {
 		return sudoku;
 	}
 
 	public void iniciarSudoku() throws Exception {
 		Date time = new Date();
-		this.partidesRecuperades = FacanaBBDD.getInstance().getTimestamps(sudoku);
+		// this.partidesRecuperades =
+		// FacanaBBDD.getInstance().getTimestamps(sudoku);
 		sudoku = new Sudoku(time, getFirstIdLiure(partidesRecuperades), jugador, null);
 	}
 
@@ -88,6 +78,10 @@ public class ControlBBDD {
 	}
 
 	public void storeSudoku(Taulell t) throws Exception {
+
+		if (!(partidesRecuperades.containsValue(sudoku.getIdSudoku()))) {
+			partidesRecuperades.put(sudoku.getIdSudoku(), sudoku.getTime());
+		}
 		sudoku.setTaulell(t);
 		FacanaBBDD.getInstance().storeSudoku(sudoku);
 	}
@@ -103,7 +97,23 @@ public class ControlBBDD {
 
 	// PARTIDES RECUPERADES
 	public Map<Integer, Date> getPartidesRecuperades() {
+
 		return this.partidesRecuperades;
+	}
+
+	public void setIdSudoku(int nouID) {
+		sudoku.setIdSudoku(nouID);
+
+	}
+
+	public void setTimeStampSudoku(Date date) {
+		sudoku.setTime(date);
+
+	}
+
+	public void setJugadorNom(String nom) {
+		jugador.setNom(nom);
+
 	}
 
 }

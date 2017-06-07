@@ -1,7 +1,5 @@
 package Aplicacio;
 
-import Domini.Jugador;
-import Domini.Sudoku;
 import Domini.Taulell;
 
 import java.util.Date;
@@ -66,9 +64,6 @@ public class Control {
 	}
 
 	// METODES CONTROL BBDD //
-	public Jugador getJugador() {
-		return controlBBDD.getJugador();
-	}
 
 	public Map<Integer, Date> getPartidesRecuperades() throws Exception {
 		return controlBBDD.getPartidesRecuperades();
@@ -80,10 +75,6 @@ public class Control {
 
 	public void storeSudoku() throws Exception {
 		controlBBDD.storeSudoku(this.taulell);
-	}
-
-	public Sudoku getSudoku() {
-		return controlBBDD.getSudoku();
 	}
 
 	public void setEstatJuagdor() throws Exception {
@@ -98,4 +89,18 @@ public class Control {
 		controlBBDD.recuperarTaulellGuardat();
 		setTaulell(controlBBDD.getSudoku().getTaulell());
 	}
+
+	public String getNomJugador() {
+		return controlBBDD.getJugador().getNom();
+	}
+
+	public int getIdSudoku() {
+		return controlBBDD.getSudoku().getIdSudoku();
+	}
+
+	public void setIdSudoku(int nouID) {
+		controlBBDD.setIdSudoku(nouID);
+
+	}
+
 }

@@ -14,26 +14,23 @@ public class LoginSudoku {
 	private JLabel result_label = new JLabel("Introdueix el nom d'usuari per jugar");
 	private JLabel label_login = new JLabel("Usuari:");
 	private JTextField login = new JTextField();
-	private ControlBBDD controlBBDD;
+
 	private String nom;
+	private boolean iniciat = false;
 
-	public LoginSudoku() {
+	public LoginSudoku(String nom, ControlBBDD controlBBDD) {
 
-		boolean logat = DemanarCredencials();
-
-		if (logat) {
-			new Presentacio(controlBBDD);
+		if (nom == null) {
+			boolean logat = DemanarCredencials(controlBBDD);
+			if (logat)
+				new Presentacio(controlBBDD, iniciat);
+		} else {
+			controlBBDD = new ControlBBDD(nom);
+			new Presentacio(controlBBDD, iniciat);
 		}
 	}
 
-	public LoginSudoku(String nom) {
-
-		controlBBDD = new ControlBBDD(nom);
-		new Presentacio(controlBBDD);
-
-	}
-
-	private boolean DemanarCredencials() {
+	private boolean DemanarCredencials(ControlBBDD controlBBDD) {
 
 		boolean logat = false;
 		while (!logat) {
@@ -48,16 +45,19 @@ public class LoginSudoku {
 			} else if (preguntaNomUsuari == JOptionPane.OK_OPTION) {
 
 				nom = login.getText();
+
 				if (nom.equals("")) {
 					result_label.setText("El nom d'usuari no pot ser buit.\nEscriu un nom:");
 					result_label.setForeground(Color.RED);
 				} else {
+
 					Map<Integer, Date> recuperats = null;
 
-					controlBBDD = new ControlBBDD(nom);
+				
+					controlBBDD.setJugadorNom(nom);
 
 					try {
-						controlBBDD.nouJugador(nom);
+						controlBBDD.nouJugador();
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
 						System.exit(0);
@@ -66,14 +66,13 @@ public class LoginSudoku {
 					recuperats = controlBBDD.getPartidesRecuperades();
 
 					// Si no hi han aprtides començades...
-					if (recuperats.size() == 0) {
+					if (recuperats == null || recuperats.size() == 0) {
 						try {
-							intentarCrearSudoku();
+							intentarCrearSudoku(controlBBDD);
 						} catch (Exception e) {
 							JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
 							System.exit(0);
 						}
-
 					} else {
 
 						// RECUPERACIO SUDOKU
@@ -95,11 +94,14 @@ public class LoginSudoku {
 								stringPerMostrat[i] = IdSudokusRecuperats[i] + " - " + DatesRecuperades[i];
 							}
 
-							// Si nomes hi ha una partida
+							// Si nomes hi ha una partida...
 							if (recuperats.size() == 1) {
-								controlBBDD.getSudoku().setIdSudoku(IdSudokusRecuperats[0]);
-								controlBBDD.setInciar(true);
-							} else {
+								controlBBDD.setIdSudoku(IdSudokusRecuperats[0]);
+								controlBBDD.setTimeStampSudoku(DatesRecuperades[0]);
+								iniciat = true;
+							}
+							// Si hi ha mes d'una...
+							else {
 								String input = (String) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
 										"Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, stringPerMostrat,
 										stringPerMostrat);
@@ -110,14 +112,15 @@ public class LoginSudoku {
 										controlBBDD.setEstatJuagdor();
 										System.exit(0);
 									} catch (Exception e) {
-										e.printStackTrace();
+										JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
 									}
 
 									// escull ellecio
 								} else {
 									String[] parts = input.split(" - ");
-									controlBBDD.getSudoku().setIdSudoku(Integer.parseInt(parts[0]));
-									controlBBDD.setInciar(true);
+									controlBBDD.setIdSudoku(Integer.parseInt(parts[0]));
+									controlBBDD.setTimeStampSudoku(DatesRecuperades[Integer.parseInt(parts[0]) - 1]);
+									iniciat = true;
 								}
 
 							}
@@ -125,7 +128,7 @@ public class LoginSudoku {
 							// si diu q no vol jugar una partida guarda
 						} else if (preguntaSiVolJugarSudokuGuardat == JOptionPane.NO_OPTION) {
 							try {
-								intentarCrearSudoku();
+								intentarCrearSudoku(controlBBDD);
 							} catch (Exception e) {
 								JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
 								System.exit(0);
@@ -157,7 +160,7 @@ public class LoginSudoku {
 		return false;
 	}
 
-	private void intentarCrearSudoku() throws Exception {
+	private void intentarCrearSudoku(ControlBBDD controlBBDD) throws Exception {
 		try {
 			controlBBDD.iniciarSudoku();
 

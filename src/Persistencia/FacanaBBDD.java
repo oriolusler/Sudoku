@@ -25,7 +25,6 @@ public class FacanaBBDD {
 	}
 
 	private FacanaBBDD(String user, String password) throws Exception {
-
 		LoginBBDD.login(user, password);
 		this.jugadorBBDD = new JugadorBBDD();
 		this.sudokuBBDD = new SudokuBBDD();

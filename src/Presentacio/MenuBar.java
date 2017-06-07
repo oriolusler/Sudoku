@@ -37,7 +37,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
         this.presentacioClasse = presentacio;
         this.controlClasse = control;
-        this.nom = controlClasse.getJugador().getNom();
+        this.nom = controlClasse.getNomJugador();
 
         CrearSudokuUsuari = new JMenuItem(" Iniciar Sudoku");
 
@@ -90,7 +90,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             setSudokuAleatori(false);
         }
 
-        if (controlClasse.getJugador().getNom().equals("Anonim")) {
+        if (controlClasse.getNomJugador().equals("Anonim")) {
             setMenuPersistenica(false);
             recuperarPArtides.setEnabled(false);
         } else {
@@ -253,7 +253,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     }
 
     private String getIdSudokuActual() {
-        return String.valueOf(controlClasse.getSudoku().getIdSudoku());
+        return String.valueOf(controlClasse.getIdSudoku());
     }
 
     private void actualitzarNom() {
@@ -278,7 +278,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         String[] parts = agafat.split(" - ");
         try {
             controlClasse.inciarSudokuBuit();
-            controlClasse.getSudoku().setIdSudoku(Integer.parseInt(parts[0]));
+            controlClasse.setIdSudoku(Integer.parseInt(parts[0]));
             presentacioClasse.mostratSudokuRecuperat();
             presentacioClasse.actualitzar();
             actualitzarNom();
@@ -292,7 +292,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     private void mostratpartidesrecuperades() throws Exception {
 
         menuPersistencia.setEnabled(true);
-        int quinEstaSelecionat = controlClasse.getSudoku().getIdSudoku();
+        int quinEstaSelecionat = controlClasse.getIdSudoku();
 
         if (!(nom.equals("Anonim"))) {
             recuperarPArtides.removeAll();

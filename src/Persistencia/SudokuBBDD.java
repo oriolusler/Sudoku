@@ -2,6 +2,7 @@ package Persistencia;
 
 import Domini.Sudoku;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,113 +13,126 @@ import java.util.Map;
 
 class SudokuBBDD {
 
-    private TaulellBBDD taulell;
+	private TaulellBBDD taulell;
+	private Connection conn;
 
-    public SudokuBBDD() {
-        this.taulell = new TaulellBBDD();
-    }
+	SudokuBBDD() throws Exception {
+		this.taulell = new TaulellBBDD();
+		conn = LoginBBDD.getConnection();
+	}
 
-    public void recuperarTaulellFromSudoku(Sudoku sudoku) throws Exception {
-        taulell.recuperarTaulell(sudoku);
-    }
+	void recuperarTaulellFromSudoku(Sudoku sudoku) throws Exception {
+		taulell.recuperarTaulell(sudoku);
+	}
 
-    public boolean estaBuit(Sudoku sudoku) throws Exception {
+	boolean estaBuit(Sudoku sudoku) throws Exception {
 
-        ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
+		PreparedStatement pst = null;
+		try {
+			String sql = "SELECT COUNT(*) AS COUNT FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
+			pst = conn.prepareStatement(sql);
+			pst.clearParameters();
+			pst.setInt(1, sudoku.getIdSudoku());
+			pst.setString(2, sudoku.getJugador().getNom());
+			ResultSet rs = pst.executeQuery();
 
-        try {
-            String sql = "SELECT COUNT(*) AS COUNT FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.clearParameters();
-            preparedStatement.setInt(1, sudoku.getIdSudoku());
-            preparedStatement.setString(2, sudoku.getJugador().getNom());
-            ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				int value;
+				value = rs.getInt("COUNT");
+				return value == 0;
+			}
+			throw new Exception("No s'ha trobat valor!");
+		} catch (SQLException e) {
+			throw new Exception("ERROR de SQL/SUDOKUBBDD/estaBuit\n" + e.getMessage());
+		} catch (Exception e) {
+			throw new Exception("ERROR de CLASS/SUDOKUBBDD/estaBuit\n" + e.getMessage());
+		} finally {
+			if (pst != null)
+				pst.close();
+		}
+	}
 
-            if (rs.next()) {
+	void storeSudoku(Sudoku sudoku) throws Exception {
 
-                int value;
-                value = rs.getInt("COUNT");
-                return value == 0;
-            }
+		Timestamp nouAfegir = new Timestamp(sudoku.getTime().getTime());
 
-            throw new Exception("No s'ha trobat valor!");
-        } catch (SQLException e) {
-            throw new Exception("ERROR METODE ESTA BUIT");
-        }
+		PreparedStatement pst = null;
+		try {
 
-    }
+			if (estaBuit(sudoku)) {
+				String sql = "INSERT INTO SUDOKU VALUES (?,?,?)";
+				pst = conn.prepareStatement(sql);
+				pst.setString(1, sudoku.getJugador().getNom());
+				pst.setInt(2, sudoku.getIdSudoku());
+				pst.setTimestamp(3, nouAfegir);
+				pst.executeUpdate();
 
-    public void storeSudoku(Sudoku sudoku) throws Exception {
+				taulell.storeTaullell(sudoku);
+			} else {
+				taulell.storeTaullell(sudoku);
+			}
+		} catch (SQLException e) {
+			throw new Exception("ERROR de SQL/SUDOKUBBDD/storeSudoku\n" + e.getMessage());
+		} catch (Exception e) {
+			throw new Exception("ERROR de CLASS/SUDOKUBBDD/storeSudoku\n" + e.getMessage());
+		} finally {
+			if (pst != null)
+				pst.close();
+		}
 
-        try {
-            Timestamp nouAfegir = new Timestamp(sudoku.getTime().getTime());
-            ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
+	}
 
-            String sqlTimestampInsertStatement = "INSERT INTO SUDOKU VALUES (?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
+	void esborrarSudoku(Sudoku sudoku) throws Exception {
 
-            preparedStatement.setString(1, sudoku.getJugador().getNom());
-            preparedStatement.setInt(2, sudoku.getIdSudoku());
-            preparedStatement.setTimestamp(3, nouAfegir);
+		taulell.esborrarTaulell(sudoku);
+		PreparedStatement pst = null;
+		try {
+			String sql = "DELETE FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, sudoku.getIdSudoku());
+			pst.setString(2, sudoku.getJugador().getNom());
+			pst.executeUpdate();
 
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            taulell.storeTaullell(sudoku);
-        } catch (Exception e) {
-            // Si no es pot guardar anteriorment es perquqe ja existeix el
-            // Sudoku(PARTIDA) i quan arriba en el catch el guarda com si actualitzes
-            taulell.storeTaullell(sudoku);
-        }
+		} catch (SQLException e) {
+			throw new Exception("SQL/SUDOKUBBDD/esborrarSudoku\n" + e.getMessage());
+		} catch (Exception e) {
+			throw new Exception("CLASS/SUDOKUBBDD/esborrarSudoku\n" + e.getMessage());
+		} finally {
+			if (pst != null)
+				pst.close();
+		}
+	}
 
-    }
+	Map<Integer, Date> getTimestamps(Sudoku sudoku) throws Exception {
+		Map<Integer, Date> recuperats = new HashMap<Integer, Date>();
+		if (!(sudoku.getJugador().getNom().equals("Anonim"))) {
 
-    public void esborrarSudoku(Sudoku sudoku) throws Exception {
+			PreparedStatement pst = null;
 
-        taulell.esborrarTaulell(sudoku);
+			try {
+				String sql = "SELECT IDSUDOKU,DATACREACIO FROM SUDOKU WHERE NOMJUGADOR = ?";
+				pst = conn.prepareStatement(sql);
+				pst.clearParameters();
+				pst.setString(1, sudoku.getJugador().getNom());
+				ResultSet rs = pst.executeQuery();
 
-        try {
-            ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
+				while (rs.next()) {
+					Date date = new Date(rs.getTimestamp("DATACREACIO").getTime());
+					recuperats.put(rs.getInt("IDSUDOKU"), date);
 
-            String sqlTimestampInsertStatement = "DELETE FROM SUDOKU WHERE IDSUDOKU = ? AND NOMJUGADOR = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlTimestampInsertStatement);
-            preparedStatement.setInt(1, sudoku.getIdSudoku());
-            preparedStatement.setString(2, sudoku.getJugador().getNom());
+				}
 
-            taulell.esborrarTaulell(sudoku);
+			} catch (SQLException e) {
+				throw new Exception("ERROR de SQL/SUDOKUBBDD/getTimestamps\n" + e.getMessage());
+			} catch (Exception e) {
+				throw new Exception("ERROR de CLASS/SUDOKUBBDD/getTimestamps\n" + e.getMessage());
+			} finally {
+				if (pst != null)
+					pst.close();
+			}
+		}
 
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-        } catch (SQLException e) {
-            throw new Exception("ERROR METODE esborrarSudoku");
-        }
-    }
-
-    public Map<Integer, Date> getTimestamps(Sudoku sudoku) throws Exception {
-
-        if (!(sudoku.getJugador().getNom().equals("Anonim"))) {
-            Map<Integer, Date> recuperats = new HashMap<Integer, Date>();
-            ConnectionBBDDAbstracte connection = LoginBBDD.getConnection();
-
-            try {
-                String sql = "SELECT IDSUDOKU,DATACREACIO FROM SUDOKU WHERE NOMJUGADOR = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.clearParameters();
-                preparedStatement.setString(1, sudoku.getJugador().getNom());
-                ResultSet rs = preparedStatement.executeQuery();
-
-                while (rs.next()) {
-                    Date date = new Date(rs.getTimestamp("DATACREACIO").getTime());
-                    recuperats.put(rs.getInt("IDSUDOKU"), date);
-
-                }
-
-                return recuperats;
-            } catch (SQLException e) {
-                throw new Exception("ERROR METODE getTimestamps");
-            }
-        }
-
-        return null;
-    }
+		return recuperats;
+	}
 
 }
