@@ -26,9 +26,7 @@ public class UserLoginBBDD {
 		controlBBDD = new ControlBBDD(null);
 		boolean logat = DemanarCredencials();
 		if (logat)
-			new LoginSudoku(null, controlBBDD);
-		else
-			new LoginSudoku("Anonim", controlBBDD);
+			new LoginSudoku(controlBBDD);
 
 	}
 
@@ -86,7 +84,8 @@ public class UserLoginBBDD {
 				}
 			} else if (value == 1) {
 				logat = true;
-				return false;
+				controlBBDD.setJugadorNom("Anonim");
+				new Presentacio(controlBBDD, false);
 			} else
 				System.exit(0);
 		}

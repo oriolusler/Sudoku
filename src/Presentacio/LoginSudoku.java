@@ -4,10 +4,8 @@ import Aplicacio.ControlBBDD;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 
 public class LoginSudoku {
 
@@ -18,16 +16,12 @@ public class LoginSudoku {
 	private String nom;
 	private boolean iniciat = false;
 
-	public LoginSudoku(String nom, ControlBBDD controlBBDD) {
+	public LoginSudoku(ControlBBDD controlBBDD) {
 
-		if (nom == null) {
-			boolean logat = DemanarCredencials(controlBBDD);
-			if (logat)
-				new Presentacio(controlBBDD, iniciat);
-		} else {
-			controlBBDD = new ControlBBDD(nom);
+		boolean logat = DemanarCredencials(controlBBDD);
+		if (logat)
 			new Presentacio(controlBBDD, iniciat);
-		}
+
 	}
 
 	private boolean DemanarCredencials(ControlBBDD controlBBDD) {
@@ -53,7 +47,6 @@ public class LoginSudoku {
 
 					Map<Integer, Date> recuperats = null;
 
-				
 					controlBBDD.setJugadorNom(nom);
 
 					try {
@@ -68,7 +61,7 @@ public class LoginSudoku {
 					// Si no hi han aprtides començades...
 					if (recuperats == null || recuperats.size() == 0) {
 						try {
-							intentarCrearSudoku(controlBBDD);
+							controlBBDD.iniciarSudoku();
 						} catch (Exception e) {
 							JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
 							System.exit(0);
@@ -82,57 +75,13 @@ public class LoginSudoku {
 
 						if (preguntaSiVolJugarSudokuGuardat == JOptionPane.YES_OPTION) {
 
-							Set<Integer> IDSfromMAP = recuperats.keySet();
-							Collection<Date> DATAfromMAP = recuperats.values();
-
-							Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP
-									.toArray(new Integer[IDSfromMAP.size()]));
-							Date[] DatesRecuperades = (Date[]) (DATAfromMAP.toArray(new Date[IDSfromMAP.size()]));
-							String[] stringPerMostrat = new String[recuperats.size()];
-
-							for (int i = 0; i < recuperats.size(); i++) {
-								stringPerMostrat[i] = IdSudokusRecuperats[i] + " - " + DatesRecuperades[i];
-							}
-
-							// Si nomes hi ha una partida...
-							if (recuperats.size() == 1) {
-								controlBBDD.setIdSudoku(IdSudokusRecuperats[0]);
-								controlBBDD.setTimeStampSudoku(DatesRecuperades[0]);
-								iniciat = true;
-							}
-							// Si hi ha mes d'una...
-							else {
-								String input = (String) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
-										"Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, stringPerMostrat,
-										stringPerMostrat);
-
-								// tanca pantalla i programa
-								if (input == null) {
-									try {
-										controlBBDD.setEstatJuagdor();
-										System.exit(0);
-									} catch (Exception e) {
-										JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
-									}
-
-									// escull ellecio
-								} else {
-									String[] parts = input.split(" - ");
-									controlBBDD.setIdSudoku(Integer.parseInt(parts[0]));
-									controlBBDD.setTimeStampSudoku(DatesRecuperades[Integer.parseInt(parts[0]) - 1]);
-									iniciat = true;
-								}
-
-							}
+							new EleccioPartida(controlBBDD, recuperats);
+							return false;
 
 							// si diu q no vol jugar una partida guarda
 						} else if (preguntaSiVolJugarSudokuGuardat == JOptionPane.NO_OPTION) {
-							try {
-								intentarCrearSudoku(controlBBDD);
-							} catch (Exception e) {
-								JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
-								System.exit(0);
-							}
+
+							controlBBDD.iniciarSudoku();
 
 							// si el la pantalla si vols jugar un sudoku
 							// guardat tanca
@@ -144,7 +93,6 @@ public class LoginSudoku {
 								JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
 								System.exit(0);
 							}
-
 						}
 					}
 
@@ -153,21 +101,8 @@ public class LoginSudoku {
 					logat = true;
 					return true;
 				}
-
 			}
-
 		}
 		return false;
-	}
-
-	private void intentarCrearSudoku(ControlBBDD controlBBDD) throws Exception {
-		try {
-			controlBBDD.iniciarSudoku();
-
-		} catch (Exception e) {
-			controlBBDD.setEstatJuagdor();
-			JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
-			System.exit(0);
-		}
 	}
 }

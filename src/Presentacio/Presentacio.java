@@ -36,7 +36,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			@Override
 			public void run() {
 				try {
-					if (control.getNomJugador().equals("Anonim") || !iniciar) {
+					if (!iniciar) {
 						initJocPrincipal();
 						initGraella();
 						initComponents();
@@ -58,7 +58,7 @@ public class Presentacio implements ActionListener, FocusListener {
 
 			int res = JOptionPane.showConfirmDialog(new JFrame(),
 					"Vols crear un Sudoku desde zero?\n - En cas contrari es creara un Sudoku predefinit\n\nBONA SORT",
-					"TRIA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					"TRIA2", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 			if (res == JOptionPane.YES_OPTION) {
 				JOptionPane.showMessageDialog(new JFrame(),

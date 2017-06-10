@@ -69,7 +69,7 @@ public class Control {
 		return controlBBDD.getPartidesRecuperades();
 	}
 
-	public void iniciarSudoku() throws Exception {
+	public void iniciarSudoku(){
 		controlBBDD.iniciarSudoku();
 	}
 

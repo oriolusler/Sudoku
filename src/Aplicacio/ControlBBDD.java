@@ -61,11 +61,11 @@ public class ControlBBDD {
 		return sudoku;
 	}
 
-	public void iniciarSudoku() throws Exception {
+	public void iniciarSudoku(){
 		Date time = new Date();
-		// this.partidesRecuperades =
-		// FacanaBBDD.getInstance().getTimestamps(sudoku);
-		sudoku = new Sudoku(time, getFirstIdLiure(partidesRecuperades), jugador, null);
+		// sudoku = new Sudoku(time, getFirstIdLiure(partidesRecuperades),
+		// jugador, null);
+		sudoku = new Sudoku(time, -1, jugador, null);
 	}
 
 	private int getFirstIdLiure(Map<Integer, Date> recuperats) throws Exception {
@@ -79,9 +79,14 @@ public class ControlBBDD {
 
 	public void storeSudoku(Taulell t) throws Exception {
 
+		if (sudoku.getIdSudoku() == -1) {
+			sudoku.setIdSudoku(getFirstIdLiure(partidesRecuperades));
+		}
+		
 		if (!(partidesRecuperades.containsValue(sudoku.getIdSudoku()))) {
 			partidesRecuperades.put(sudoku.getIdSudoku(), sudoku.getTime());
 		}
+
 		sudoku.setTaulell(t);
 		FacanaBBDD.getInstance().storeSudoku(sudoku);
 	}
