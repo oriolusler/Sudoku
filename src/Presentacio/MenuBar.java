@@ -101,13 +101,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 			@Override
 			public void menuSelected(MenuEvent e) {
-				try {
-					mostratpartidesrecuperades();
-
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				mostratpartidesrecuperades();
 
 			}
 
@@ -290,7 +284,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	}
 
-	private void mostratpartidesrecuperades() throws Exception {
+	private void mostratpartidesrecuperades() {
 
 		menuPersistencia.setEnabled(true);
 		int quinEstaSelecionat = controlClasse.getIdSudoku();
@@ -313,11 +307,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					recuperarPArtides.add(fontButtons[i]);
 					i++;
 				}
-				try {
-					fontButtons[quinEstaSelecionat - 1].setSelected(true);
-				} catch (ArrayIndexOutOfBoundsException e) {
 
-				}
+				fontButtons[quinEstaSelecionat - 1].setSelected(true);
+
 			}
 		}
 	}
@@ -336,7 +328,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	}
 
 	private void intentarIntentarSudoku() {
-
 		controlClasse.iniciarSudoku();
 
 	}

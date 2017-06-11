@@ -65,7 +65,7 @@ public class Control {
 
 	// METODES CONTROL BBDD //
 
-	public Map<Integer, Date> getPartidesRecuperades() throws Exception {
+	public Map<Integer, Date> getPartidesRecuperades(){
 		return controlBBDD.getPartidesRecuperades();
 	}
 
