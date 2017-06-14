@@ -16,7 +16,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	private JMenu menuPartida, menuPersistencia, recuperarPArtides;
 	private JMenu submenuPartida;
-	private JMenuItem Sudoku0, SudokiIniciat, GuardarSudokuNou, GenerarSudokuAleatori, CrearSudokuUsuari;
+	private JMenuItem sudokuBuit, sudokuEstandard, guardarSudoku, sudokuAleatori, crearSudokuBuit;
 	private JLabel nomJugadorActual = new JLabel("");
 	private Presentacio presentacioClasse;
 	private Control controlClasse;
@@ -40,7 +40,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.controlClasse = control;
 		this.nom = controlClasse.getNomJugador();
 
-		CrearSudokuUsuari = new JMenuItem(" Iniciar Sudoku");
+		crearSudokuBuit = new JMenuItem(" Iniciar Sudoku");
 
 		// ////////////////////// MENU PARTIDA ////////////////////////
 
@@ -50,18 +50,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		submenuPartida = new JMenu("Crear sudoku: ");
 
-		Sudoku0 = new JMenuItem("Buit");
-		submenuPartida.add(Sudoku0);
+		sudokuBuit = new JMenuItem("Buit");
+		submenuPartida.add(sudokuBuit);
 
-		SudokiIniciat = new JMenuItem("Estandard");
-		submenuPartida.add(SudokiIniciat);
+		sudokuEstandard = new JMenuItem("Estandard");
+		submenuPartida.add(sudokuEstandard);
 		menuPartida.add(submenuPartida);
 
 		// FI SUBMENU //
 
 		menuPartida.addSeparator();
-		GenerarSudokuAleatori = new JMenuItem("Sudoku Aleatori");
-		menuPartida.add(GenerarSudokuAleatori);
+		sudokuAleatori = new JMenuItem("Sudoku Aleatori");
+		menuPartida.add(sudokuAleatori);
 
 		// FI MENU PARTIDA
 
@@ -69,8 +69,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		menuPersistencia = new JMenu("Persistencia");
 
-		GuardarSudokuNou = new JMenuItem("Guardar");
-		menuPersistencia.add(GuardarSudokuNou);
+		guardarSudoku = new JMenuItem("Guardar");
+		menuPersistencia.add(guardarSudoku);
 
 		// ///////////////////// RECUPERAR PARTIDES MENU ///////////////////////
 
@@ -82,10 +82,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.add(menuPersistencia);
 		this.add(recuperarPArtides);
 		this.add(nomJugadorActual);
-		this.add(CrearSudokuUsuari);
+		this.add(crearSudokuBuit);
 
 		if ((!controlClasse.estaBuit()))
-			CrearSudokuUsuari.setVisible(false);
+			crearSudokuBuit.setVisible(false);
 		else {
 			setMenuPersistenica(false);
 			setSudokuAleatori(false);
@@ -116,7 +116,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			}
 		});
 
-		CrearSudokuUsuari.addActionListener(new ActionListener() {
+		crearSudokuBuit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -126,11 +126,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 						controlClasse.iniciarUsuari();
 						presentacioClasse.actualitzar();
 						actualitzarNom();
-						CrearSudokuUsuari.setVisible(false);
+						crearSudokuBuit.setVisible(false);
 						if (!(nom.equals("Anonim")))
 							setMenuPersistenica(true);
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(new JFrame(), "MenuBar/CrearSudokuUsuari\n" + ex.getMessage());
+					} catch (Exception eCrearSudokuUsuari) {
+						JOptionPane.showMessageDialog(new JFrame(),
+								"MenuBar/CrearSudokuUsuari\n" + eCrearSudokuUsuari.getMessage());
 					}
 				else {
 					setMenuPersistenica(false);
@@ -142,7 +143,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			}
 		});
 
-		GenerarSudokuAleatori.addActionListener(new ActionListener() {
+		sudokuAleatori.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -163,14 +164,15 @@ public class MenuBar extends JMenuBar implements ActionListener {
 						presentacioClasse.actualitzar();
 
 					}
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(new JFrame(), "MenuBar/GenerarSudokuAleatori\n" + ex.getMessage());
+				} catch (Exception eSudokuAleatori) {
+					JOptionPane.showMessageDialog(new JFrame(),
+							"MenuBar/GenerarSudokuAleatori\n" + eSudokuAleatori.getMessage());
 				}
 
 			}
 		});
 
-		Sudoku0.addActionListener(new ActionListener() {
+		sudokuBuit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -183,7 +185,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				setSudokuAleatori(false);
 				setMenuPersistenica(false);
 				presentacioClasse.setNumeroEntraddes(0);
-				CrearSudokuUsuari.setVisible(true);
+				crearSudokuBuit.setVisible(true);
 				presentacioClasse.elimanar();
 				try {
 					controlClasse.inciarSudokuBuit();
@@ -193,19 +195,19 @@ public class MenuBar extends JMenuBar implements ActionListener {
 						intentarIntentarSudoku();
 						actualitzarNom();
 					}
-				} catch (Exception error) {
-					JOptionPane.showMessageDialog(new JFrame(), "MenuBar/Sudoku0\n" + error.getMessage());
+				} catch (Exception eSudoku0) {
+					JOptionPane.showMessageDialog(new JFrame(), "MenuBar/Sudoku0\n" + eSudoku0.getMessage());
 				}
 
 			}
 		});
 
-		SudokiIniciat.addActionListener(new ActionListener() {
+		sudokuEstandard.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setSudokuAleatori(true);
-				CrearSudokuUsuari.setVisible(false);
+				crearSudokuBuit.setVisible(false);
 				presentacioClasse.elimanar();
 				try {
 					controlClasse.inciarSudokuBuit();
@@ -216,14 +218,15 @@ public class MenuBar extends JMenuBar implements ActionListener {
 						actualitzarNom();
 						setMenuPersistenica(true);
 					}
-				} catch (Exception error) {
-					JOptionPane.showMessageDialog(new JFrame(), "MenuBar/SudokiIniciat\n" + error.getMessage());
+				} catch (Exception eSudokuiniciar) {
+					JOptionPane.showMessageDialog(new JFrame(),
+							"MenuBar/SudokiIniciat\n" + eSudokuiniciar.getMessage());
 				}
 
 			}
 		});
 
-		GuardarSudokuNou.addActionListener(new ActionListener() {
+		guardarSudoku.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -235,8 +238,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 						controlClasse.storeSudoku();
 						actualitzarNom();
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(new JFrame(), "MenuBar/GuardarSudokuNou\n" + e1.getMessage());
+					} catch (Exception eGuardarSudoku) {
+						JOptionPane.showMessageDialog(new JFrame(),
+								"MenuBar/GuardarSudokuNou\n" + eGuardarSudoku.getMessage());
 					}
 				}
 			}
@@ -264,8 +268,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 			try {
 				controlClasse.storeSudoku();
-			} catch (Exception e1) {
-				JOptionPane.showMessageDialog(new JFrame(), "MenuBar/actualitzarNom\n" + e1.getMessage());
+			} catch (Exception eActionPerfomedStore) {
+				JOptionPane.showMessageDialog(new JFrame(),
+						"MenuBar/actualitzarNom\n" + eActionPerfomedStore.getMessage());
 			}
 		}
 
@@ -277,9 +282,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			presentacioClasse.mostratSudokuRecuperat();
 			presentacioClasse.actualitzar();
 			actualitzarNom();
-		} catch (Exception e1) {
+		} catch (Exception eActionPerfomed280) {
 
-			JOptionPane.showMessageDialog(new JFrame(), "MenuBar/actionPerformed\n" + e1.getMessage());
+			JOptionPane.showMessageDialog(new JFrame(), "MenuBar/actionPerformed\n" + eActionPerfomed280.getMessage());
 		}
 
 	}
@@ -308,7 +313,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					i++;
 				}
 
-				fontButtons[quinEstaSelecionat - 1].setSelected(true);
+				if (controlClasse.getIdSudoku() != -1)
+					fontButtons[quinEstaSelecionat - 1].setSelected(true);
 
 			}
 		}
@@ -318,13 +324,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		menuPersistencia.setEnabled(estat);
 	}
 
+	public void setSudokuAleatori(boolean estat) {
+		sudokuAleatori.setEnabled(estat);
+	}
+
 	public void setControlClasse(Control control) {
 		this.controlClasse = control;
 
-	}
-
-	public void setSudokuAleatori(boolean estat) {
-		GenerarSudokuAleatori.setEnabled(estat);
 	}
 
 	private void intentarIntentarSudoku() {

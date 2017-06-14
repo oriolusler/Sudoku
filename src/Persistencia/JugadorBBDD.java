@@ -1,6 +1,5 @@
 package Persistencia;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,10 +8,10 @@ import Domini.Jugador;
 
 class JugadorBBDD {
 
-	private Connection conn;
+	private ConnectionBBDD conn;
 
 	JugadorBBDD() throws Exception {
-		conn = LoginBBDD.getConnection();
+		conn = ConnectionBBDD.getInstacia();
 	}
 
 	void storeJugador(Jugador jugador) throws Exception {
@@ -25,9 +24,9 @@ class JugadorBBDD {
 			pst.setBoolean(2, jugador.getEstat());
 			pst.executeUpdate();
 		} catch (SQLException e) {
-			throw new Exception("SQL/JUGADORBBDD/storeJugador\n" + e.getMessage());
+			throw new Exception("ERROR de SQL/JUGADORBBDD/storeJugador\n" + e.getMessage());
 		} catch (Exception e) {
-			throw new Exception("CLASS/JUGADORBBDD/storeJugador\n" + e.getMessage());
+			throw new Exception("ERROR de CLASS/JUGADORBBDD/storeJugador\n" + e.getMessage());
 		} finally {
 			if (pst != null)
 				pst.close();
@@ -44,9 +43,9 @@ class JugadorBBDD {
 			pst.setString(2, jugador.getNom());
 			pst.executeUpdate();
 		} catch (SQLException e) {
-			throw new Exception("SQL/JUGADORBBDD/updateJugador\n" + e.getMessage());
+			throw new Exception("ERROR de SQL/JUGADORBBDD/updateJugador\n" + e.getMessage());
 		} catch (Exception e) {
-			throw new Exception("CLASS/JUGADORBBDD/updateJugador\n" + e.getMessage());
+			throw new Exception("ERROR de CLASS/JUGADORBBDD/updateJugador\n" + e.getMessage());
 		} finally {
 			if (pst != null)
 				pst.close();
@@ -69,9 +68,9 @@ class JugadorBBDD {
 				return jugadorRecuperat;
 			}
 		} catch (SQLException e) {
-			throw new Exception("SQL/JUGADORBBDD/getJugadorFromDB\n" + e.getMessage());
+			throw new Exception("ERROR de SQL/JUGADORBBDD/getJugadorFromDB\n" + e.getMessage());
 		} catch (Exception e) {
-			throw new Exception("CLASS/JUGADORBBDD/getJugadorFromDB\n" + e.getMessage());
+			throw new Exception("ERROR de CLASS/JUGADORBBDD/getJugadorFromDB\n" + e.getMessage());
 		} finally {
 			if (pst != null)
 				pst.close();

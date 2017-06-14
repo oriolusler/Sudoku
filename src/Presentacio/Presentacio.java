@@ -76,7 +76,7 @@ public class Presentacio implements ActionListener, FocusListener {
 			}
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), "Error en crear el sudoku");
+			JOptionPane.showMessageDialog(new JFrame(), "Error en crear el sudoku. \n" + e.getMessage());
 		}
 	}
 
@@ -84,7 +84,8 @@ public class Presentacio implements ActionListener, FocusListener {
 		try {
 			control.recuperarTaulell();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), "Hi ha hagut un problema mostrant la partida guardada. \n");
+			JOptionPane.showMessageDialog(new JFrame(),
+					"Hi ha hagut un problema mostrant la partida guardada. \n" + e.getMessage());
 
 		}
 	}

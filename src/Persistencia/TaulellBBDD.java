@@ -1,6 +1,5 @@
 package Persistencia;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,10 +9,10 @@ import Domini.Taulell;
 
 class TaulellBBDD {
 
-	private Connection conn;
+	private ConnectionBBDD conn;
 
 	TaulellBBDD() throws Exception {
-		conn = LoginBBDD.getConnection();
+		conn = ConnectionBBDD.getInstacia();
 	}
 
 	void storeTaullell(Sudoku sudoku) throws Exception {
@@ -46,9 +45,9 @@ class TaulellBBDD {
 				}
 			}
 		} catch (SQLException e) {
-			throw new Exception("SQL/TAULELLBBDD/storeTaullell\n" + e.getMessage());
+			throw new Exception("ERROR de SQL/TAULELLBBDD/storeTaullell\n" + e.getMessage());
 		} catch (Exception e) {
-			throw new Exception("CLASS/TAULELLBBDD/storeTaullell\n" + e.getMessage());
+			throw new Exception("ERROR de CLASS/TAULELLBBDD/storeTaullell\n" + e.getMessage());
 		} finally {
 			if (pst != null)
 				pst.close();
@@ -88,9 +87,9 @@ class TaulellBBDD {
 			sudoku.setTaulell(nouTauell);
 
 		} catch (SQLException e) {
-			throw new Exception("SQL/TAULELLBBDD/recuperarTaulell\n" + e.getMessage());
+			throw new Exception("ERROR de SQL/TAULELLBBDD/recuperarTaulell\n" + e.getMessage());
 		} catch (Exception e) {
-			throw new Exception("CLASS/TAULELLBBDD/recuperarTaulell\n" + e.getMessage());
+			throw new Exception("ERROR de CLASS/TAULELLBBDD/recuperarTaulell\n" + e.getMessage());
 		} finally {
 			if (pst != null)
 				pst.close();
@@ -110,9 +109,9 @@ class TaulellBBDD {
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new Exception("SQL/TAULELLBBDD/esborrarTaulell\n" + e.getMessage());
+			throw new Exception("ERROR de SQL/TAULELLBBDD/esborrarTaulell\n" + e.getMessage());
 		} catch (Exception e) {
-			throw new Exception("CLASS/TAULELLBBDD/esborrarTaulell\n" + e.getMessage());
+			throw new Exception("ERROR de CLASS/TAULELLBBDD/esborrarTaulell\n" + e.getMessage());
 		} finally {
 			if (pst != null)
 				pst.close();

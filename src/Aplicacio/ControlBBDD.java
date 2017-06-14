@@ -21,6 +21,7 @@ public class ControlBBDD {
 	}
 
 	// LOGIN
+	//Presentacio/UserLoginBBDD
 	public void logIn(String user, String password) throws Exception {
 		FacanaBBDD.LoginUser(user, password);
 	}

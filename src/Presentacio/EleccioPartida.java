@@ -12,7 +12,11 @@ import Aplicacio.ControlBBDD;
 public class EleccioPartida {
 
 	public EleccioPartida(ControlBBDD controlBBDD, Map<Integer, Date> recuperats) {
-	
+		iniciarEleccio(controlBBDD, recuperats);
+
+	}
+
+	private void iniciarEleccio(ControlBBDD controlBBDD, Map<Integer, Date> recuperats) {
 		Set<Integer> IDSfromMAP = recuperats.keySet();
 		Collection<Date> DATAfromMAP = recuperats.values();
 

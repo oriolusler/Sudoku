@@ -24,7 +24,7 @@ public class UserLoginBBDD {
 	private void iniciarJOC() {
 
 		controlBBDD = new ControlBBDD(null);
-		boolean logat = DemanarCredencials();
+		boolean logat = demanarCredencials();
 		if (logat)
 			new LoginSudoku(controlBBDD);
 
@@ -59,7 +59,7 @@ public class UserLoginBBDD {
 		return panel;
 	}
 
-	private boolean DemanarCredencials() {
+	private boolean demanarCredencials() {
 
 		boolean logat = false;
 		while (!logat) {

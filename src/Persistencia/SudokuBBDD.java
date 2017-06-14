@@ -2,7 +2,6 @@ package Persistencia;
 
 import Domini.Sudoku;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,11 +13,11 @@ import java.util.Map;
 class SudokuBBDD {
 
 	private TaulellBBDD taulell;
-	private Connection conn;
+	private ConnectionBBDD conn;
 
 	SudokuBBDD() throws Exception {
 		this.taulell = new TaulellBBDD();
-		conn = LoginBBDD.getConnection();
+		conn = ConnectionBBDD.getInstacia();
 	}
 
 	void recuperarTaulellFromSudoku(Sudoku sudoku) throws Exception {
@@ -79,7 +78,6 @@ class SudokuBBDD {
 			if (pst != null)
 				pst.close();
 		}
-
 	}
 
 	void esborrarSudoku(Sudoku sudoku) throws Exception {

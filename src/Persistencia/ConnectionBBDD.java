@@ -3,32 +3,61 @@ package Persistencia;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Statement;
 import oracle.jdbc.OracleDriver;
 
-public class ConnectionBBDD extends ConnectionBBDDAbstracte {
+public class ConnectionBBDD {
+
+	private static ConnectionBBDD instacia;
 
 	private Connection connection;
+	private String user;
+	private String password;
 
-	ConnectionBBDD(String USER, String PASSWORD) throws Exception {
+	private ConnectionBBDD(String user, String password) throws Exception {
+
+		this.password = password;
+		this.user = user;
+
 		try {
 			DriverManager.registerDriver(new OracleDriver());
-			connection = DriverManager.getConnection("jdbc:oracle:thin:@Kali.eupmt.tecnocampus.cat:1521:sapiens", USER,
-					PASSWORD);
+			ferConexio();
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
 
-	public Statement createStatement() throws SQLException {
+	public static synchronized ConnectionBBDD initInstancia(String user, String password) throws Exception {
+		if (instacia == null)
+			instacia = new ConnectionBBDD(user, password);
 
+		return instacia;
+	}
+
+	public static synchronized ConnectionBBDD getInstacia() throws Exception {
+		if (instacia == null)
+			throw new Exception("ConnectionBBDD/getInstacia\nInstancia no inicialitzada!");
+
+		return instacia;
+	}
+
+	public Statement createStatement() throws Exception {
+
+		if (connection == null)
+			ferConexio();
 		return connection.createStatement();
 	}
 
-	public PreparedStatement prepareStatement(String sql) throws SQLException {
+	public PreparedStatement prepareStatement(String sql) throws Exception {
 
+		if (connection == null)
+			ferConexio();
 		return connection.prepareStatement(sql);
+	}
+
+	private void ferConexio() throws Exception {
+		connection = DriverManager.getConnection("jdbc:oracle:thin:@Kali.eupmt.tecnocampus.cat:1521:sapiens", user,
+				password);
 	}
 
 }

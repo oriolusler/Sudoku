@@ -14,18 +14,23 @@ public class FacanaBBDD {
 	private SudokuBBDD sudokuBBDD;
 
 	// LOGIN USER
+
+	// Cridat a control linia 24
 	public static void LoginUser(String user, String password) throws Exception {
 		if (facana == null) {
-			facana = new FacanaBBDD(user, password);
+			ConnectionBBDD.initInstancia(user, password);
+			facana = new FacanaBBDD();
 		}
 	}
 
 	public static FacanaBBDD getInstance() throws Exception {
+		if (facana == null)
+			facana = new FacanaBBDD();
 		return facana;
 	}
 
-	private FacanaBBDD(String user, String password) throws Exception {
-		LoginBBDD.login(user, password);
+	private FacanaBBDD() throws Exception {
+
 		this.jugadorBBDD = new JugadorBBDD();
 		this.sudokuBBDD = new SudokuBBDD();
 

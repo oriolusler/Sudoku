@@ -18,13 +18,13 @@ public class LoginSudoku {
 
 	public LoginSudoku(ControlBBDD controlBBDD) {
 
-		boolean logat = DemanarCredencials(controlBBDD);
+		boolean logat = demanarCredencials(controlBBDD);
 		if (logat)
 			new Presentacio(controlBBDD, iniciat);
 
 	}
 
-	private boolean DemanarCredencials(ControlBBDD controlBBDD) {
+	private boolean demanarCredencials(ControlBBDD controlBBDD) {
 
 		boolean logat = false;
 		while (!logat) {
@@ -43,29 +43,23 @@ public class LoginSudoku {
 				if (nom.equals("")) {
 					result_label.setText("El nom d'usuari no pot ser buit.\nEscriu un nom:");
 					result_label.setForeground(Color.RED);
+
 				} else {
-
 					Map<Integer, Date> recuperats = null;
-
 					controlBBDD.setJugadorNom(nom);
-
 					try {
 						controlBBDD.nouJugador();
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
-						System.exit(0);
+
 					}
 
 					recuperats = controlBBDD.getPartidesRecuperades();
 
 					// Si no hi han aprtides començades...
 					if (recuperats == null || recuperats.size() == 0) {
-						try {
-							controlBBDD.iniciarSudoku();
-						} catch (Exception e) {
-							JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
-							System.exit(0);
-						}
+						controlBBDD.iniciarSudoku();
+
 					} else {
 
 						// RECUPERACIO SUDOKU
