@@ -30,7 +30,9 @@ class JugadorBBDD {
 		} finally {
 			if (pst != null)
 				pst.close();
+			conn.close();
 		}
+
 	}
 
 	void updateJugador(Jugador jugador) throws Exception {
@@ -49,7 +51,10 @@ class JugadorBBDD {
 		} finally {
 			if (pst != null)
 				pst.close();
+			conn.close();
+
 		}
+
 	}
 
 	Jugador getJugadorFromDB(String nom) throws Exception {
@@ -74,8 +79,11 @@ class JugadorBBDD {
 		} finally {
 			if (pst != null)
 				pst.close();
+			conn.close();
 		}
+
 		return null;
+
 	}
 
 }

@@ -51,6 +51,7 @@ class TaulellBBDD {
 		} finally {
 			if (pst != null)
 				pst.close();
+			conn.close();
 		}
 
 	}
@@ -93,6 +94,7 @@ class TaulellBBDD {
 		} finally {
 			if (pst != null)
 				pst.close();
+			conn.close();
 		}
 
 	}
@@ -115,6 +117,7 @@ class TaulellBBDD {
 		} finally {
 			if (pst != null)
 				pst.close();
+			conn.close();
 		}
 	}
 

@@ -3,6 +3,7 @@ package Persistencia;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import oracle.jdbc.OracleDriver;
 
@@ -43,21 +44,31 @@ public class ConnectionBBDD {
 
 	public Statement createStatement() throws Exception {
 
-		if (connection == null)
+		if (connection.isClosed())
 			ferConexio();
 		return connection.createStatement();
 	}
 
 	public PreparedStatement prepareStatement(String sql) throws Exception {
 
-		if (connection == null)
+		if (connection.isClosed())
 			ferConexio();
 		return connection.prepareStatement(sql);
 	}
 
-	private void ferConexio() throws Exception {
+	public void close() throws SQLException {
+		connection.close();
+	}
+	
+
+	public void ferConexio() throws Exception {
 		connection = DriverManager.getConnection("jdbc:oracle:thin:@Kali.eupmt.tecnocampus.cat:1521:sapiens", user,
 				password);
+	}
+
+	public boolean isClosed() throws SQLException {
+		
+		return connection.isClosed();
 	}
 
 }

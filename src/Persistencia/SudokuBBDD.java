@@ -40,7 +40,7 @@ class SudokuBBDD {
 				value = rs.getInt("COUNT");
 				return value == 0;
 			}
-			throw new Exception("No s'ha trobat valor!");
+
 		} catch (SQLException e) {
 			throw new Exception("ERROR de SQL/SUDOKUBBDD/estaBuit\n" + e.getMessage());
 		} catch (Exception e) {
@@ -48,7 +48,10 @@ class SudokuBBDD {
 		} finally {
 			if (pst != null)
 				pst.close();
+			conn.close();
 		}
+
+		return false;
 	}
 
 	void storeSudoku(Sudoku sudoku) throws Exception {
@@ -77,7 +80,9 @@ class SudokuBBDD {
 		} finally {
 			if (pst != null)
 				pst.close();
+			conn.close();
 		}
+
 	}
 
 	void esborrarSudoku(Sudoku sudoku) throws Exception {
@@ -98,7 +103,9 @@ class SudokuBBDD {
 		} finally {
 			if (pst != null)
 				pst.close();
+			conn.close();
 		}
+
 	}
 
 	Map<Integer, Date> getTimestamps(Sudoku sudoku) throws Exception {
@@ -127,6 +134,7 @@ class SudokuBBDD {
 			} finally {
 				if (pst != null)
 					pst.close();
+				conn.close();
 			}
 		}
 
