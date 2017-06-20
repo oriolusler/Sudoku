@@ -20,10 +20,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private JLabel nomJugadorActual = new JLabel("");
 	private Presentacio presentacioClasse;
 	private Control controlClasse;
-
 	private JRadioButton[] fontButtons;
 	private Map<Integer, Date> recuperats;
-
 	private String nom;
 	private String nomJugadorPerJLbael;
 

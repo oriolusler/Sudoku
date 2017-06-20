@@ -6,6 +6,7 @@ import Domini.Taulell;
 import Persistencia.FacanaBBDD;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class ControlBBDD {
 	}
 
 	// LOGIN
-	//Presentacio/UserLoginBBDD
+	// Presentacio/UserLoginBBDD
 	public void logIn(String user, String password) throws Exception {
 		FacanaBBDD.LoginUser(user, password);
 	}
@@ -38,6 +39,7 @@ public class ControlBBDD {
 		if (jugador == null) {
 			jugador = new Jugador(nom, true);
 			FacanaBBDD.getInstance().storeJugador(jugador);
+			partidesRecuperades = new HashMap<Integer, Date>();
 		} else if (jugador.getEstat() == true) {
 			throw new Exception("Aquest jugador esta actualment jugant.\nPoseuvos en contacte amb l'administrador");
 		} else {
@@ -62,7 +64,7 @@ public class ControlBBDD {
 		return sudoku;
 	}
 
-	public void iniciarSudoku(){
+	public void iniciarSudoku() {
 		Date time = new Date();
 		// sudoku = new Sudoku(time, getFirstIdLiure(partidesRecuperades),
 		// jugador, null);
@@ -70,6 +72,7 @@ public class ControlBBDD {
 	}
 
 	private int getFirstIdLiure(Map<Integer, Date> recuperats) throws Exception {
+
 		Set<Integer> IDSfromMAP = recuperats.keySet();
 		for (int i = 1; i < 1000; i++) {
 			if (!(IDSfromMAP.contains(i)))
@@ -83,7 +86,7 @@ public class ControlBBDD {
 		if (sudoku.getIdSudoku() == -1) {
 			sudoku.setIdSudoku(getFirstIdLiure(partidesRecuperades));
 		}
-		
+
 		if (!(partidesRecuperades.containsValue(sudoku.getIdSudoku()))) {
 			partidesRecuperades.put(sudoku.getIdSudoku(), sudoku.getTime());
 		}
