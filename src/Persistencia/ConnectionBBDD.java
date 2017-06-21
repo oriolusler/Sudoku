@@ -28,7 +28,6 @@ public class ConnectionBBDD {
 		}
 	}
 
-	//preguntar a de bru! si es pot ajuntar metodes
 	public static synchronized ConnectionBBDD initInstancia(String user, String password) throws Exception {
 		if (instacia == null)
 			instacia = new ConnectionBBDD(user, password);

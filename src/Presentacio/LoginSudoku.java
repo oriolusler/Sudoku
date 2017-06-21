@@ -4,8 +4,6 @@ import Aplicacio.ControlBBDD;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
-import java.util.Map;
 
 public class LoginSudoku {
 
@@ -16,15 +14,21 @@ public class LoginSudoku {
 	private String nom;
 	private boolean iniciat = false;
 
+	private ControlBBDD controlBBDD;
+
+	// controlador
+
 	public LoginSudoku(ControlBBDD controlBBDD) {
 
-		boolean logat = demanarCredencials(controlBBDD);
+		this.controlBBDD = controlBBDD;
+
+		boolean logat = demanarCredencials();
 		if (logat)
 			new Presentacio(controlBBDD, iniciat);
 
 	}
 
-	private boolean demanarCredencials(ControlBBDD controlBBDD) {
+	private boolean demanarCredencials() {
 
 		boolean logat = false;
 		while (!logat) {
@@ -45,55 +49,54 @@ public class LoginSudoku {
 					result_label.setForeground(Color.RED);
 
 				} else {
-					Map<Integer, Date> recuperats = null;
-					controlBBDD.setJugadorNom(nom);
+
 					try {
-						controlBBDD.nouJugador();
+
+						controlBBDD.nouJugador(nom);
+
+						// Si no hi han aprtides començades...
+
+						if (!(controlBBDD.hiHanParitdesGuardades()))
+							controlBBDD.iniciarSudoku();
+
+						else {
+
+							// RECUPERACIO SUDOKU
+							int preguntaSiVolJugarSudokuGuardat = JOptionPane.showConfirmDialog(new JFrame(),
+									"Vols jugar un sudoku guardat?\nEn cas contrari comencaras un sudoku nou.", "TRIA",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+							if (preguntaSiVolJugarSudokuGuardat == JOptionPane.YES_OPTION) {
+
+								new EleccioPartida(controlBBDD);
+								return false;
+
+								// si diu q no vol jugar una partida guarda
+							} else if (preguntaSiVolJugarSudokuGuardat == JOptionPane.NO_OPTION) {
+
+								controlBBDD.iniciarSudoku();
+
+								// si el la pantalla si vols jugar un sudoku
+								// guardat tanca
+							} else {
+								try {
+									controlBBDD.setEstatJuagdor();
+									System.exit(0);
+								} catch (Exception e) {
+									JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
+									System.exit(0);
+								}
+							}
+						}
+
+						// FI DE RECUPERACIO
+
+						logat = true;
+						return true;
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
 
 					}
-
-					recuperats = controlBBDD.getPartidesRecuperades();
-
-					// Si no hi han aprtides començades...
-					if (recuperats == null || recuperats.size() == 0) {
-						controlBBDD.iniciarSudoku();
-
-					} else {
-
-						// RECUPERACIO SUDOKU
-						int preguntaSiVolJugarSudokuGuardat = JOptionPane.showConfirmDialog(new JFrame(),
-								"Vols jugar un sudoku guardat?\nEn cas contrari comencaras un sudoku nou.", "TRIA",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-						if (preguntaSiVolJugarSudokuGuardat == JOptionPane.YES_OPTION) {
-
-							new EleccioPartida(controlBBDD, recuperats);
-							return false;
-
-							// si diu q no vol jugar una partida guarda
-						} else if (preguntaSiVolJugarSudokuGuardat == JOptionPane.NO_OPTION) {
-
-							controlBBDD.iniciarSudoku();
-
-							// si el la pantalla si vols jugar un sudoku
-							// guardat tanca
-						} else {
-							try {
-								controlBBDD.setEstatJuagdor();
-								System.exit(0);
-							} catch (Exception e) {
-								JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
-								System.exit(0);
-							}
-						}
-					}
-
-					// FI DE RECUPERACIO
-
-					logat = true;
-					return true;
 				}
 			}
 		}

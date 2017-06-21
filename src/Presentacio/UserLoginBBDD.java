@@ -13,6 +13,7 @@ public class UserLoginBBDD {
 	private JLabel label_password = new JLabel("Password:");
 	private JPasswordField password = new JPasswordField("G2GEILAB14");
 	private JLabel result_label = new JLabel("");
+	
 	private ControlBBDD controlBBDD;
 
 	public static void main(String[] args) {

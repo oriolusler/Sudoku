@@ -1,9 +1,8 @@
 package Presentacio;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.awt.HeadlessException;
+import java.text.ParseException;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -11,52 +10,55 @@ import Aplicacio.ControlBBDD;
 
 public class EleccioPartida {
 
-	public EleccioPartida(ControlBBDD controlBBDD, Map<Integer, Date> recuperats) {
-		iniciarEleccio(controlBBDD, recuperats);
+	private ControlBBDD controlBBDD;
+
+	public EleccioPartida(ControlBBDD controlBBDD) {
+		this.controlBBDD = controlBBDD;
+		iniciarEleccio();
 
 	}
 
-	private void iniciarEleccio(ControlBBDD controlBBDD, Map<Integer, Date> recuperats) {
-		Set<Integer> IDSfromMAP = recuperats.keySet();
-		Collection<Date> DATAfromMAP = recuperats.values();
+	private void iniciarEleccio() {
 
-		Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP.toArray(new Integer[IDSfromMAP.size()]));
-		Date[] DatesRecuperades = (Date[]) (DATAfromMAP.toArray(new Date[IDSfromMAP.size()]));
-		String[] stringPerMostrat = new String[recuperats.size()];
-
-		for (int i = 0; i < recuperats.size(); i++) {
-			stringPerMostrat[i] = IdSudokusRecuperats[i] + " - " + DatesRecuperades[i];
-		}
+		String[] partidesRecuperades = controlBBDD.getIdAndDateFromDataBase();
 
 		// Si nomes hi ha una partida...
-		if (recuperats.size() == 1) {
-			controlBBDD.setIdSudoku(IdSudokusRecuperats[0]);
-			controlBBDD.setTimeStampSudoku(DatesRecuperades[0]);
 
-		}
-		// Si hi ha mes d'una...
-		else {
-			String input = (String) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?", "Eleccio sudoku",
-					JOptionPane.QUESTION_MESSAGE, null, stringPerMostrat, stringPerMostrat);
+		try {
+			if (partidesRecuperades.length == 1) {
+				String[] parts = partidesRecuperades[0].split(" - ");
 
-			// tanca pantalla i programa
-			if (input == null) {
-				try {
-					controlBBDD.setEstatJuagdor();
-					System.exit(0);
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
+				controlBBDD.setIdSudoku(Integer.parseInt(parts[0]));
+				controlBBDD.setTimeStampSudoku((parts[1]));
+
+			}
+			// Si hi ha mes d'una...
+			else {
+				String input = (String) JOptionPane.showInputDialog(null, "Quin sudoku vols recuperar?",
+						"Eleccio sudoku", JOptionPane.QUESTION_MESSAGE, null, partidesRecuperades, partidesRecuperades);
+
+				// tanca pantalla i programa
+				if (input == null) {
+					try {
+						controlBBDD.setEstatJuagdor();
+						System.exit(0);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(new JFrame(), e.getMessage());
+					}
+
+					// escull ellecio
+				} else {
+					String[] parts = input.split(" - ");
+					controlBBDD.setIdSudoku(Integer.parseInt(parts[0]));
+					controlBBDD.setTimeStampSudoku(parts[1]);
 				}
 
-				// escull ellecio
-			} else {
-				String[] parts = input.split(" - ");
-				controlBBDD.setIdSudoku(Integer.parseInt(parts[0]));
-				controlBBDD.setTimeStampSudoku(DatesRecuperades[Integer.parseInt(parts[0]) - 1]);
 			}
 
+			new Presentacio(controlBBDD, true);
+		} catch (NumberFormatException | HeadlessException | ParseException e) {
+			JOptionPane.showMessageDialog(new JFrame(), "EleccioPartida/iniciarEleccio" + e.getMessage());
 		}
 
-		new Presentacio(controlBBDD, true);
 	}
 }

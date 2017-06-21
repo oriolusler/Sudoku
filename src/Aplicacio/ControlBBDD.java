@@ -5,8 +5,12 @@ import Domini.Sudoku;
 import Domini.Taulell;
 import Persistencia.FacanaBBDD;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,7 +28,7 @@ public class ControlBBDD {
 	// LOGIN
 	// Presentacio/UserLoginBBDD
 	public void logIn(String user, String password) throws Exception {
-		FacanaBBDD.LoginUser(user, password);
+		FacanaBBDD.getInstance().LoginUser(user, password);
 	}
 
 	// JUGADOR
@@ -32,9 +36,14 @@ public class ControlBBDD {
 		return this.jugador;
 	}
 
-	public void nouJugador() throws Exception {
+	public void setJugadorNom(String nom) {
+		jugador.setNom(nom);
 
-		String nom = jugador.getNom();
+	}
+	
+	public void nouJugador(String nom) throws Exception {
+
+		jugador.setNom(nom);
 		jugador = FacanaBBDD.getInstance().getJugadorFromDB(nom);
 		if (jugador == null) {
 			jugador = new Jugador(nom, true);
@@ -99,30 +108,49 @@ public class ControlBBDD {
 		FacanaBBDD.getInstance().esborrarSudoku(sudoku);
 	}
 
-	// TAULELL
-	public void recuperarTaulellGuardat() throws Exception {
-		FacanaBBDD.getInstance().recuperarTaulellFromSudoku(sudoku);
-	}
-
-	// PARTIDES RECUPERADES
-	public Map<Integer, Date> getPartidesRecuperades() {
-
-		return this.partidesRecuperades;
-	}
 
 	public void setIdSudoku(int nouID) {
 		sudoku.setIdSudoku(nouID);
 
 	}
 
-	public void setTimeStampSudoku(Date date) {
-		sudoku.setTime(date);
+	public void setTimeStampSudoku(String date) throws ParseException {
+		SimpleDateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+		Date Date = df.parse(date);
+		sudoku.setTime(Date);
 
 	}
 
-	public void setJugadorNom(String nom) {
-		jugador.setNom(nom);
+	// TAULELL
+	public void recuperarTaulellGuardat() throws Exception {
+		FacanaBBDD.getInstance().recuperarTaulellFromSudoku(sudoku);
+	}
 
+	// PARTIDES RECUPERADES
+	public String[] getIdAndDateFromDataBase() {
+
+		Set<Integer> IDSfromMAP = partidesRecuperades.keySet();
+		Collection<Date> DATAfromMAP = partidesRecuperades.values();
+
+		Integer[] IdSudokusRecuperats = (Integer[]) (IDSfromMAP.toArray(new Integer[IDSfromMAP.size()]));
+		Date[] DatesRecuperades = (Date[]) (DATAfromMAP.toArray(new Date[IDSfromMAP.size()]));
+		String[] stringPerMostrat = new String[partidesRecuperades.size()];
+
+		for (int i = 0; i < partidesRecuperades.size(); i++) {
+			stringPerMostrat[i] = IdSudokusRecuperats[i] + " - " + DatesRecuperades[i];
+		}
+
+		return stringPerMostrat;
+	}
+
+	public Map<Integer, Date> getPartidesRecuperades() {
+
+		return this.partidesRecuperades;
+	}
+
+
+	public boolean hiHanParitdesGuardades() {
+		return !(this.partidesRecuperades == null || this.partidesRecuperades.size() == 0);
 	}
 
 }
