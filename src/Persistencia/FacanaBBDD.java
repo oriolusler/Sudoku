@@ -18,10 +18,9 @@ public class FacanaBBDD {
 	// Cridat a control linia 24
 	public void LoginUser(String user, String password) throws Exception {
 		ConnectionBBDD.initInstancia(user, password);
-		
-		
-		//preguntar de bru!!!!! 21/06
-		
+
+		// preguntar de bru!!!!! 21/06
+
 		initAtributs();
 
 	}
@@ -32,6 +31,12 @@ public class FacanaBBDD {
 		return facana;
 	}
 
+	// private FacanaBBDD() throws Exception {
+	// this.jugadorBBDD = new JugadorBBDD();
+	// this.sudokuBBDD = new SudokuBBDD();
+	//
+	// }
+	
 	private FacanaBBDD() throws Exception {
 		super();
 
