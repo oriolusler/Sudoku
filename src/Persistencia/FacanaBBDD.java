@@ -31,12 +31,6 @@ public class FacanaBBDD {
 		return facana;
 	}
 
-	// private FacanaBBDD() throws Exception {
-	// this.jugadorBBDD = new JugadorBBDD();
-	// this.sudokuBBDD = new SudokuBBDD();
-	//
-	// }
-	
 	private FacanaBBDD() throws Exception {
 		super();
 
